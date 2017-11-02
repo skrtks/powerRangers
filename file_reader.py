@@ -1,4 +1,3 @@
-#test Daph 2
 import csv
 from houseClass import houses
 from batteryClass import batteries
