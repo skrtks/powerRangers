@@ -1,21 +1,34 @@
 import csv
 from houseClass import houses
+from batteryClass import batteries
 
-# Initiate ID and house list.
-ID = 0
-house = []
+def main():
+    file_reader("Huizen&Batterijen/wijk1_huizen.csv", "house")
 
-# Open the file containing houses.
-with open("Huizen&Batterijen/wijk1_huizen.csv") as f:
-    # Read the file and separate values in list.
-    reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
-    # Skip the header of the file.
-    next(f)
-    # Create instances of houses in house list.
-    for row in reader:
-        house.append(houses(ID, row[0], row[1], row[2]))
-        ID += 1
+    for i in range(150):
+        print(house[i].ID)
 
-# TODO: remove this statement
-for i in range(150):
-    print(house[i].ID)
+def file_reader(file_name, class_name):
+    # Initiate ID and house list.
+    ID = 0
+    house = []
+    battery = []
+
+    # Open the file containing houses.
+    with open(file_name) as f:
+        # Read the file and separate values in list.
+        reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
+        # Skip the header of the file.
+        next(f)
+        # Create instances of houses in house list.
+        if class_name == "house":
+            for row in reader:
+                house.append(houses(ID, row[0], row[1], row[2]))
+                ID += 1
+        elif class_name == "battery":
+            for row in reader:
+                battery.append(batteries(ID, row[0], row[1], row[2]))
+                ID += 1
+
+if __name__ == "__main__":
+    main()
