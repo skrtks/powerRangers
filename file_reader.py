@@ -1,5 +1,3 @@
-# test
-# test2
 import csv
 from houseClass import houses
 
