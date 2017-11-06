@@ -3,10 +3,10 @@ from houseClass import houses
 from batteryClass import batteries
 
 def main():
-    file_reader("Huizen&Batterijen/wijk1_huizen.csv", "house")
+    file_reader("Huizen&Batterijen/wijk1_huizen.csv", "Huizen&Batterijen/wijk1_batterijen.csv")
 
 
-def file_reader(file_name, class_name):
+def file_reader(file_houses, file_batteries):
 
     # Initiate ID and house list.
     ID = 0
@@ -14,24 +14,25 @@ def file_reader(file_name, class_name):
     battery = []
 
     # Open the file containing houses.
-    with open(file_name) as f:
+    with open(file_houses) as h, open(file_batteries) as b:
         # Read the file and separate values in list.
-        reader = csv.reader(f, delimiter=',', quoting=csv.QUOTE_NONE)
+        reader_houses = csv.reader(h, delimiter=',', quoting=csv.QUOTE_NONE)
+        reader_batteries = csv.reader(b, delimiter=',', quoting=csv.QUOTE_NONE)
         # Skip the header of the file.
-        next(f)
+        next(h)
+        next(b)
 
         # Create instances of houses or batteries.
-        if class_name == "house":
-            for row in reader:
-                house.append(houses(ID, row[0], row[1], row[2]))
-                ID += 1
-        elif class_name == "battery":
-            for row in reader:
-                battery.append(batteries(ID, row[0], row[1], row[2]))
-                ID += 1
+        for row in reader_houses:
+            house.append(houses(ID, row[0], row[1], row[2]))
+            ID += 1    
+        for row in reader_batteries:
+            battery.append(batteries(ID, row[0], row[1], row[2]))
+            ID += 1
 
-        for i in range(150):
-            print(house[0].xLocation, house[0].yLocation)
+        for i in range(5):
+            print(house[i].xLocation, battery[i].yLocation)
+
 
 #def draw_grid():
         # get coordinates
