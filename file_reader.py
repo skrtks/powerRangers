@@ -31,7 +31,16 @@ def file_reader(file_name, class_name):
                 ID += 1
 
         for i in range(150):
-            print(house[i].ID)
+            print(house[0].xLocation, house[0].yLocation)
+
+#def draw_grid():
+        # get coordinates
+        coordinates_h = []
+
+        for i in range(150):
+            coordinates_h.append((house[i].xLocation, house[i].yLocation))
+
+        print(coordinates_h)
 
 if __name__ == "__main__":
     main()
