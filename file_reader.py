@@ -46,18 +46,21 @@ def file_reader(file_houses, file_batteries):
         for i in range(150):
             houses_x.append(int(house[i].xLocation))
             houses_y.append(int(house[i].yLocation))
-            batteries_x.append(int()batter)
-            batteries_x.append(int())
 
+        for i in range(5):
+            batteries_x.append(int(battery[i].xLocation))
+            batteries_y.append(int(battery[i].yLocation))
 
-
-        x = coordinates_x
-        y = coordinates_y
+        x_h = houses_x
+        y_h = houses_y
+        x_b = batteries_x
+        y_b = batteries_y
 
         fig = plt.figure()
         plt.axis([-1, 51, -1, 51])
         ax = fig.add_subplot(1,1,1)
-        plt.plot(x, y, "ro")
+        plt.plot(x_h, y_h, "ro")
+        plt.plot(x_b, y_b, "D")
 
         ax.set_xticks(np.arange(0, 51, 10))
         ax.set_xticks(np.arange(0, 51, 1), minor=True)
