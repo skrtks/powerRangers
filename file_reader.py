@@ -1,6 +1,7 @@
 import csv
 from houseClass import houses
 from batteryClass import batteries
+from matplotlib import pyplot as plt
 
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv", "Huizen&Batterijen/wijk1_batterijen.csv")
@@ -36,12 +37,18 @@ def file_reader(file_houses, file_batteries):
 
 #def draw_grid():
         # get coordinates
-        coordinates_h = []
+        coordinates_x = []
+        coordinates_y = []
 
         for i in range(150):
-            coordinates_h.append((house[i].xLocation, house[i].yLocation))
+            coordinates_x.append(int(house[i].xLocation))
+            coordinates_y.append(int(house[i].yLocation))
 
-        print(coordinates_h)
+        x = coordinates_x
+        y = coordinates_y
+
+        plt.scatter(x, y)
+        plt.show()
 
 if __name__ == "__main__":
     main()
