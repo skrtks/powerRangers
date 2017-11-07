@@ -37,12 +37,18 @@ def file_reader(file_houses, file_batteries):
 
 #def draw_grid():
         # get coordinates
-        coordinates_x = []
-        coordinates_y = []
+        houses_x = []
+        houses_y = []
+        batteries_x = []
+        batteries_y = []
 
         for i in range(150):
-            coordinates_x.append(int(house[i].xLocation))
-            coordinates_y.append(int(house[i].yLocation))
+            houses_x.append(int(house[i].xLocation))
+            houses_y.append(int(house[i].yLocation))
+            batteries_x.append(int()batter)
+            batteries_x.append(int())
+
+
 
         x = coordinates_x
         y = coordinates_y
