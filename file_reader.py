@@ -32,10 +32,6 @@ def file_reader(file_houses, file_batteries):
             battery.append(batteries(ID, row[0], row[1], row[2]))
             ID += 1
 
-        for i in range(5):
-            print(house[i].xLocation, battery[i].yLocation)
-
-
 #def draw_grid():
         # get coordinates
         houses_x = []
