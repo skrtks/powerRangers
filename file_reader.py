@@ -1,4 +1,5 @@
 import csv
+import numpy as np
 from houseClass import houses
 from batteryClass import batteries
 from matplotlib import pyplot as plt
@@ -47,7 +48,24 @@ def file_reader(file_houses, file_batteries):
         x = coordinates_x
         y = coordinates_y
 
-        plt.scatter(x, y)
+        fig = plt.figure()
+        plt.axis([-1, 51, -1, 51])
+        ax = fig.add_subplot(1,1,1)
+        plt.plot(x, y, "ro")
+
+        ax.set_xticks(np.arange(0, 51, 10))
+        ax.set_xticks(np.arange(0, 51, 1), minor=True)
+        ax.set_yticks(np.arange(0, 51, 10))
+        ax.set_yticks(np.arange(0, 51, 1), minor=True)
+
+        # and a corresponding grid
+
+        ax.grid(which='both')
+
+        # or if you want differnet settings for the grids:
+        ax.grid(which='minor', alpha=0.2, linestyle='-')
+        ax.grid(which='major', alpha=0.5, linestyle='-')
+
         plt.show()
 
 if __name__ == "__main__":
