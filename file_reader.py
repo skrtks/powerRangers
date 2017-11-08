@@ -28,7 +28,6 @@ def grid_filler():
             gridPoints.append(gridPoint(ID, xLocation, yLocation))
             ID += 1
             xLocation += 1
-            yLocation
         yLocation += 1
         xLocation = 0
 
