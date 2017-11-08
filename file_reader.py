@@ -2,16 +2,35 @@ import csv
 import numpy as np
 from houseClass import house
 from batteryClass import battery
+from gridClass import gridPoint
 from matplotlib import pyplot as plt
 
 # Initiate global variables
 houses = []
 batteries = []
+gridPoints = []
 
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv", "Huizen&Batterijen/wijk1_batterijen.csv")
     draw_grid()
+    grid_filler()
 
+def grid_filler():
+
+    # Initiate ID, xLocation and yLocation.
+    ID = 0
+    xLocation = 0
+    yLocation = 0
+
+    # Create instances of grid points.
+    for i in range(51):
+        for j in range(51):
+            gridPoints.append(gridPoint(ID, xLocation, yLocation))
+            ID += 1
+            xLocation += 1
+            yLocation
+        yLocation += 1
+        xLocation = 0
 
 def file_reader(file_houses, file_batteries):
 
