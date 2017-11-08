@@ -10,10 +10,13 @@ houses = []
 batteries = []
 gridPoints = []
 
+
 def main():
-    file_reader("Huizen&Batterijen/wijk1_huizen.csv", "Huizen&Batterijen/wijk1_batterijen.csv")
+    file_reader("Huizen&Batterijen/wijk1_huizen.csv",
+                "Huizen&Batterijen/wijk1_batterijen.csv")
     draw_grid()
     grid_filler()
+
 
 def grid_filler():
 
@@ -30,6 +33,7 @@ def grid_filler():
             xLocation += 1
         yLocation += 1
         xLocation = 0
+
 
 def file_reader(file_houses, file_batteries):
 
@@ -55,6 +59,7 @@ def file_reader(file_houses, file_batteries):
             batteries.append(battery(ID, row[0], row[1], row[2]))
             ID += 1
 
+
 def draw_grid():
         # get coordinates
         houses_x = []
@@ -77,7 +82,7 @@ def draw_grid():
 
         fig = plt.figure()
         plt.axis([-1, 51, -1, 51])
-        ax = fig.add_subplot(1,1,1)
+        ax = fig.add_subplot(1, 1, 1)
         plt.plot(x_h, y_h, "ro")
         plt.plot(x_b, y_b, "D")
 
@@ -94,6 +99,7 @@ def draw_grid():
         ax.grid(which='major', alpha=0.5, linestyle='-')
 
         plt.show()
+
 
 if __name__ == "__main__":
     main()
