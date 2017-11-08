@@ -4,16 +4,19 @@ from houseClass import houses
 from batteryClass import batteries
 from matplotlib import pyplot as plt
 
+# Initiate global variables
+house = []
+battery = []
+
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv", "Huizen&Batterijen/wijk1_batterijen.csv")
+    draw_grid()
 
 
 def file_reader(file_houses, file_batteries):
 
-    # Initiate ID and house list.
+    # Initiate ID.
     ID = 0
-    house = []
-    battery = []
 
     # Open the file containing houses.
     with open(file_houses) as h, open(file_batteries) as b:
@@ -32,7 +35,7 @@ def file_reader(file_houses, file_batteries):
             battery.append(batteries(ID, row[0], row[1], row[2]))
             ID += 1
 
-#def draw_grid():
+def draw_grid():
         # get coordinates
         houses_x = []
         houses_y = []
