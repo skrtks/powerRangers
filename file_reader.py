@@ -1,12 +1,12 @@
 import csv
 import numpy as np
-from houseClass import houses
-from batteryClass import batteries
+from houseClass import house
+from batteryClass import battery
 from matplotlib import pyplot as plt
 
 # Initiate global variables
-house = []
-battery = []
+houses = []
+batteries = []
 
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv", "Huizen&Batterijen/wijk1_batterijen.csv")
@@ -20,19 +20,21 @@ def file_reader(file_houses, file_batteries):
 
     # Open the file containing houses.
     with open(file_houses) as h, open(file_batteries) as b:
+
         # Read the file and separate values in list.
         reader_houses = csv.reader(h, delimiter=',', quoting=csv.QUOTE_NONE)
         reader_batteries = csv.reader(b, delimiter=',', quoting=csv.QUOTE_NONE)
+
         # Skip the header of the file.
         next(h)
         next(b)
 
         # Create instances of houses or batteries.
         for row in reader_houses:
-            house.append(houses(ID, row[0], row[1], row[2]))
+            houses.append(house(ID, row[0], row[1], row[2]))
             ID += 1
         for row in reader_batteries:
-            battery.append(batteries(ID, row[0], row[1], row[2]))
+            batteries.append(battery(ID, row[0], row[1], row[2]))
             ID += 1
 
 def draw_grid():
@@ -43,12 +45,12 @@ def draw_grid():
         batteries_y = []
 
         for i in range(150):
-            houses_x.append(int(house[i].xLocation))
-            houses_y.append(int(house[i].yLocation))
+            houses_x.append(int(houses[i].xLocation))
+            houses_y.append(int(houses[i].yLocation))
 
         for i in range(5):
-            batteries_x.append(int(battery[i].xLocation))
-            batteries_y.append(int(battery[i].yLocation))
+            batteries_x.append(int(batteries[i].xLocation))
+            batteries_y.append(int(batteries[i].yLocation))
 
         x_h = houses_x
         y_h = houses_y
@@ -67,7 +69,6 @@ def draw_grid():
         ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
         # and a corresponding grid
-
         ax.grid(which='both')
 
         # or if you want differnet settings for the grids:
