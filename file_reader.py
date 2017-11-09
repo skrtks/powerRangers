@@ -14,8 +14,9 @@ gridPoints = []
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv",
                 "Huizen&Batterijen/wijk1_batterijen.csv")
-    draw_grid()
+    #draw_grid()
     grid_filler()
+    connecter()
 
 
 def grid_filler():
@@ -59,6 +60,8 @@ def file_reader(file_houses, file_batteries):
             batteries.append(battery(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
 
+        for i in range(150):
+            print(houses[i].connected)
 
 def draw_grid():
         # get coordinates
@@ -100,13 +103,21 @@ def draw_grid():
 
         plt.show()
 
+
 def connecter():
     for battery in batteries:
         for house in houses:
-            if battery.capacity < house.power and house.connected == False:
+            if battery.capacity > house.power and not house.connected:
                 battery.capacity -= house.power
-                battery.connectedHouse = house.ID
+                battery.connectedHouses.append(house.ID)
                 house.connected = True
+
+    for i in range(5):
+        print(batteries[i].capacity)
+        print(batteries[i].connectedHouses)
+
+    for i in range(150):
+        print(houses[i].connected)
 
 if __name__ == "__main__":
     main()
