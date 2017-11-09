@@ -108,9 +108,5 @@ def connecter():
                 battery.connectedHouse = house.ID
                 house.connected = True
 
-
-
-
-
 if __name__ == "__main__":
     main()

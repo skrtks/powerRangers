@@ -8,4 +8,4 @@ class battery:
         self.xLocation = xLocation
         self.yLocation = yLocation
         self.capacity = capacity
-        self.connected_house = connectedHouse
+        self.connectedHouse = connectedHouse
