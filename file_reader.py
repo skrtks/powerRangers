@@ -60,6 +60,7 @@ def file_reader(file_houses, file_batteries):
             batteries.append(battery(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
 
+
 def draw_grid():
         # get coordinates
         x_h = []
@@ -75,16 +76,19 @@ def draw_grid():
             x_b.append(batteries[i].xLocation)
             y_b.append(batteries[i].yLocation)
 
+        xBat = []
+        yBat = []
+
         for battery in batteries:
-            xBat = battery.xLocation
-            yBat = battery.yLocation
+            xBat.append(battery.xLocation)
+            yBat.append(battery.yLocation)
 
             for ID in battery.connectedHouses:
                 xBat.append(houses[ID].xLocation)
                 yBat.append(houses[ID].yLocation)
                 plt.plot(xBat, yBat)
-                xBat = battery.xLocation
-                yBat = battery.yLocation
+                xBat = [battery.xLocation]
+                yBat = [battery.yLocation]
 
         fig = plt.figure()
         plt.axis([-1, 51, -1, 51])
