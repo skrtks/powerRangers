@@ -53,10 +53,10 @@ def file_reader(file_houses, file_batteries):
 
         # Create instances of houses or batteries.
         for row in reader_houses:
-            houses.append(house(ID, row[0], row[1], row[2]))
+            houses.append(house(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
         for row in reader_batteries:
-            batteries.append(battery(ID, row[0], row[1], row[2]))
+            batteries.append(battery(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
 
 
@@ -68,12 +68,12 @@ def draw_grid():
         batteries_y = []
 
         for i in range(150):
-            houses_x.append(int(houses[i].xLocation))
-            houses_y.append(int(houses[i].yLocation))
+            houses_x.append(houses[i].xLocation)
+            houses_y.append(houses[i].yLocation)
 
         for i in range(5):
-            batteries_x.append(int(batteries[i].xLocation))
-            batteries_y.append(int(batteries[i].yLocation))
+            batteries_x.append(batteries[i].xLocation)
+            batteries_y.append(batteries[i].yLocation)
 
         x_h = houses_x
         y_h = houses_y
