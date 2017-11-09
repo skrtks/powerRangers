@@ -1,5 +1,6 @@
 class battery:
-    ''' Define a class for batteries, takes ID, x and y coordinates, and capacity'''
+    ''' Define a class for batteries, takes ID, x and y coordinates,
+        and capacity'''
 
     def __init__(self, ID, xLocation, yLocation, capacity):
 
