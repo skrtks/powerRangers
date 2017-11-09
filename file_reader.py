@@ -94,11 +94,22 @@ def draw_grid():
         # and a corresponding grid
         ax.grid(which='both')
 
-        # or if you want differnet settings for the grids:
+        # or if you want different settings for the grids:
         ax.grid(which='minor', alpha=0.2, linestyle='-')
         ax.grid(which='major', alpha=0.5, linestyle='-')
 
         plt.show()
+
+def connecter():
+    for battery in batteries:
+        for house in houses:
+            if battery.capacity < house.power and house.connected == False:
+                battery.capacity -= house.power
+                battery.connectedHouse = house.ID
+                house.connected = True
+
+
+
 
 
 if __name__ == "__main__":
