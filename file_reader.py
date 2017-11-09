@@ -14,9 +14,9 @@ gridPoints = []
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv",
                 "Huizen&Batterijen/wijk1_batterijen.csv")
+    connecter()
     draw_grid()
     grid_filler()
-    connecter()
 
 
 def grid_filler():
