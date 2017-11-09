@@ -14,7 +14,7 @@ gridPoints = []
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv",
                 "Huizen&Batterijen/wijk1_batterijen.csv")
-    #draw_grid()
+    draw_grid()
     grid_filler()
     connecter()
 
@@ -60,28 +60,31 @@ def file_reader(file_houses, file_batteries):
             batteries.append(battery(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
 
-        for i in range(150):
-            print(houses[i].connected)
-
 def draw_grid():
         # get coordinates
-        houses_x = []
-        houses_y = []
-        batteries_x = []
-        batteries_y = []
+        x_h = []
+        y_h = []
+        x_b = []
+        y_b = []
 
         for i in range(150):
-            houses_x.append(houses[i].xLocation)
-            houses_y.append(houses[i].yLocation)
+            x_h.append(houses[i].xLocation)
+            y_h.append(houses[i].yLocation)
 
         for i in range(5):
-            batteries_x.append(batteries[i].xLocation)
-            batteries_y.append(batteries[i].yLocation)
+            x_b.append(batteries[i].xLocation)
+            y_b.append(batteries[i].yLocation)
 
-        x_h = houses_x
-        y_h = houses_y
-        x_b = batteries_x
-        y_b = batteries_y
+        for battery in batteries:
+            xBat = battery.xLocation
+            yBat = battery.yLocation
+
+            for ID in battery.connectedHouses:
+                xBat.append(houses[ID].xLocation)
+                yBat.append(houses[ID].yLocation)
+                plt.plot(xBat, yBat)
+                xBat = battery.xLocation
+                yBat = battery.yLocation
 
         fig = plt.figure()
         plt.axis([-1, 51, -1, 51])
@@ -112,12 +115,6 @@ def connecter():
                 battery.connectedHouses.append(house.ID)
                 house.connected = True
 
-    for i in range(5):
-        print(batteries[i].capacity)
-        print(batteries[i].connectedHouses)
-
-    for i in range(150):
-        print(houses[i].connected)
 
 if __name__ == "__main__":
     main()
