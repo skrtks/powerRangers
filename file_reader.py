@@ -76,6 +76,17 @@ def draw_grid():
             x_b.append(batteries[i].xLocation)
             y_b.append(batteries[i].yLocation)
 
+        fig = plt.figure()
+        plt.axis([-1, 51, -1, 51])
+        ax = fig.add_subplot(1, 1, 1)
+
+        ax.set_xticks(np.arange(0, 51, 1), minor=True)
+        ax.set_yticks(np.arange(0, 51, 1), minor=True)
+
+        # or if you want different settings for the grids:
+        ax.grid(which='minor', alpha=0.2, linestyle='-')
+        ax.grid(which='major', alpha=0.5, linestyle='-')
+
         xBat = []
         yBat = []
 
@@ -96,13 +107,8 @@ def draw_grid():
         plt.plot(x_h, y_h, "ro")
         plt.plot(x_b, y_b, "D")
 
-        ax.set_xticks(np.arange(0, 51, 10))
         ax.set_xticks(np.arange(0, 51, 1), minor=True)
-        ax.set_yticks(np.arange(0, 51, 10))
         ax.set_yticks(np.arange(0, 51, 1), minor=True)
-
-        # and a corresponding grid
-        ax.grid(which='both')
 
         # or if you want different settings for the grids:
         ax.grid(which='minor', alpha=0.2, linestyle='-')
