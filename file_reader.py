@@ -17,6 +17,7 @@ def main():
     connecter()
     draw_grid()
     grid_filler()
+    manhattanDistance(gridPoints, batteries)
 
 
 def grid_filler():
@@ -124,6 +125,17 @@ def connecter():
                 battery.capacity -= house.power
                 battery.connectedHouses.append(house.ID)
                 house.connected = True
+
+
+def manhattanDistance(gridPoints, batteries):
+    for battery in batteries:
+        for gridPoint in gridPoints:
+            distance = abs(gridPoint.xLocation - battery.xLocation) + abs(gridPoint.yLocation - battery.yLocation)
+            gridPoint.manhattanDistance.append(distance)
+
+        print(gridPoints[1].manhattanDistance)
+        print(gridPoints[1].xLocation)
+        print(gridPoints[1].yLocation)
 
 
 if __name__ == "__main__":
