@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 
 # Initiate global variables
 houses = []
+sortedHouses = []
 batteries = []
 gridPoints = []
 
@@ -14,10 +15,10 @@ gridPoints = []
 def main():
     file_reader("Huizen&Batterijen/wijk1_huizen.csv",
                 "Huizen&Batterijen/wijk1_batterijen.csv")
-    connecter()
-    draw_grid()
     grid_filler()
     manhattanDistance(gridPoints, batteries)
+    connecter()
+    draw_grid()
 
 
 def grid_filler():
@@ -57,6 +58,8 @@ def file_reader(file_houses, file_batteries):
         for row in reader_houses:
             houses.append(house(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
+
+        ID = 0
         for row in reader_batteries:
             batteries.append(battery(ID, int(row[0]), int(row[1]), float(row[2])))
             ID += 1
@@ -120,12 +123,13 @@ def draw_grid():
 
 def connecter():
     for battery in batteries:
-        for house in houses:
+        sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
+
+        for house in sortedHouses:
             if battery.capacity > house.power and not house.connected:
                 battery.capacity -= house.power
                 battery.connectedHouses.append(house.ID)
                 house.connected = True
-
 
 def manhattanDistance(gridPoints, batteries):
     for battery in batteries:
@@ -133,10 +137,10 @@ def manhattanDistance(gridPoints, batteries):
             distance = abs(gridPoint.xLocation - battery.xLocation) + abs(gridPoint.yLocation - battery.yLocation)
             gridPoint.manhattanDistance.append(distance)
 
-        print(gridPoints[1].manhattanDistance)
-        print(gridPoints[1].xLocation)
-        print(gridPoints[1].yLocation)
-
+            # If house on gridPoint, append distance to house
+            for house in houses:
+                if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
+                    house.manhattanDistance.append(distance)
 
 if __name__ == "__main__":
     main()
