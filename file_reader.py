@@ -18,6 +18,9 @@ def main():
     grid_filler()
     manhattanDistance(gridPoints, batteries)
     connecter()
+    for house in houses:
+        print(house.connected, house.xLocation, house.yLocation)
+
     draw_grid()
 
 
