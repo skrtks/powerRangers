@@ -18,8 +18,7 @@ def main():
     grid_filler()
     manhattanDistance(gridPoints, batteries)
     connecter()
-    for house in houses:
-        print(house.connected, house.xLocation, house.yLocation)
+
     draw_grid()
     children(gridPoints[0], gridPoints)
 
@@ -145,12 +144,12 @@ def manhattanDistance(gridPoints, batteries):
                 if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
                     house.manhattanDistance.append(distance)
 
-#print(gridPoints[1].xLocation)
-#print(gridPoints[1].yLocation)
-#print(houses[0].manhattanDistance)
+    print(houses[1].manhattanDistance)
+    print(gridPoints[1].xLocation)
+    print(gridPoints[1].yLocation)
 
 def children(gridPoint, gridPoints):
-    """"returns gridpoint ID's for possible moves from current gridpoint"""
+    '''returns gridpoint ID's for possible moves from current gridpoint'''
 
     # calculate possible locations for x and y
     childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
@@ -163,7 +162,8 @@ def children(gridPoint, gridPoints):
         for i in range(4):
             if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
                 children.append(gridpoint.ID)
-        return children
+
+    return children
 
 if __name__ == "__main__":
     main()
