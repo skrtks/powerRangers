@@ -20,7 +20,6 @@ def main():
     connecter()
     for house in houses:
         print(house.connected, house.xLocation, house.yLocation)
-
     draw_grid()
     children(gridPoints[0], gridPoints)
 
@@ -34,8 +33,8 @@ def grid_filler():
     yLocation = 0
 
     # Create instances of grid points.
-    for i in range(50):
-        for j in range(50):
+    for i in range(51):
+        for j in range(51):
             gridPoints.append(gridPoint(ID, xLocation, yLocation))
             ID += 1
             xLocation += 1
@@ -70,59 +69,59 @@ def file_reader(file_houses, file_batteries):
 
 
 def draw_grid():
-        # get coordinates
-        x_h = []
-        y_h = []
-        x_b = []
-        y_b = []
+    # get coordinates
+    x_h = []
+    y_h = []
+    x_b = []
+    y_b = []
 
-        for i in range(150):
-            x_h.append(houses[i].xLocation)
-            y_h.append(houses[i].yLocation)
+    for i in range(150):
+        x_h.append(houses[i].xLocation)
+        y_h.append(houses[i].yLocation)
 
-        for i in range(5):
-            x_b.append(batteries[i].xLocation)
-            y_b.append(batteries[i].yLocation)
+    for i in range(5):
+        x_b.append(batteries[i].xLocation)
+        y_b.append(batteries[i].yLocation)
 
-        fig = plt.figure()
-        plt.axis([-1, 51, -1, 51])
-        ax = fig.add_subplot(1, 1, 1)
+    fig = plt.figure()
+    plt.axis([-1, 51, -1, 51])
+    ax = fig.add_subplot(1, 1, 1)
 
-        ax.set_xticks(np.arange(0, 51, 1), minor=True)
-        ax.set_yticks(np.arange(0, 51, 1), minor=True)
+    ax.set_xticks(np.arange(0, 51, 1), minor=True)
+    ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
-        # or if you want different settings for the grids:
-        ax.grid(which='minor', alpha=0.2, linestyle='-')
-        ax.grid(which='major', alpha=0.5, linestyle='-')
+    # or if you want different settings for the grids:
+    ax.grid(which='minor', alpha=0.2, linestyle='-')
+    ax.grid(which='major', alpha=0.5, linestyle='-')
 
-        xBat = []
-        yBat = []
+    xBat = []
+    yBat = []
 
-        for battery in batteries:
-            xBat.append(battery.xLocation)
-            yBat.append(battery.yLocation)
+    for battery in batteries:
+        xBat.append(battery.xLocation)
+        yBat.append(battery.yLocation)
 
-            for ID in battery.connectedHouses:
-                xBat.append(houses[ID].xLocation)
-                yBat.append(houses[ID].yLocation)
-                plt.plot(xBat, yBat)
-                xBat = [battery.xLocation]
-                yBat = [battery.yLocation]
+        for ID in battery.connectedHouses:
+            xBat.append(houses[ID].xLocation)
+            yBat.append(houses[ID].yLocation)
+            plt.plot(xBat, yBat)
+            xBat = [battery.xLocation]
+            yBat = [battery.yLocation]
 
-        fig = plt.figure()
-        plt.axis([-1, 51, -1, 51])
-        ax = fig.add_subplot(1, 1, 1)
-        plt.plot(x_h, y_h, "ro")
-        plt.plot(x_b, y_b, "D")
+    fig = plt.figure()
+    plt.axis([-1, 51, -1, 51])
+    ax = fig.add_subplot(1, 1, 1)
+    plt.plot(x_h, y_h, "ro")
+    plt.plot(x_b, y_b, "D")
 
-        ax.set_xticks(np.arange(0, 51, 1), minor=True)
-        ax.set_yticks(np.arange(0, 51, 1), minor=True)
+    ax.set_xticks(np.arange(0, 51, 1), minor=True)
+    ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
-        # or if you want different settings for the grids:
-        ax.grid(which='minor', alpha=0.2, linestyle='-')
-        ax.grid(which='major', alpha=0.5, linestyle='-')
+    # or if you want different settings for the grids:
+    ax.grid(which='minor', alpha=0.2, linestyle='-')
+    ax.grid(which='major', alpha=0.5, linestyle='-')
 
-        plt.show()
+    plt.show()
 
 
 def connecter():
@@ -146,26 +145,25 @@ def manhattanDistance(gridPoints, batteries):
                 if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
                     house.manhattanDistance.append(distance)
 
-print(gridPoints[1].manhattanDistance)
-print(gridPoints[1].xLocation)
-print(gridPoints[1].yLocation)
+#print(gridPoints[1].xLocation)
+#print(gridPoints[1].yLocation)
+#print(houses[0].manhattanDistance)
 
 def children(gridPoint, gridPoints):
-""""returns gridpoint ID's for possible moves from current gridpoint"""
+    """"returns gridpoint ID's for possible moves from current gridpoint"""
 
-# calculate possible locations for x and y
-childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
-childrenY = [gridPoint.yLocation, gridPoint.yLocation -1, gridPoint.yLocation, gridPoint.yLocation +1]
+    # calculate possible locations for x and y
+    childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
+    childrenY = [gridPoint.yLocation, gridPoint.yLocation -1, gridPoint.yLocation, gridPoint.yLocation +1]
 
-children = []
+    children = []
 
-# itterate over gridpoints and append gridpoints that match x and y locations of children to a list
-for gridpoint in gridPoints:
-for i in range(4):
-    if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
-        children.append(gridpoint.ID)
-
-return children
+    # itterate over gridpoints and append gridpoints that match x and y locations of children to a list
+    for gridpoint in gridPoints:
+        for i in range(4):
+            if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
+                children.append(gridpoint.ID)
+        return children
 
 if __name__ == "__main__":
     main()
