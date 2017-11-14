@@ -138,16 +138,21 @@ def manhattanDistance(gridPoints, batteries):
         print(gridPoints[1].yLocation)
 
 def children(gridPoint, gridPoints):
+    """"returns gridpoint ID's for possible moves from current gridpoint"""
+
+    # calculate possible locations for x and y
     childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
     childrenY = [gridPoint.yLocation, gridPoint.yLocation -1, gridPoint.yLocation, gridPoint.yLocation +1]
-    print(childrenX, childrenY)
+
     children = []
+
+    # itterate over gridpoints and append gridpoints that match x and y locations of children to a list
     for gridpoint in gridPoints:
         for i in range(4):
             if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
                 children.append(gridpoint.ID)
 
-    print(children)
+    return children
 
 if __name__ == "__main__":
     main()
