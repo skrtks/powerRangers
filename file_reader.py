@@ -22,6 +22,8 @@ def main():
         print(house.connected, house.xLocation, house.yLocation)
 
     draw_grid()
+    children(gridPoints[0], gridPoints)
+
 
 
 def grid_filler():
@@ -32,14 +34,13 @@ def grid_filler():
     yLocation = 0
 
     # Create instances of grid points.
-    for i in range(51):
-        for j in range(51):
+    for i in range(50):
+        for j in range(50):
             gridPoints.append(gridPoint(ID, xLocation, yLocation))
             ID += 1
             xLocation += 1
         yLocation += 1
         xLocation = 0
-
 
 def file_reader(file_houses, file_batteries):
 
@@ -144,6 +145,27 @@ def manhattanDistance(gridPoints, batteries):
             for house in houses:
                 if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
                     house.manhattanDistance.append(distance)
+
+print(gridPoints[1].manhattanDistance)
+print(gridPoints[1].xLocation)
+print(gridPoints[1].yLocation)
+
+def children(gridPoint, gridPoints):
+""""returns gridpoint ID's for possible moves from current gridpoint"""
+
+# calculate possible locations for x and y
+childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
+childrenY = [gridPoint.yLocation, gridPoint.yLocation -1, gridPoint.yLocation, gridPoint.yLocation +1]
+
+children = []
+
+# itterate over gridpoints and append gridpoints that match x and y locations of children to a list
+for gridpoint in gridPoints:
+for i in range(4):
+    if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
+        children.append(gridpoint.ID)
+
+return children
 
 if __name__ == "__main__":
     main()
