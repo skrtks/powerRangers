@@ -107,10 +107,9 @@ def draw_grid():
             plt.plot(xBat, yBat)
             xBat = [battery.xLocation]
             yBat = [battery.yLocation]
+        xBat = []
+        yBat = []
 
-    fig = plt.figure()
-    plt.axis([-1, 51, -1, 51])
-    ax = fig.add_subplot(1, 1, 1)
     plt.plot(x_h, y_h, "ro")
     plt.plot(x_b, y_b, "D")
 
