@@ -18,13 +18,13 @@ def main():
     grid_filler()
     manhattanDistance(gridPoints, batteries)
     connecter()
-
     draw_grid()
-    children(gridPoints[0], gridPoints)
+    children(gridPoints[52], gridPoints)
 
 
 
 def grid_filler():
+    """"Create grid"""
 
     # Initiate ID, xLocation and yLocation.
     ID = 0
@@ -42,6 +42,7 @@ def grid_filler():
 
 
 def file_reader(file_houses, file_batteries):
+    """"Read information of houses and batteries from files"""
 
     # Initiate ID.
     ID = 0
@@ -69,12 +70,15 @@ def file_reader(file_houses, file_batteries):
 
 
 def draw_grid():
-    # get coordinates
+    """"Draw grid with batteries, houses and connections"""
+
+    # Initiate list for coordinates from houses and batteries
     x_h = []
     y_h = []
     x_b = []
     y_b = []
 
+    # Fill lists with coordinates
     for i in range(150):
         x_h.append(houses[i].xLocation)
         y_h.append(houses[i].yLocation)
@@ -83,6 +87,7 @@ def draw_grid():
         x_b.append(batteries[i].xLocation)
         y_b.append(batteries[i].yLocation)
 
+    # Make figure and draw axis and ticks
     fig = plt.figure()
     plt.axis([-1, 51, -1, 51])
     ax = fig.add_subplot(1, 1, 1)
@@ -90,13 +95,14 @@ def draw_grid():
     ax.set_xticks(np.arange(0, 51, 1), minor=True)
     ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
-    # or if you want different settings for the grids:
+    # Draw gridlines
     ax.grid(which='minor', alpha=0.2, linestyle='-')
     ax.grid(which='major', alpha=0.5, linestyle='-')
 
     xBat = []
     yBat = []
 
+    # Draw lines
     for battery in batteries:
         xBat.append(battery.xLocation)
         yBat.append(battery.yLocation)
@@ -110,23 +116,21 @@ def draw_grid():
         xBat = []
         yBat = []
 
+    # Make points for houses and batteries
     plt.plot(x_h, y_h, "ro")
     plt.plot(x_b, y_b, "D")
-
-    ax.set_xticks(np.arange(0, 51, 1), minor=True)
-    ax.set_yticks(np.arange(0, 51, 1), minor=True)
-
-    # or if you want different settings for the grids:
-    ax.grid(which='minor', alpha=0.2, linestyle='-')
-    ax.grid(which='major', alpha=0.5, linestyle='-')
 
     plt.show()
 
 
 def connecter():
+    """"Connect houses with nearest batteries """
+
+    # Loop trough batteries and sort houses on shortest manhattenDistance for every battery
     for battery in batteries:
         sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
 
+        # Loop trough sorted houses and connect house with battery if enough capacity
         for house in sortedHouses:
             if battery.capacity > house.power and not house.connected:
                 battery.capacity -= house.power
@@ -135,6 +139,9 @@ def connecter():
 
 
 def manhattanDistance(gridPoints, batteries):
+    """"Calculate mannhattendistance for avery gridpoint to batteries"""
+
+    # Loop trough batteries and gridpoints calculate manhattendistance between them
     for battery in batteries:
         for gridPoint in gridPoints:
             distance = abs(gridPoint.xLocation - battery.xLocation) + abs(gridPoint.yLocation - battery.yLocation)
@@ -153,13 +160,13 @@ def manhattanDistance(gridPoints, batteries):
 def children(gridPoint, gridPoints):
     '''returns gridpoint ID's for possible moves from current gridpoint'''
 
-    # calculate possible locations for x and y
+    # Calculate possible locations for x and y
     childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
     childrenY = [gridPoint.yLocation, gridPoint.yLocation - 1, gridPoint.yLocation, gridPoint.yLocation + 1]
 
     children = []
 
-    # itterate over gridpoints and append gridpoints that match x and y locations of children to a list
+    # Itterate over gridpoints and append gridpoints that match x and y locations of children to a list
     for gridpoint in gridPoints:
         for i in range(4):
             if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
