@@ -39,6 +39,7 @@ def grid_filler():
         yLocation += 1
         xLocation = 0
 
+
 def file_reader(file_houses, file_batteries):
 
     # Initiate ID.
@@ -134,6 +135,7 @@ def connecter():
                 battery.connectedHouses.append(house.ID)
                 house.connected = True
 
+
 def manhattanDistance(gridPoints, batteries):
     """"Calculate mannhattendistance for avery gridpoint to batteries"""
 
@@ -152,12 +154,13 @@ def manhattanDistance(gridPoints, batteries):
     print(gridPoints[1].xLocation)
     print(gridPoints[1].yLocation)
 
+
 def children(gridPoint, gridPoints):
     '''returns gridpoint ID's for possible moves from current gridpoint'''
 
     # Calculate possible locations for x and y
     childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
-    childrenY = [gridPoint.yLocation, gridPoint.yLocation -1, gridPoint.yLocation, gridPoint.yLocation +1]
+    childrenY = [gridPoint.yLocation, gridPoint.yLocation - 1, gridPoint.yLocation, gridPoint.yLocation + 1]
 
     children = []
 
@@ -168,6 +171,7 @@ def children(gridPoint, gridPoints):
                 children.append(gridpoint.ID)
 
     return children
+
 
 if __name__ == "__main__":
     main()
