@@ -24,6 +24,7 @@ def main():
 
 
 def grid_filler():
+    """"Create grid"""
 
     # Initiate ID, xLocation and yLocation.
     ID = 0
@@ -41,6 +42,7 @@ def grid_filler():
 
 
 def file_reader(file_houses, file_batteries):
+    """"Read information of houses and batteries from files"""
 
     # Initiate ID.
     ID = 0
