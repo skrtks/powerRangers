@@ -107,9 +107,9 @@ def draw_grid():
         xBat.append(battery.xLocation)
         yBat.append(battery.yLocation)
 
-        for ID in battery.connectedHouses:
-            xBat.append(houses[ID].xLocation)
-            yBat.append(houses[ID].yLocation)
+        for house in battery.connectedHouses:
+            xBat.append(houses[house].xLocation)
+            yBat.append(houses[house].yLocation)
             plt.plot(xBat, yBat)
             xBat = [battery.xLocation]
             yBat = [battery.yLocation]
