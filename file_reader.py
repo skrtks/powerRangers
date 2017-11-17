@@ -47,7 +47,7 @@ def file_reader(file_houses, file_batteries):
     # Initiate ID.
     ID = 0
 
-    # Open the file containing houses.
+    # Open the file containing houses
     with open(file_houses) as h, open(file_batteries) as b:
 
         # Read the file and separate values in list.
