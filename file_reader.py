@@ -120,6 +120,9 @@ def draw_grid():
     #     xBat = []
     #     yBat = []
 
+    # Loop through all batteries and houses.
+    for battery in batteries:
+        for houseID in battery.connectedHouses:
 
     path = aStar.aStar(batteries, houses, gridPoints)
 
