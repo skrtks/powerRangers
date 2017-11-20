@@ -23,7 +23,6 @@ def main():
     connecter()
     draw_grid()
     children(gridPoints[52], gridPoints)
-    DrawaStar()
 
 
 
@@ -120,21 +119,24 @@ def draw_grid():
     #     xBat = []
     #     yBat = []
 
+    # Loop through all batteries and houses.
+    for battery in batteries:
+        for houseID in battery.connectedHouses:
 
-    path = aStar.aStar(batteries, houses, gridPoints)
+            path = aStar.aStar(battery, houses, houseID, gridPoints)
 
-    path_x = []
-    path_y = []
+            path_x = []
+            path_y = []
 
-    for ID in path:
-        path_x.append(gridPoints[ID].xLocation)
-        path_y.append(gridPoints[ID].yLocation)
+            for ID in path:
+                path_x.append(gridPoints[ID].xLocation)
+                path_y.append(gridPoints[ID].yLocation)
 
-    print(path_x)
-    print(path_y)
+            print(path_x)
+            print(path_y)
 
-    # Make points for houses and batteries
-    plt.plot(path_x, path_y)
+            # Make points for houses and batteries
+            plt.plot(path_x, path_y)
 
     # Make points for houses and batteries
     plt.plot(x_h, y_h, "ro")
