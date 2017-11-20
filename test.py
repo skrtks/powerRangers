@@ -2,6 +2,7 @@
 
 import csv
 import numpy as np
+import itertools
 from houseClass import house
 from batteryClass import battery
 from gridClass import gridPoint
@@ -185,7 +186,7 @@ def aStar(batteries, houses, gridPoints):
     for battery in batteries:
         for house in houses:
 
-            # The open and closed sets.
+            # The open and closed lists.
             openset = []
             closedset = []
 
@@ -199,19 +200,33 @@ def aStar(batteries, houses, gridPoints):
 
             # While the open set is not empty.
             while openset:
-                # Find the item in the open set with the lowest G score.
+
                 print("openset: ")
                 print(openset)
-                distances = []
+
+                # Append gridID and manhattandistance to dict distances.
+                distances = {}
+
                 for gridID in openset:
-                    distances.append(gridPoints[gridID].manhattanDistance[house.ID])
+                    distances.setdefault('ID',[])
+                    distances.setdefault('Dist',[])
+                    distances['ID'].append(gridPoints[gridID].ID)
+                    distances['Dist'].append(gridPoints[gridID].manhattanDistance[house.ID])
+
                 print("distances: ")
                 print(distances)
-                current = min(distances)
+
+                # Current is the gridID with the lowest manhattan distance.
+                if min(distances['Dist']):
+                    current = distances['ID']
+
                 print("current: ")
                 print(current)
 
-                # Add gridID with lowest G score to path.
+                # Empty dict distances.
+                distances.clear()
+
+                # Add current to path.
                 path.append(current)
                 print("path: ")
                 print(path)
@@ -223,15 +238,17 @@ def aStar(batteries, houses, gridPoints):
                     print(path)
                     return path
 
-                print(openset)
-                # Remove the gridID from the open set.
-                openset.remove(current)
-
                 # Add gridID to the closed set
-                closedset.add(current)
+                closedset.append(openset)
+
+                # Empty open set.
+                openset.clear()
 
                 # Add children of current to the open set.
-                openset.add(children(gridPoints[current], gridPoints))
+                openset.append(children(gridPoints[current], gridPoints))
+
+                # Remove outer brackets of children.
+                openset = list(itertools.chain.from_iterable(openset))
 
         #Throw an exception if there is no path.
         raise ValueError("No path found!")
