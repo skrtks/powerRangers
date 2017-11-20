@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 
 # from: https://gist.github.com/jamiees2/5531924
 # pseudocode: http://web.mit.edu/eranki/www/tutorials/search/
-def aStar(batteries, houses, gridPoints):
+def aStar(battery, houses, houseID, gridPoints):
 
 
     # The open and closed lists.
