@@ -1,9 +1,12 @@
 import csv
 import numpy as np
+import itertools
+import aStar as aStar
 from houseClass import house
 from batteryClass import battery
 from gridClass import gridPoint
 from matplotlib import pyplot as plt
+
 
 # Initiate global variables
 houses = []
@@ -20,6 +23,7 @@ def main():
     connecter()
     draw_grid()
     children(gridPoints[52], gridPoints)
+    DrawaStar()
 
 
 
@@ -102,19 +106,35 @@ def draw_grid():
     xBat = []
     yBat = []
 
-    # Draw lines
-    for battery in batteries:
-        xBat.append(battery.xLocation)
-        yBat.append(battery.yLocation)
+    # # Draw lines
+    # for battery in batteries:
+    #     xBat.append(battery.xLocation)
+    #     yBat.append(battery.yLocation)
+    #
+    #     for house in battery.connectedHouses:
+    #         xBat.append(houses[house].xLocation)
+    #         yBat.append(houses[house].yLocation)
+    #         plt.plot(xBat, yBat)
+    #         xBat = [battery.xLocation]
+    #         yBat = [battery.yLocation]
+    #     xBat = []
+    #     yBat = []
 
-        for house in battery.connectedHouses:
-            xBat.append(houses[house].xLocation)
-            yBat.append(houses[house].yLocation)
-            plt.plot(xBat, yBat)
-            xBat = [battery.xLocation]
-            yBat = [battery.yLocation]
-        xBat = []
-        yBat = []
+
+    path = aStar.aStar(batteries, houses, gridPoints)
+
+    path_x = []
+    path_y = []
+
+    for ID in path:
+        path_x.append(gridPoints[ID].xLocation)
+        path_y.append(gridPoints[ID].yLocation)
+
+    print(path_x)
+    print(path_y)
+
+    # Make points for houses and batteries
+    plt.plot(path_x, path_y)
 
     # Make points for houses and batteries
     plt.plot(x_h, y_h, "ro")
@@ -173,7 +193,6 @@ def children(gridPoint, gridPoints):
                 children.append(gridpoint.ID)
 
     return children
-
 
 if __name__ == "__main__":
     main()
