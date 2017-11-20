@@ -24,8 +24,6 @@ def main():
     draw_grid()
     children(gridPoints[52], gridPoints)
 
-
-
 def grid_filler():
     """"Create grid"""
 
@@ -132,8 +130,8 @@ def draw_grid():
                 path_x.append(gridPoints[ID].xLocation)
                 path_y.append(gridPoints[ID].yLocation)
 
-            print(path_x)
-            print(path_y)
+            # print(path_x)
+            # print(path_y)
 
             # Make points for houses and batteries
             plt.plot(path_x, path_y)
@@ -159,6 +157,14 @@ def connecter():
                 battery.connectedHouses.append(house.ID)
                 house.connected = True
 
+    # Print statements for checking.
+    for battery in batteries:
+        print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
+
+    for house in sortedHouses:
+        if not house.connected:
+            print("unconnected house(s): {}".format(house.ID))
+            print("power supply unconnected house(s): {}".format(house.power))
 
 def manhattanDistance(gridPoints, batteries):
     """"Calculate mannhattendistance for avery gridpoint to batteries"""
@@ -174,9 +180,9 @@ def manhattanDistance(gridPoints, batteries):
                 if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
                     house.manhattanDistance.append(distance)
 
-    print(houses[1].manhattanDistance)
-    print(gridPoints[1].xLocation)
-    print(gridPoints[1].yLocation)
+    # print(houses[1].manhattanDistance)
+    # print(gridPoints[1].xLocation)
+    # print(gridPoints[1].yLocation)
 
 
 def children(gridPoint, gridPoints):
