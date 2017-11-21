@@ -119,7 +119,7 @@ def draw_grid():
 
     # Loop through all batteries and houses.
     totalScore = 0
-    colors = ["salmon", "darkred", "indianred", "chocolate", "darkorange"]
+    colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
     for battery in batteries:
         color = colors[battery.ID]
         for houseID in battery.connectedHouses:
