@@ -60,16 +60,14 @@ def aStar(battery, houses, houseID, gridPoints):
             fScores.append(fScore)
             position += 1
 
+        # Set position counter back to zero.
         position = 0
 
-        #print("fScores: {}".format(fScores))
-
+        # Current is the gridID with the lowest fScore.
         for score in fScores:
             if score == min(fScores):
                 current = distances['ID'][position]
             position += 1
-
-        #print("current: {}".format(current))
 
         # Empty distances.
         distances.clear()
@@ -77,18 +75,23 @@ def aStar(battery, houses, houseID, gridPoints):
         # Empty fScores.
         fScores.clear()
 
+        # Update score.
+        # score += 9
+
         # Add current to path.
         path.append(current)
 
-        # Update score.
-        score += gridPoints[current].cable[battery.ID]
+        # If there is an other path to battery, return path.
+        if gridPoints[current].cable[battery.ID] == 0:
+            print("Totalscore: {}".format(score))
+            return {"path": path, "score": score}
 
         # Cable cost is 0 for battery.ID on gridPoint.
         gridPoints[current].cable[battery.ID] = 0
 
         # If current gridID is on the same location as battery, return path.
         if gridPoints[current].xLocation == battery.xLocation and gridPoints[current].yLocation == battery.yLocation:
-            #print("path: {}".format(path))
+            print("Totalscore: {}".format(score))
             return {"path": path, "score": score}
 
         # Add gridIDs from openset to closedset.
@@ -102,7 +105,6 @@ def aStar(battery, houses, houseID, gridPoints):
 
         # Remove outer brackets of children.
         openset = list(itertools.chain.from_iterable(openset))
-
 
     # Throw an exception if there is no path.
     raise ValueError("No path found!")
