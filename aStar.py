@@ -14,6 +14,7 @@ from matplotlib import pyplot as plt
 # pseudocode: http://web.mit.edu/eranki/www/tutorials/search/
 def aStar(battery, houses, houseID, gridPoints):
 
+    score = 0
 
     # The open and closed lists.
     openset = []
@@ -29,10 +30,6 @@ def aStar(battery, houses, houseID, gridPoints):
 
     # While the open set is not empty.
     while openset:
-
-        print("openset: ")
-        print(openset)
-
         # Append gridID and manhattandistance to dict distances.
         distances = {}
 
@@ -42,13 +39,8 @@ def aStar(battery, houses, houseID, gridPoints):
             distances['ID'].append(gridPoints[gridID].ID)
             distances['Dist'].append(gridPoints[gridID].manhattanDistance[battery.ID])
 
-        print("distances: ")
-        print(distances)
-
         # Current is the gridID with the lowest manhattan distance.
         smallest = min(distances['Dist'])
-        print("smallest: {}".format(smallest))
-
         position = 0
 
         for distance in distances['Dist']:
@@ -56,23 +48,19 @@ def aStar(battery, houses, houseID, gridPoints):
                 current = distances['ID'][position]
             position += 1
 
-
-        print("current: ")
-        print(current)
-
         # Empty dict distances.
         distances.clear()
 
         # Add current to path.
         path.append(current)
-        print("path: ")
-        print(path)
+        score += 9
 
         # If current gridID is on the same location as battery, return path
         if gridPoints[current].xLocation == battery.xLocation and gridPoints[current].yLocation == battery.yLocation:
             print("final path: ")
+            print("score is {}".format(score))
             print(path)
-            return path
+            return {"path": path, "score": score}
 
         # Add gridID to the closed set
         closedset.append(openset)

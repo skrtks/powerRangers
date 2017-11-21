@@ -120,10 +120,14 @@ def draw_grid():
     #     yBat = []
 
     # Loop through all batteries and houses.
+    totalScore = 0
+
     for battery in batteries:
         for houseID in battery.connectedHouses:
 
-            path = aStar.aStar(battery, houses, houseID, gridPoints)
+            returnValues = aStar.aStar(battery, houses, houseID, gridPoints)
+            path = returnValues["path"]
+            totalScore += returnValues["score"]
 
             path_x = []
             path_y = []
@@ -142,6 +146,7 @@ def draw_grid():
     plt.plot(x_h, y_h, "ro")
     plt.plot(x_b, y_b, "D")
 
+    print("Score is: {}".format(totalScore))
     plt.show()
 
 
