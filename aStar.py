@@ -13,7 +13,9 @@ from matplotlib import pyplot as plt
 # and by: http://web.mit.edu/eranki/www/tutorials/search/
 def aStar(battery, houses, houseID, gridPoints):
 
-    # Make open and closed lists.
+    score = 0
+
+    # The open and closed lists.
     openset = []
     #closedset = []
 
@@ -52,10 +54,11 @@ def aStar(battery, houses, houseID, gridPoints):
 
         # Add current to path.
         path.append(current)
+        score += 9
 
         # If current gridID is on the same location as battery, return path.
         if gridPoints[current].xLocation == battery.xLocation and gridPoints[current].yLocation == battery.yLocation:
-            return path
+            return {"path": path, "score": score}
 
         # Add gridIDs from openset to closedset.
         #closedset.append(openset)
