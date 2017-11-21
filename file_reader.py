@@ -80,13 +80,13 @@ def draw_grid():
     y_b = []
 
     # Fill lists with coordinates
-    for i in range(150):
-        x_h.append(houses[i].xLocation)
-        y_h.append(houses[i].yLocation)
+    for house in houses:
+        x_h.append(house.xLocation)
+        y_h.append(house.yLocation)
 
-    for i in range(5):
-        x_b.append(batteries[i].xLocation)
-        y_b.append(batteries[i].yLocation)
+    for battery in batteries:
+        x_b.append(battery.xLocation)
+        y_b.append(battery.yLocation)
 
     # Make figure and draw axis and ticks
     fig = plt.figure()
@@ -153,7 +153,7 @@ def draw_grid():
 def connecter():
     """"Connect houses with nearest batteries """
 
-    unconnected = 150
+    unconnected = len(houses)
 
     while unconnected > 2:
         for battery in batteries:
