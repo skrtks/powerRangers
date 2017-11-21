@@ -13,6 +13,7 @@ from matplotlib import pyplot as plt
 # and by: http://web.mit.edu/eranki/www/tutorials/search/
 def aStar(battery, houses, houseID, gridPoints):
 
+    # set score to -9 to compensate for first step
     score = -9
 
     # The open and closed lists.

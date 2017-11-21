@@ -16,8 +16,8 @@ gridPoints = []
 
 
 def main():
-    file_reader("Huizen&Batterijen/trialWijk_huis.csv",
-                "Huizen&Batterijen/trialWijk_batterij.csv")
+    file_reader("Huizen&Batterijen/wijk1_huizen.csv",
+                "Huizen&Batterijen/wijk1_batterijen.csv")
     grid_filler()
     manhattanDistance(gridPoints, batteries)
     connecter()
@@ -155,7 +155,7 @@ def connecter():
 
     unconnected = len(houses)
 
-    while unconnected > 0:
+    while unconnected > 2:
         for battery in batteries:
             sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
             for house in sortedHouses:
