@@ -16,8 +16,8 @@ gridPoints = []
 
 
 def main():
-    file_reader("Huizen&Batterijen/wijk1_huizen.csv",
-                "Huizen&Batterijen/wijk1_batterijen.csv")
+    file_reader("Huizen&Batterijen/trialWijk_huis.csv",
+                "Huizen&Batterijen/trialWijk_batterij.csv")
     grid_filler()
     manhattanDistance(gridPoints, batteries)
     connecter()
@@ -80,13 +80,13 @@ def draw_grid():
     y_b = []
 
     # Fill lists with coordinates
-    for i in range(150):
-        x_h.append(houses[i].xLocation)
-        y_h.append(houses[i].yLocation)
+    for house in houses:
+        x_h.append(house.xLocation)
+        y_h.append(house.yLocation)
 
-    for i in range(5):
-        x_b.append(batteries[i].xLocation)
-        y_b.append(batteries[i].yLocation)
+    for battery in batteries:
+        x_b.append(battery.xLocation)
+        y_b.append(battery.yLocation)
 
     # Make figure and draw axis and ticks
     fig = plt.figure()
@@ -153,9 +153,9 @@ def draw_grid():
 def connecter():
     """"Connect houses with nearest batteries """
 
-    unconnected = 150
+    unconnected = len(houses)
 
-    while unconnected > 2:
+    while unconnected > 0:
         for battery in batteries:
             sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
             for house in sortedHouses:

@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 # and by: http://web.mit.edu/eranki/www/tutorials/search/
 def aStar(battery, houses, houseID, gridPoints):
 
-    score = 0
+    score = -9
 
     # The open and closed lists.
     openset = []
