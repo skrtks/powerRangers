@@ -1,0 +1,6 @@
+- batterij kabels 1 kleur per batterij
+- efficienter connecten: hill climber algorithme? batterij om de beurt?
+- wijk twee en drie inladen en plotten, mogelijk nog problemen?
+- gewicht aan kabels leggen toevoegen in A* (kabel delen goedkoper dan nieuwe kabel)
+
+- Vragen Maarten: indeling functies, file reader
