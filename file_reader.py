@@ -119,7 +119,7 @@ def draw_grid():
 
     # Loop through all batteries and houses.
     totalScore = 0
-    colors = ["salmon", "darkred", "indianred", "chocolate", "darkorange"]
+    colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
     for battery in batteries:
         color = colors[battery.ID]
         for houseID in battery.connectedHouses:
@@ -197,6 +197,7 @@ def manhattanDistance(gridPoints, batteries):
         for gridPoint in gridPoints:
             distance = abs(gridPoint.xLocation - battery.xLocation) + abs(gridPoint.yLocation - battery.yLocation)
             gridPoint.manhattanDistance.append(distance)
+            gridPoint.cable.append(9)
 
             # If house on gridPoint, append distance to house
             for house in houses:
