@@ -119,8 +119,9 @@ def draw_grid():
 
     # Loop through all batteries and houses.
     totalScore = 0
-
+    colors = ["salmon", "darkred", "indianred", "chocolate", "darkorange"]
     for battery in batteries:
+        color = colors[battery.ID]
         for houseID in battery.connectedHouses:
 
             returnValues = aStar.aStar(battery, houses, houseID, gridPoints)
@@ -138,11 +139,12 @@ def draw_grid():
             # print(path_y)
 
             # Make points for houses and batteries
-            plt.plot(path_x, path_y)
+            plt.plot(path_x, path_y, color)
+
 
     # Make points for houses and batteries
-    plt.plot(x_h, y_h, "ro")
-    plt.plot(x_b, y_b, "D")
+    plt.plot(x_h, y_h, "k.")
+    plt.plot(x_b, y_b, "bD")
 
     print("Score is: {}".format(totalScore))
     plt.show()
@@ -151,16 +153,32 @@ def draw_grid():
 def connecter():
     """"Connect houses with nearest batteries """
 
-    # Loop trough batteries and sort houses on shortest manhattenDistance for every battery
-    for battery in batteries:
-        sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
+    unconnected = 150
 
-        # Loop trough sorted houses and connect house with battery if enough capacity
-        for house in sortedHouses:
-            if battery.capacity > house.power and not house.connected:
-                battery.capacity -= house.power
-                battery.connectedHouses.append(house.ID)
-                house.connected = True
+    while unconnected > 2:
+        for battery in batteries:
+            sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
+            for house in sortedHouses:
+                if battery.capacity > house.power and not house.connected:
+                    battery.capacity -= house.power
+                    battery.connectedHouses.append(house.ID)
+                    house.connected = True
+                    unconnected -= 1
+                    print("connected")
+                    break
+            print("next bat")
+
+
+    # # Loop trough batteries and sort houses on shortest manhattenDistance for every battery
+    # for battery in batteries:
+    #     sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
+    #
+    #     # Loop trough sorted houses and connect house with battery if enough capacity
+    #     for house in sortedHouses:
+    #         if battery.capacity > house.power and not house.connected:
+    #             battery.capacity -= house.power
+    #             battery.connectedHouses.append(house.ID)
+    #             house.connected = True
 
     # Print statements for checking.
     for battery in batteries:
