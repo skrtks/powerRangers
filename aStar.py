@@ -14,7 +14,7 @@ from matplotlib import pyplot as plt
 def aStar(battery, houses, houseID, gridPoints):
 
     # set score to -9 to compensate for first step
-    score = -9
+    score = 0
 
     # The open and closed lists.
     openset = []
@@ -64,8 +64,8 @@ def aStar(battery, houses, houseID, gridPoints):
         position = 0
 
         # Current is the gridID with the lowest fScore.
-        for score in fScores:
-            if score == min(fScores):
+        for fScore in fScores:
+            if fScore == min(fScores):
                 current = distances['ID'][position]
             position += 1
 
@@ -76,7 +76,7 @@ def aStar(battery, houses, houseID, gridPoints):
         fScores.clear()
 
         # Update score.
-        # score += 9
+        score += 9
 
         # Add current to path.
         path.append(current)
