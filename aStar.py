@@ -14,7 +14,7 @@ from matplotlib import pyplot as plt
 def aStar(battery, houses, houseID, gridPoints):
 
     # set score to -9 to compensate for first step
-    score = 0
+    score = -9
 
     # The open and closed lists.
     openset = []
