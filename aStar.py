@@ -83,7 +83,7 @@ def aStar(battery, houses, houseID, gridPoints):
 
         # If there is an other path to battery, return path.
         if gridPoints[current].cable[battery.ID] == 0:
-            print("Totalscore: {}".format(score))
+            #print("Totalscore: {}".format(score))
             return {"path": path, "score": score}
 
         # Cable cost is 0 for battery.ID on gridPoint.

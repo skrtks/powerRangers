@@ -16,8 +16,8 @@ gridPoints = []
 
 
 def main():
-    file_reader("Huizen&Batterijen/wijk1_huizen.csv",
-                "Huizen&Batterijen/wijk1_batterijen.csv")
+    file_reader("Huizen&Batterijen/wijk2_huizen.csv",
+                "Huizen&Batterijen/wijk2_batterijen.csv")
     grid_filler()
     manhattanDistance(gridPoints, batteries)
     connecter()
@@ -145,7 +145,7 @@ def draw_grid():
     plt.plot(x_h, y_h, "k.")
     plt.plot(x_b, y_b, "bD")
 
-    print("Score is: {}".format(totalScore))
+    #print("Score is: {}".format(totalScore))
     plt.show()
 
 
@@ -167,7 +167,7 @@ def connecter():
     #                 break
     #         print("next bat")
 
-    # Connect batteries sorted on power output house
+    # # Connect batteries sorted on power output house
     sortedPower = sorted(houses, key=lambda house: house.power, reverse=True)
     for house in sortedPower:
         while not house.connected:
@@ -181,10 +181,13 @@ def connecter():
                     else:
                         house.manhattanDistance[battery.ID] = 999
 
-
-    for house in houses:
-        print(house.connected)
-
+    # connect all houses to batteries (not efficient!)
+    for battery in batteries:
+        for house in sortedPower:
+            if battery.capacity >= house.power and not house.connected:
+                battery.capacity -= house.power
+                battery.connectedHouses.append(house.ID)
+                house.connected = True
 
     # # Loop trough batteries and sort houses on shortest manhattenDistance for every battery
     # for battery in batteries:
