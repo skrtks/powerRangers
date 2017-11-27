@@ -91,7 +91,7 @@ def aStar(battery, houses, houseID, gridPoints):
 
         # If current gridID is on the same location as battery, return path.
         if gridPoints[current].xLocation == battery.xLocation and gridPoints[current].yLocation == battery.yLocation:
-            print("Totalscore: {}".format(score))
+            #print("Totalscore: {}".format(score))
             return {"path": path, "score": score}
 
         # Add gridIDs from openset to closedset.

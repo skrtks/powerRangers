@@ -2,6 +2,8 @@ import csv
 import numpy as np
 import itertools
 import aStar as aStar
+from optimalization_algorithm import optimalization_algorithm
+import random
 from houseClass import house
 from batteryClass import battery
 from gridClass import gridPoint
@@ -13,15 +15,17 @@ houses = []
 sortedHouses = []
 batteries = []
 gridPoints = []
+houseOrder = []
 
 
 def main():
-    file_reader("Huizen&Batterijen/wijk2_huizen.csv",
-                "Huizen&Batterijen/wijk2_batterijen.csv")
+    file_reader("Huizen&Batterijen/wijk1_huizen.csv",
+                "Huizen&Batterijen/wijk1_batterijen.csv")
     grid_filler()
     manhattanDistance(gridPoints, batteries)
-    connecter()
-    draw_grid()
+    #connecter()
+    #draw_grid()
+    optimalization_algorithm(houses, batteries)
 
 def grid_filler():
     """"Create grid"""
@@ -82,6 +86,9 @@ def draw_grid():
     for house in houses:
         x_h.append(house.xLocation)
         y_h.append(house.yLocation)
+
+    # [x_h,y_h,s] = connecter()
+    # print(s)
 
     for battery in batteries:
         x_b.append(battery.xLocation)
@@ -145,7 +152,7 @@ def draw_grid():
     plt.plot(x_h, y_h, "k.")
     plt.plot(x_b, y_b, "bD")
 
-    #print("Score is: {}".format(totalScore))
+    print("Score is: {}".format(totalScore))
     plt.show()
 
 
@@ -167,7 +174,7 @@ def connecter():
     #                 break
     #         print("next bat")
 
-    # # Connect batteries sorted on power output house
+    # Connect batteries sorted on power output house
     sortedPower = sorted(houses, key=lambda house: house.power, reverse=True)
     for house in sortedPower:
         while not house.connected:
@@ -182,12 +189,12 @@ def connecter():
                         house.manhattanDistance[battery.ID] = 999
 
     # connect all houses to batteries (not efficient!)
-    for battery in batteries:
-        for house in sortedPower:
-            if battery.capacity >= house.power and not house.connected:
-                battery.capacity -= house.power
-                battery.connectedHouses.append(house.ID)
-                house.connected = True
+    # for battery in batteries:
+    #     for house in sortedPower:
+    #         if battery.capacity >= house.power and not house.connected:
+    #             battery.capacity -= house.power
+    #             battery.connectedHouses.append(house.ID)
+    #             house.connected = True
 
     # # Loop trough batteries and sort houses on shortest manhattenDistance for every battery
     # for battery in batteries:
