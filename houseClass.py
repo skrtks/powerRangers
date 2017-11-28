@@ -2,6 +2,8 @@ class house:
     ''' Define a class for houses, takes ID, x and y coordinates,
         and power output'''
 
+    houses = []
+
     def __init__(self, ID, xLocation, yLocation, power, connected=False, manhattanDistance=None):
 
         self.ID = ID

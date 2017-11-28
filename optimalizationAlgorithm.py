@@ -1,13 +1,9 @@
-import csv
-import numpy as np
 import itertools
 import random
-from houseClass import house
-from batteryClass import battery
-from gridClass import *
-from matplotlib import pyplot as plt
+from houseClass import house as houseClass
+from batteryClass import battery as batteryClass
 
-def optimalization_algorithm(houses, batteries):
+def optimalizationAlgorithm(houses, batteries):
     houseOrderX = []
     houseOrderY = []
     bestScore = 10000
@@ -65,6 +61,6 @@ def optimalization_algorithm(houses, batteries):
     print(len(houseOrderX), len(houseOrderY))
     print(houseOrderX, houseOrderY)
 
-# [x_h,y_h,s] = connecter()
+# [xHouse,yHouse,s] = connecter()
 # print(s)
 #return [houseOrderX, houseOrderY, bestScore]

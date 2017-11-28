@@ -1,11 +1,7 @@
-import csv
-import numpy as np
-import itertools
-from file_reader import children
+import helpers
 from houseClass import house
 from batteryClass import battery
 from gridClass import *
-from matplotlib import pyplot as plt
 
 # A* search algorithm to search the fastest route from a house to a battery.
 # The route consits of gridpoints with the lowest manhattan distance from a battery.
@@ -101,7 +97,7 @@ def aStar(battery, houses, houseID, gridPoints):
         openset.clear()
 
         # Add children of current to the openset.
-        openset.append(children(gridPoints[current], gridPoints))
+        openset.append(helpers.children(gridPoints[current], gridPoints))
 
         # Remove outer brackets of children.
         openset = list(itertools.chain.from_iterable(openset))
