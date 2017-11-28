@@ -1,0 +1,54 @@
+Wat zijn de IDEA punten?
+I: Infrastructuur; de algemene opmaak en structuur van het project. Denk hierbij
+bijvoorbeeld aan het opzetten (en daadwerkelijk gebruiken) van Git, structurele
+schikking van files (mappen), data verwerken en klaarzetten,
+visualisatie.
+Aantalpunten:
+We hebben ons github account opgezet en committen en pushen alle drie regelmatig onze codes, via de terminal. We hebben geen problemen meer met het gebruik van github en weten hoe we met merge conflict om moeten gaan. 
+De data wordt ingeladen met fileReader en in klasse gezet, zodat we de data in elke functie kunnen aanroepen. We hebben een klasse voor huizen, batterijen en gridpoints.
+In gridDrawer wordt de ingeladen data gevisualiseerd aan de hand van de matplot library. We kunnen hiermee de huizen en batterijen in de grid weergeven. Daarnaast kunnen we de paden tussen huizen en batterijen visualiseren die we aan de hand van aStar en connecter vinden.
+
+D: Datastructuur; het duidelijk en inzichtelijk structureren van data op zo een manier
+dat manipulaties van die data via simpele instructies mogelijk is. Denk hierbij
+bijvoorbeeld aan gebruik van classes, hulpfuncties, het alleen opslaan van
+nuttige of toepasbare informatie, het berekenen van een scorefunctie.
+Aantalpunten:
+
+
+E: Experimentatie; het op een correcte manier onderbouwen van hypotheses. Denk
+hierbij bijvoorbeeld aan het vergelijken van algoritmes, het verbeteren van cases,
+het definiëren van een goede of slechte oplossing, statespace en upper/lower bound.
+Aantalpunten:
+
+lijnen delen
+3 connecters
+opitmalisatie voor connecter
+
+
+A: Algoritmes; het toepassen van algoritmes of verschillende heuristieken.
+Aantalpunten:
+We hebben een aStar algoritme geïmplementeerd. De aStar vind de kortste route van punt A naar B, in ons geval van huis naar batterij. Hiervoor worden manhattenDistance() en children() gebruikt. 
+ 
+ 
+main.py
+helpers.py
+fileReader()			Read information of houses and batteries from files
+manhattenDistance()		Calculate manhattan distance for every gridpoint to             
+batteries
+children()			Returns gridpoint ID's for possible moves from current 
+gridpoint
+gridClass.py
+gridPoint			Class for grid segments
+gridFiller() 			Create grid
+gridDrawer()			Draw grid with batteries, houses and connections
+
+houseClass.py				Define a class for houses, takes ID, x and y coordinates,
+   					and power output
+
+batteryClass.py			Define a class for batteries, takes ID, x and y 
+coordinates,  and capacity
+connecter.py				Connect houses with nearest batteries
+aStar.py				Find best path between houses and batteries
+optimzalizationAlgorithm.py		Find best connection for batteries and houses
+
+* optimalization_algorithm does the same as connecter, but tries random options. When we finish with this, this will be one file together with aStar, because they aStar needs connecter.
