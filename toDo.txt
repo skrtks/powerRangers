@@ -1,4 +1,5 @@
 - efficienter connecten: hill climber algorithme? batterij om de beurt?
-- Scorefunctie werkend krijgen
 
-- Vragen Maarten: indeling functies, file reader, punten!
+- lijnen
+- ordenen
+- IDEA

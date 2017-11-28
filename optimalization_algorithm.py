@@ -11,7 +11,7 @@ def optimalization_algorithm(houses, batteries):
     houseOrderX = []
     houseOrderY = []
     bestScore = 10000
-    for x in range(2):
+    for x in range(1):
         #print(x)
         connecterScore = 0
         shuffledHousesX = []
@@ -63,6 +63,8 @@ def optimalization_algorithm(houses, batteries):
             print("power supply unconnected house(s): {}".format(house.power))
 
     print(len(houseOrderX), len(houseOrderY))
+    print(houseOrderX, houseOrderY)
+
 # [x_h,y_h,s] = connecter()
 # print(s)
 #return [houseOrderX, houseOrderY, bestScore]

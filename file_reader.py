@@ -23,9 +23,9 @@ def main():
                 "Huizen&Batterijen/wijk1_batterijen.csv")
     grid_filler()
     manhattanDistance(gridPoints, batteries)
-    #connecter()
-    #draw_grid()
-    optimalization_algorithm(houses, batteries)
+    connecter()
+    draw_grid()
+    # optimalization_algorithm(houses, batteries)
 
 def grid_filler():
     """"Create grid"""
@@ -87,7 +87,7 @@ def draw_grid():
         x_h.append(house.xLocation)
         y_h.append(house.yLocation)
 
-    # [x_h,y_h,s] = connecter()
+    # [x_h,y_h,s] = optimalization_algorithm()
     # print(s)
 
     for battery in batteries:
@@ -151,8 +151,11 @@ def draw_grid():
     # Make points for houses and batteries
     plt.plot(x_h, y_h, "k.")
     plt.plot(x_b, y_b, "bD")
+    for battery in batteries:
+        ax.annotate(battery.ID, (x_b[battery.ID],y_b[battery.ID]))
 
     print("Score is: {}".format(totalScore))
+    plt.title(totalScore)
     plt.show()
 
 
