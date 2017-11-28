@@ -150,7 +150,7 @@ def draw_grid():
 
     # Make points for houses and batteries
     plt.plot(x_h, y_h, "k.")
-    plt.plot(x_b, y_b, "bD")
+    plt.plot(x_b, y_b, marker="s", linestyle="None", color="blue")
     for battery in batteries:
         ax.annotate(battery.ID, (x_b[battery.ID],y_b[battery.ID]))
 
