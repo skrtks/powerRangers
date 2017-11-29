@@ -25,11 +25,12 @@ Hierdoor kunnen kosten worden bespaard op kabels en is het belangrijk dat er rek
 
 We hebben meerdere manieren geprobeerd om huizen met batterijen te koppelen.
 Eerst hebben we geprobeerd om huis 0 t/m 149 te koppelen aan batterij 0 t/m 4, waarbij hij huis x wordt gekoppeld met de tweede batterij zodra de capaciteit van batterij 0 overschreden zou worden enz.
-Daarna hebben we geprobeerd om de batterij als startpunt te nemen en te koppelen met het dichstbijzijnde huis, doormiddel van de manhattandistance opvragen tussen batterij en huis. Deze optie iet er efficient uit alleen bij wijk1 worden er twee huizen niet verbonden, waardoor het geen oplossing is.
-Vervolgens hebben we weer het huis als startpunt genomen, waarbij we de huizen die de meeste energie produceren koppelen met de dichstbijzijnde batterij. Voor wijk1 en wijk3 is dit een oplossing, echter ziet het er niet efficient uit.
+Daarna hebben we geprobeerd om de batterij als startpunt te nemen en te koppelen met het dichtstbijzijnde huis, doormiddel van de manhattandistance opvragen tussen batterij en huis. Deze optie iet er efficiënt uit alleen bij wijk1 worden er twee huizen niet verbonden, waardoor het geen oplossing is.
+Vervolgens hebben we weer het huis als startpunt genomen, waarbij we de huizen die de meeste energie produceren koppelen met de dichtstbijzijnde batterij. Voor wijk1 en wijk3 is dit een oplossing, echter ziet het er niet efficiënt uit.
 Deze methode werkt niet voor wijk2 omdat er een huis niet wordt verbonden.
-Op dit moment hebben we een algoritme geimplenteerd waarbij huizen op willekeurige volgorde aan batterijen worden gekoppeld, met als voorkeurd de dichstbijzijnde batterij als die nog niet vol is.
+Op dit moment hebben we een algoritme geïmplementeeerd waarbij huizen op willekeurige volgorde aan batterijen worden gekoppeld, met als voorkeur de dichtstbijzijnde batterij als die nog niet vol is.
 Door dit algoritme te loopen komen we tot verschillende mogelijkheden om huizen en batterijen met elkaar te verbinden. De optie met de laagste score, alle manhattendisctances van huis naar batterij bij elkaar opgeteld, wordt terug gegeven.
+
 
 
 A: Algoritmes; het toepassen van algoritmes of verschillende heuristieken.
