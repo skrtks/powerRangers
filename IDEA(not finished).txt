@@ -4,7 +4,7 @@ bijvoorbeeld aan het opzetten (en daadwerkelijk gebruiken) van Git, structurele
 schikking van files (mappen), data verwerken en klaarzetten,
 visualisatie.
 Aantalpunten:
-We hebben ons github account opgezet en committen en pushen alle drie regelmatig onze codes, via de terminal. We hebben geen problemen meer met het gebruik van github en weten hoe we met merge conflict om moeten gaan. 
+We hebben ons github account opgezet en committen en pushen alle drie regelmatig onze codes, via de terminal. We hebben geen problemen meer met het gebruik van github en weten hoe we met merge conflict om moeten gaan.
 De data wordt ingeladen met fileReader en in klasse gezet, zodat we de data in elke functie kunnen aanroepen. We hebben een klasse voor huizen, batterijen en gridpoints.
 In gridDrawer wordt de ingeladen data gevisualiseerd aan de hand van de matplot library. We kunnen hiermee de huizen en batterijen in de grid weergeven. Daarnaast kunnen we de paden tussen huizen en batterijen visualiseren die we aan de hand van aStar en connecter vinden.
 
@@ -20,22 +20,29 @@ hierbij bijvoorbeeld aan het vergelijken van algoritmes, het verbeteren van case
 het definiëren van een goede of slechte oplossing, statespace en upper/lower bound.
 Aantalpunten:
 
-lijnen delen
-3 connecters
-opitmalisatie voor connecter
+Binnen onze case hebben we een extra constraint aangenomen, namelijk dat huizen die naar dezelfde batterij lopen kabels mogen delen.
+Hierdoor kunnen kosten worden bespaard op kabels en is het belangrijk dat er rekening wordt gehouden met bestaande kabels wanneer een nieuwe huis verbonden wordt.
+
+We hebben meerdere manieren geprobeerd om huizen met batterijen te koppelen.
+Eerst hebben we geprobeerd om huis 0 t/m 149 te koppelen aan batterij 0 t/m 4, waarbij hij huis x wordt gekoppeld met de tweede batterij zodra de capaciteit van batterij 0 overschreden zou worden enz.
+Daarna hebben we geprobeerd om de batterij als startpunt te nemen en te koppelen met het dichstbijzijnde huis, doormiddel van de manhattandistance opvragen tussen batterij en huis. Deze optie iet er efficient uit alleen bij wijk1 worden er twee huizen niet verbonden, waardoor het geen oplossing is.
+Vervolgens hebben we weer het huis als startpunt genomen, waarbij we de huizen die de meeste energie produceren koppelen met de dichstbijzijnde batterij. Voor wijk1 en wijk3 is dit een oplossing, echter ziet het er niet efficient uit.
+Deze methode werkt niet voor wijk2 omdat er een huis niet wordt verbonden.
+Op dit moment hebben we een algoritme geimplenteerd waarbij huizen op willekeurige volgorde aan batterijen worden gekoppeld, met als voorkeurd de dichstbijzijnde batterij als die nog niet vol is.
+Door dit algoritme te loopen komen we tot verschillende mogelijkheden om huizen en batterijen met elkaar te verbinden. De optie met de laagste score, alle manhattendisctances van huis naar batterij bij elkaar opgeteld, wordt terug gegeven.
 
 
 A: Algoritmes; het toepassen van algoritmes of verschillende heuristieken.
 Aantalpunten:
-We hebben een aStar algoritme geïmplementeerd. De aStar vind de kortste route van punt A naar B, in ons geval van huis naar batterij. Hiervoor worden manhattenDistance() en children() gebruikt. 
- 
- 
+We hebben een aStar algoritme geïmplementeerd. De aStar vind de kortste route van punt A naar B, in ons geval van huis naar batterij. Hiervoor worden manhattenDistance() en children() gebruikt.
+
+
 main.py
 helpers.py
 fileReader()			Read information of houses and batteries from files
-manhattenDistance()		Calculate manhattan distance for every gridpoint to             
+manhattenDistance()		Calculate manhattan distance for every gridpoint to
 batteries
-children()			Returns gridpoint ID's for possible moves from current 
+children()			Returns gridpoint ID's for possible moves from current
 gridpoint
 gridClass.py
 gridPoint			Class for grid segments
@@ -45,7 +52,7 @@ gridDrawer()			Draw grid with batteries, houses and connections
 houseClass.py				Define a class for houses, takes ID, x and y coordinates,
    					and power output
 
-batteryClass.py			Define a class for batteries, takes ID, x and y 
+batteryClass.py			Define a class for batteries, takes ID, x and y
 coordinates,  and capacity
 connecter.py				Connect houses with nearest batteries
 aStar.py				Find best path between houses and batteries
