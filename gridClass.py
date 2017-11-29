@@ -53,18 +53,13 @@ class gridPoint:
             xHouse.append(house.xLocation)
             yHouse.append(house.yLocation)
 
-        # [xHouse,yHouse,s] = optimalizationAlgorithm()
-        # print(s)
-
         for battery in batteryClass.batteries:
             xBattery.append(battery.xLocation)
             yBattery.append(battery.yLocation)
 
         # Make figure and draw axis and ticks
         fig = plt.figure()
-        plt.axis([-1, 51, -1, 51])
         ax = fig.add_subplot(1, 1, 1)
-
         ax.set_xticks(np.arange(0, 51, 1), minor=True)
         ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
@@ -72,10 +67,7 @@ class gridPoint:
         ax.grid(which='minor', alpha=0.2, linestyle='-')
         ax.grid(which='major', alpha=0.5, linestyle='-')
 
-        xBat = []
-        yBat = []
-
-        # Loop through all batteries and houses.
+        # Draw connections from houses to batteries in grid
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in batteryClass.batteries:
@@ -93,9 +85,8 @@ class gridPoint:
                     pathX.append(gridPoint.gridPoints[ID].xLocation)
                     pathY.append(gridPoint.gridPoints[ID].yLocation)
 
-                # Make points for houses and batteries
+                # Draw lines
                 plt.plot(pathX, pathY, color)
-
 
         # Make points for houses and batteries
         plt.plot(xHouse, yHouse, "k.")
@@ -104,5 +95,5 @@ class gridPoint:
             ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
 
         print("Score is: {}".format(totalScore))
-        plt.title(totalScore)
+        plt.title("Score: " + str(totalScore))
         plt.show()

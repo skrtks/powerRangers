@@ -4,6 +4,8 @@ from houseClass import house as houseClass
 from batteryClass import battery as batteryClass
 
 def optimalizationAlgorithm(houses, batteries):
+    """Find best connection for batteries and houses """
+
     houseOrderX = []
     houseOrderY = []
     bestScore = 10000
@@ -22,6 +24,7 @@ def optimalizationAlgorithm(houses, batteries):
             battery.capacity = 1507
             battery.connectedHouses = []
 
+        # Connect shuffledhouses with preverence for closest batteries
         for house in houses:
             counter = 0
             shuffledHousesX.append(house.xLocation)
@@ -39,10 +42,12 @@ def optimalizationAlgorithm(houses, batteries):
                             house.manhattanDistance[battery.ID] = 999
                     counter += 1
 
+        # Set connecterscore to 10000 when a house is not connected to make sure it's not an option
         for house in houses:
             if house.connected == False:
                 connecterScore = 10000
 
+        # Remeber values of bestscore
         if connecterScore < bestScore:
             houseOrderX = shuffledHousesX
             houseOrderY = shuffledHousesY
@@ -61,6 +66,6 @@ def optimalizationAlgorithm(houses, batteries):
     print(len(houseOrderX), len(houseOrderY))
     print(houseOrderX, houseOrderY)
 
-# [xHouse,yHouse,s] = connecter()
+# return [houseOrderX, houseOrderY, bestScore]
+# [xHouse,yHouse,s] = optimalizationAlgorithm()
 # print(s)
-#return [houseOrderX, houseOrderY, bestScore]
