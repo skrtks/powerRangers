@@ -3,3 +3,7 @@
 - lijnen
 - ordenen
 - IDEA
+
+- statespace
+- upperbound/lowerbound voordat kabels gedeeld mogen worden en misschien een
+  upperbound/lowerbound met kabels delen? Echter dat laatste lijkt me moeilijk in te schatten.
