@@ -7,13 +7,13 @@ import connecter
 
 
 def main():
-    helpers.fileReader("Huizen&Batterijen/wijk1_huizen.csv",
-                "Huizen&Batterijen/wijk1_batterijen.csv")
+    helpers.fileReader("Huizen&Batterijen/wijk3_huizen.csv",
+                        "Huizen&Batterijen/wijk3_batterijen.csv")
     gridClass.gridFiller(gridClass.gridPoints)
     helpers.manhattanDistance(gridClass.gridPoints, batteryClass.batteries)
-    connecter.connecter()
-    gridClass.gridDrawer()
-    # optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
+    # connecter.connecter()
+    # gridClass.gridDrawer()
+    optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
 
 if __name__ == "__main__":
     main()

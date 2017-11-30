@@ -18,6 +18,19 @@ def connecter():
                     else:
                         house.manhattanDistance[battery.ID] = 999
 
+    # -> zelfde als bovenstaande, maar met batterij lijst op voglorde (zo veranderen we geen data maar kunnen we geen batterij ID onthouden) <- #
+    # sortedPower = sorted(houseClass.houses, key=lambda house: house.power, reverse=True)
+    # for house in sortedPower:
+    #     sortedBatteries = sorted(batteryClass.batteries, key=lambda battery: house.manhattanDistance[battery.ID])
+    #     for battery in sortedBatteries:
+    #         print(house.manhattanDistance[battery.ID])
+    #     for battery in sortedBatteries:
+    #         if battery.capacity >= house.power:
+    #             battery.capacity -= house.power
+    #             battery.connectedHouses.append(house.ID)
+    #             house.connected = True
+    #             break
+
     #  -> Houses sorted on manhattenDistance <- #
     # unconnected = len(houses)
     #
