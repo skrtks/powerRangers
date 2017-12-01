@@ -1,9 +1,4 @@
-from houseClass import house as houseClass
-from batteryClass import battery as batteryClass
-import numpy as np
-import itertools
-import aStar
-from matplotlib import pyplot as plt
+
 
 class gridPoint:
     """ Class for grid segments. """
@@ -39,7 +34,7 @@ class gridPoint:
             xLocation = 0
 
 
-    def gridDrawer():
+    def gridDrawer(gridPoints):
         """"Draw grid with batteries, houses and connections"""
 
         # Initiate list for coordinates from houses and batteries
@@ -79,12 +74,20 @@ class gridPoint:
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in batteryClass.batteries:
-            color = colors[battery.ID]
+            color = colors[battery.ID]  
             for houseID in battery.connectedHouses:
 
-                returnValues = aStar.aStar(battery, houseClass.houses, houseID, gridPoint.gridPoints)
-                path = returnValues["path"]
-                totalScore += returnValues["score"]
+                # generate a star path
+                came_from = aStar.a_star_search(gridPoints, battery, houseClass.houses[houseID].gridID, battery.gridID)
+
+                # reconstruct the path
+                path = aStar.reconstruct_path(came_from, houseClass.houses[houseID].gridID, battery.gridID)
+
+                # update the costs for the gridpoints
+                for point in path:
+                    gridPoints[point].cable[battery.ID] = 0
+
+                # totalScore += returnValues["score"]
 
                 pathX = []
                 pathY = []
@@ -106,3 +109,10 @@ class gridPoint:
         print("Score is: {}".format(totalScore))
         plt.title(totalScore)
         plt.show()
+
+from houseClass import house as houseClass
+from batteryClass import battery as batteryClass
+import numpy as np
+import itertools
+import Astar_sam as aStar
+from matplotlib import pyplot as plt

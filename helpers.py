@@ -1,8 +1,3 @@
-import csv
-from houseClass import house as houseClass
-from batteryClass import battery as batteryClass
-from gridClass import gridPoint as gridClass
-
 def fileReader(fileHouses, fileBatteries):
     """"Read information of houses and batteries from files"""
 
@@ -64,3 +59,8 @@ def children(gridPoint, gridPoints):
                 children.append(gridpoint.ID)
 
     return children
+
+import csv
+from houseClass import house as houseClass
+from batteryClass import battery as batteryClass
+from gridClass import gridPoint as gridClass

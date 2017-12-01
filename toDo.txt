@@ -1,5 +1,5 @@
 - efficienter connecten: hill climber algorithme? batterij om de beurt?
 
-- lijnen
+- Queue afmaken
 - ordenen
 - IDEA

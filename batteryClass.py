@@ -4,11 +4,12 @@ class battery:
 
     batteries = []
 
-    def __init__(self, ID, xLocation, yLocation, capacity, connectedHouses=None):
+    def __init__(self, ID, xLocation, yLocation, capacity, gridID=None, connectedHouses=None):
 
         self.ID = ID
         self.xLocation = xLocation
         self.yLocation = yLocation
         self.capacity = capacity
+        self.gridID = gridID
         if connectedHouses == None:
             self.connectedHouses = []

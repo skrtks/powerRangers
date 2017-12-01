@@ -4,12 +4,13 @@ class house:
 
     houses = []
 
-    def __init__(self, ID, xLocation, yLocation, power, connected=False, manhattanDistance=None):
+    def __init__(self, ID, xLocation, yLocation, power, gridID=None, connected=False, manhattanDistance=None):
 
         self.ID = ID
         self.xLocation = xLocation
         self.yLocation = yLocation
         self.power = power
+        self.gridID = gridID
         self.connected = connected
         if manhattanDistance == None:
             self.manhattanDistance = []
