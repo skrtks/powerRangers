@@ -4,6 +4,34 @@ from batteryClass import battery as batteryClass
 def connecter():
     """"Connect houses with nearest batteries """
 
+    # Connect batteries sorted on power output house
+    sortedPower = sorted(houseClass.houses, key=lambda house: house.power, reverse=True)
+    for house in sortedPower:
+        while not house.connected:
+            for battery in batteryClass.batteries:
+                if house.manhattanDistance[battery.ID] == min(house.manhattanDistance):
+                    if battery.capacity >= house.power:
+                        battery.capacity -= house.power
+                        battery.connectedHouses.append(house.ID)
+                        house.connected = True
+                        break
+                    else:
+                        house.manhattanDistance[battery.ID] = 999
+
+    # -> zelfde als bovenstaande, maar met batterij lijst op voglorde (zo veranderen we geen data maar kunnen we geen batterij ID onthouden) <- #
+    # sortedPower = sorted(houseClass.houses, key=lambda house: house.power, reverse=True)
+    # for house in sortedPower:
+    #     sortedBatteries = sorted(batteryClass.batteries, key=lambda battery: house.manhattanDistance[battery.ID])
+    #     for battery in sortedBatteries:
+    #         print(house.manhattanDistance[battery.ID])
+    #     for battery in sortedBatteries:
+    #         if battery.capacity >= house.power:
+    #             battery.capacity -= house.power
+    #             battery.connectedHouses.append(house.ID)
+    #             house.connected = True
+    #             break
+
+    #  -> Houses sorted on manhattenDistance <- #
     # unconnected = len(houses)
     #
     # while unconnected > 0:
@@ -19,20 +47,7 @@ def connecter():
     #                 break
     #         print("next bat")
 
-    # Connect batteries sorted on power output house
-    sortedPower = sorted(houseClass.houses, key=lambda house: house.power, reverse=True)
-    for house in sortedPower:
-        while not house.connected:
-            for battery in batteryClass.batteries:
-                if house.manhattanDistance[battery.ID] == min(house.manhattanDistance):
-                    if battery.capacity >= house.power:
-                        battery.capacity -= house.power
-                        battery.connectedHouses.append(house.ID)
-                        house.connected = True
-                        break
-                    else:
-                        house.manhattanDistance[battery.ID] = 999
-
+    # -> houses sorted on power <- #
     # connect all houses to batteries (not efficient!)
     # for battery in batteries:
     #     for house in sortedPower:
@@ -41,7 +56,7 @@ def connecter():
     #             battery.connectedHouses.append(house.ID)
     #             house.connected = True
 
-    # # Loop trough batteries and sort houses on shortest manhattenDistance for every battery
+    # -> houses sorted on shortest manhattenDistance for every battery <- #
     # for battery in batteries:
     #     sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
     #
@@ -52,7 +67,7 @@ def connecter():
     #             battery.connectedHouses.append(house.ID)
     #             house.connected = True
 
-    # Print statements for checking.
+    # Print statements for checking
     for battery in batteryClass.batteries:
         print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
 

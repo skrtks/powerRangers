@@ -8,10 +8,11 @@ import Astar_sam
 
 
 def main():
-    helpers.fileReader("Huizen&Batterijen/wijk1_huizen.csv",
-                "Huizen&Batterijen/wijk1_batterijen.csv")
+    helpers.fileReader("Huizen&Batterijen/wijk3_huizen.csv",
+                        "Huizen&Batterijen/wijk3_batterijen.csv")
     gridClass.gridFiller(gridClass.gridPoints)
     helpers.manhattanDistance(gridClass.gridPoints, batteryClass.batteries)
+<<<<<<< HEAD
     connecter.connecter()
 
     # Itterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
@@ -33,6 +34,11 @@ def main():
     #path = Astar_sam.reconstruct_path(came_from, startGridPointID, goalGridPointID)
     gridClass.gridDrawer(gridClass.gridPoints)
     # optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
+=======
+    # connecter.connecter()
+    # gridClass.gridDrawer()
+    optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
+>>>>>>> 9b1d8dd4b52793861dfd4e15134d289beaab74d4
 
 if __name__ == "__main__":
     main()

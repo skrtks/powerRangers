@@ -3,3 +3,14 @@
 - Queue afmaken
 - ordenen
 - IDEA
+
+- statespace
+- upperbound/lowerbound voordat kabels gedeeld mogen worden en misschien een
+  upperbound/lowerbound met kabels delen? Echter dat laatste lijkt me moeilijk in te schatten.
+
+
+- py in mapjes
+- README (in elk mapje + template voor hoofd RM)
+- geen import *
+- geen helpers
+- smartGrid: gridpoints[], houses [], batteries []
