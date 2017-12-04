@@ -1,14 +1,13 @@
-from houseClass import house as houseClass
-from batteryClass import battery as batteryClass
+from smartGrid import smartGrid
 
 def connecter():
     """"Connect houses with nearest batteries """
 
     # Connect batteries sorted on power output house
-    sortedPower = sorted(houseClass.houses, key=lambda house: house.power, reverse=True)
+    sortedPower = sorted(smartGrid.houses, key=lambda house: house.power, reverse=True)
     for house in sortedPower:
         while not house.connected:
-            for battery in batteryClass.batteries:
+            for battery in smartGrid.batteries:
                 if house.manhattanDistance[battery.ID] == min(house.manhattanDistance):
                     if battery.capacity >= house.power:
                         battery.capacity -= house.power
@@ -68,10 +67,10 @@ def connecter():
     #             house.connected = True
 
     # Print statements for checking
-    for battery in batteryClass.batteries:
+    for battery in smartGrid.batteries:
         print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
 
-    for house in houseClass.houses:
+    for house in smartGrid.houses:
         if not house.connected:
             print("unconnected house(s): {}".format(house.ID))
             print("power supply unconnected house(s): {}".format(house.power))

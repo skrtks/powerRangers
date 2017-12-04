@@ -2,8 +2,6 @@ class house:
     ''' Define a class for houses, takes ID, x and y coordinates,
         and power output'''
 
-    houses = []
-
     def __init__(self, ID, xLocation, yLocation, power, gridID=None, connected=False, manhattanDistance=None):
 
         self.ID = ID
@@ -14,3 +12,10 @@ class house:
         self.connected = connected
         if manhattanDistance == None:
             self.manhattanDistance = []
+
+    def assignGridIDs(houses, gridPoints):
+        # Itterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
+        for house in houses:
+            for point in gridPoints:
+                if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
+                    house.gridID = point.ID

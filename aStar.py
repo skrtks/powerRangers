@@ -1,103 +1,76 @@
-import helpers
-from houseClass import house
-from batteryClass import battery
-from gridClass import *
+from gridClass import gridPoint as gridClass
+from smartGrid import smartGrid
+from houseClass import house as houseClass
+from batteryClass import battery as batteryClass
 
-# A* search algorithm to search the fastest route from a house to a battery.
-# The route consits of gridpoints with the lowest manhattan distance from
-# house to battery.
-# This code is inspired by:  https://gist.github.com/jamiees2/5531924
-# and by: http://web.mit.edu/eranki/www/tutorials/search/
-def aStar(battery, houses, houseID, gridPoints):
-    """ A* search algorithm to search fastest route from house to battery. """
+# From https://www.redblobgames.com/pathfinding/a-star/implementation.html
 
-    # Set score to -9 to compensate for first step
-    score = -9
+class Queue:
+    def __init__(self):
+        self.elements = collections.deque()
 
-    # The open and closed lists
-    openset = []
-    closedset = []
+    def empty(self):
+        return len(self.elements) == 0
 
-    # Make an empty list for path
+    def put(self, x):
+        self.elements.append(x)
+
+    def get(self):
+        return self.elements.popleft()
+
+import heapq
+
+class PriorityQueue:
+    """
+this is a prio queue stolen from https://www.redblobgames.com/pathfinding/a-star/implementation.html
+
+    """
+    def __init__(self):
+        self.elements = []
+
+    def empty(self):
+        return len(self.elements) == 0
+
+    def put(self, item, priority):
+        heapq.heappush(self.elements, (priority, item))
+
+    def get(self):
+        return heapq.heappop(self.elements)[1]
+
+
+def a_star_search(gridPoints, battery, startGridPointID, goalGridPointID):
+    frontier = PriorityQueue()
+    frontier.put(startGridPointID, 0)
+    came_from = {startGridPointID: None}
+    cost_so_far = {startGridPointID: 0}
+    # came_from[startGridPointID] = None
+    # cost_so_far[startGridPointID] = 0
+
+    while not frontier.empty():
+        current = frontier.get()
+        # print("current: {}".format(current))
+        # print("goal: {}".format(goalGridPointID))
+
+        if current == goalGridPointID:
+            break
+
+        for child in smartGrid.children(gridPoints[current]):
+            # print("child: {}".format(child))
+            new_cost = cost_so_far[current] + gridPoints[current].cable[battery.ID]
+            if child not in cost_so_far or new_cost < cost_so_far[child]:
+                cost_so_far[child] = new_cost
+                priority = new_cost + gridPoints[child].manhattanDistance[battery.ID]
+                frontier.put(child, priority)
+                came_from[child] = current
+
+    return (came_from, cost_so_far)
+
+def reconstruct_path(came_from, start, goal):
+    current = goal
     path = []
-
-    # Itterate over gridpoints and append gridpoint that match x and y location of current house to a list
-    for gridpoint in gridPoints:
-        if (gridpoint.xLocation == houses[houseID].xLocation and
-            gridpoint.yLocation == houses[houseID].yLocation):
-                openset.append(gridpoint.ID)
-
-    # While the open set is not empty
-    while openset:
-
-        # Make an empty dict distances
-        distances = {}
-
-        # Remove gridID if in closedset
-        for gridID in openset:
-            if gridID in closedset:
-                openset.remove(gridID)
-
-        # Append gridID and manhattandistance to distances
-        for gridID in openset:
-            distances.setdefault('ID',[])
-            distances.setdefault('Dist',[])
-            distances.setdefault('Cost',[])
-            distances['ID'].append(gridPoints[gridID].ID)
-            distances['Dist'].append(gridPoints[gridID].manhattanDistance[battery.ID])
-            distances['Cost'].append(gridPoints[gridID].cable[battery.ID])
-
-        # Set position counter to zero
-        position = 0
-
-        # Make empty list fScores
-        fScores = []
-
-        # Current is the gridID with the lowest manhattan distance
-        for distance in distances['Dist']:
-            fScore = distance + distances['Cost'][position]
-            fScores.append(fScore)
-            position += 1
-
-        # Set position counter back to zero
-        position = 0
-
-        # Current is the gridID with the lowest fScore
-        for fScore in fScores:
-            if fScore == min(fScores):
-                current = distances['ID'][position]
-            position += 1
-
-        # Empty distances and fScores
-        distances.clear()
-        fScores.clear()
-
-        # Update score
-        score += 9
-
-        # Add current to path
+    while current != start:
         path.append(current)
-
-        # If there is an other path to battery, return path
-        if gridPoints[current].cable[battery.ID] == 0:
-            return {"path": path, "score": score}
-
-        # Cable cost is 0 for battery.ID on gridPoint
-        gridPoints[current].cable[battery.ID] = 0
-
-        # If current gridID is on the same location as battery, return path
-        if (gridPoints[current].xLocation == battery.xLocation and
-            gridPoints[current].yLocation == battery.yLocation):
-            return {"path": path, "score": score}
-
-        # Add gridIDs from openset to closedset
-        closedset.append(current)
-
-        # Empty openset
-        openset.clear()
-
-        # Add children of current to the openset
-        openset.append(helpers.children(gridPoints[current], gridPoints))
-
-        # Remove outer brackets of children
-        openset = list(itertools.chain.from_iterable(openset))
+        current = came_from[current]
+    path.append(start) # optional
+    path.reverse() # optional
+    return path

@@ -1,44 +1,17 @@
-from optimalizationAlgorithm import *
-import helpers
-from houseClass import house as houseClass
-from batteryClass import battery as batteryClass
-from gridClass import gridPoint as gridClass
+from smartGrid import smartGrid
+from optimalizationAlgorithm import optimalizationAlgorithm
 import connecter
-import Astar_sam
 
 
 def main():
-    helpers.fileReader("Huizen&Batterijen/wijk3_huizen.csv",
-                        "Huizen&Batterijen/wijk3_batterijen.csv")
-    gridClass.gridFiller(gridClass.gridPoints)
-    helpers.manhattanDistance(gridClass.gridPoints, batteryClass.batteries)
-<<<<<<< HEAD
+    smartGrid.fileReader("Huizen&Batterijen/wijk1_huizen.csv",
+                        "Huizen&Batterijen/wijk1_batterijen.csv")
+    smartGrid.gridFiller()
+    smartGrid.manhattanDistance()
     connecter.connecter()
 
-    # Itterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
-    for house in houseClass.houses:
-        for point in gridClass.gridPoints:
-            if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
-                house.gridID = point.ID
-
-    for battery in batteryClass.batteries:
-        for point in gridClass.gridPoints:
-            if point.xLocation == battery.xLocation and point.yLocation == battery.yLocation:
-                battery.gridID = point.ID
-
-    # for i in range(3):
-    #     startGridPointID = houseClass.houses[i].gridID
-    #     goalGridPointID = batteryClass.batteries[0].gridID
-    #     came_from = Astar_sam.a_star_search(gridClass.gridPoints, batteryClass.batteries[0], startGridPointID, goalGridPointID)
-
-    #path = Astar_sam.reconstruct_path(came_from, startGridPointID, goalGridPointID)
-    gridClass.gridDrawer(gridClass.gridPoints)
+    smartGrid.gridDrawer()
     # optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
-=======
-    # connecter.connecter()
-    # gridClass.gridDrawer()
-    optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
->>>>>>> 9b1d8dd4b52793861dfd4e15134d289beaab74d4
 
 if __name__ == "__main__":
     main()
