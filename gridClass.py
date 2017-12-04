@@ -52,9 +52,10 @@ class gridPoint:
             xBattery.append(battery.xLocation)
             yBattery.append(battery.yLocation)
 
-        # Make figure and draw axis and ticks
+        # Make square figure and draw axis and ticks
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
+        ax.set_aspect('equal')
         ax.set_xticks(np.arange(0, 51, 1), minor=True)
         ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
@@ -66,7 +67,7 @@ class gridPoint:
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in batteryClass.batteries:
-            color = colors[battery.ID]  
+            color = colors[battery.ID]
             for houseID in battery.connectedHouses:
 
                 # generate a star path
