@@ -8,10 +8,10 @@ def main():
                         "Huizen&Batterijen/wijk2_batterijen.csv")
     smartGrid.gridFiller()
     smartGrid.manhattanDistance()
-    connecter.connecter()
-
+    # connecter.connecter()
+    optimalizationAlgorithm()
     smartGrid.gridDrawer()
-    # optimalizationAlgorithm(houseClass.houses, batteryClass.batteries)
+
 
 if __name__ == "__main__":
     main()
