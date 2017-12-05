@@ -1,7 +1,6 @@
 - efficienter connecten: hill climber algorithme? batterij om de beurt?
 
-- Queue afmaken
-- ordenen
+- Queue afmaken (?)
 - IDEA
 
 - statespace
@@ -11,6 +10,3 @@
 
 - py in mapjes
 - README (in elk mapje + template voor hoofd RM)
-- geen import *
-- geen helpers
-- smartGrid: gridpoints[], houses [], batteries []
