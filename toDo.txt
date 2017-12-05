@@ -10,3 +10,6 @@
 
 - py in mapjes
 - README (in elk mapje + template voor hoofd RM)
+
+- Beste opties van optimalizationAlgorithm bewaren
+- Per batterij een graph tekenen
