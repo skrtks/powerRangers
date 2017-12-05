@@ -50,11 +50,13 @@ def a_star_search(gridPoints, battery, startGridPointID, goalGridPointID):
         current = frontier.get()
         # print("current: {}".format(current))
         # print("goal: {}".format(goalGridPointID))
+        # print("queue is {}".format(frontier.elements))
 
         if current == goalGridPointID:
             break
 
-        for child in smartGrid.children(gridPoints[current]):
+        childrenList = smartGrid.children(gridPoints[current])
+        for child in childrenList:
             # print("child: {}".format(child))
             new_cost = cost_so_far[current] + gridPoints[current].cable[battery.ID]
             if child not in cost_so_far or new_cost < cost_so_far[child]:
