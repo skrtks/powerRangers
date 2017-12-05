@@ -61,7 +61,6 @@ class smartGrid:
         for battery in smartGrid.batteries:
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
-                print("drawBattery[{}]: {}".format(battery.ID, battery.connectedHouses))
                 # generate a star path
                 (came_from, score) = aStar.a_star_search(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
                 totalScore += score[battery.gridID]

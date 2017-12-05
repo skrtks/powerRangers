@@ -23,7 +23,7 @@ def optimalizationAlgorithm():
 
         for battery in smartGrid.batteries:
             battery.capacity = 1507
-            battery.connectedHouses = []
+            # battery.connectedHouses = []
 
         # Connect shuffledhouses with preverence for closest batteries
         for house in smartGrid.houses:
