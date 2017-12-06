@@ -2,18 +2,13 @@
 
 For 'programmeertheorie I' we have to find an efficient solution for connecting houses to batteries in a smartgrid for 3 districts.
 
-## Getting started
-
-To run the program.
-
-
 ### Prerequisites
 
 - Mathlib 
 - Plotlib
 - Python3
 
-## Deployment
+## Changing used district
 
 Used district can be changed by setting the filename in main.py
 
