@@ -89,6 +89,8 @@ class smartGrid:
         for battery in smartGrid.batteries:
             ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
 
+        # totalScore plus battery cost
+        totalScore += 25000
         plt.title("Score: " + str(totalScore))
         plt.show()
 

@@ -1,0 +1,25 @@
+Infrastructuur
+- readme voor project aanpassen
+- infrastructuur
+- vijf grafiekjes i.p.v. een
+- bestanden in mapjes
+- readme per mapje
+
+Datastructuur
+- beste opties van optimalizationAlgorithm bewaren
+- scores in grafiek laten zien
+- gebruiker laten kiezen voor welke wijk de huizen aan batterijen verbonden moeten worden
+- gebruiker laten kiezen welke algoritmes te gebruiken?
+
+Experimentatie
+- hillclimber en/of simulated anealing
+- vervolgens toepassen op map waarbij huizen random met batterijen worden verbonden en op de map waarbij de batterij de dichstbijzijnde huizen verbindt
+
+Algoritme
+- dijkstra met heuristieke
+- random algoritme
+- todo: Hillclimber en/of simulated anealing
+
+Vragen
+- queue afmaken?
+- statespace correct?

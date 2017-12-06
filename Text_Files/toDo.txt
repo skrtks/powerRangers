@@ -1,15 +1,23 @@
-- efficienter connecten: hill climber algorithme? batterij om de beurt?
+Infrastructuur
+- readme voor project aanpassen
+- infrastructuur
+- vijf grafiekjes i.p.v. een
+- bestanden in mapjes
+- readme per mapje
 
-- Queue afmaken (?)
-- IDEA
+Datastructuur
+- beste opties van optimalizationAlgorithm bewaren
+- Scores in grafiek laten zien
 
-- statespace
-- upperbound/lowerbound voordat kabels gedeeld mogen worden en misschien een
-  upperbound/lowerbound met kabels delen? Echter dat laatste lijkt me moeilijk in te schatten.
+Experimentatie
+- Hillclimber en/of simulated anealing
+- Vervolgens toepassen op map waarbij huizen random met batterijen worden verbonden en op de map waarbij de batterij de dichstbijzijnde huizen verbindt
 
+Algoritme
+- Dijkstra met heuristieke
+- Random algoritme
+- todo: Hillclimber en/of simulated anealing
 
-- py in mapjes
-- README (in elk mapje + template voor hoofd RM)
-
-- Beste opties van optimalizationAlgorithm bewaren
-- Per batterij een graph tekenen
+Vragen
+- Queue afmaken?
+- statespace correct?
