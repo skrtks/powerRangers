@@ -14,8 +14,16 @@ class house:
             self.manhattanDistance = []
 
     def assignGridIDs(houses, gridPoints):
-        # Itterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
+        """
+        description
+        args:
+            houses:
+            gridPoints:
+        returns: True if succes
+        """
+        # Iterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
         for house in houses:
             for point in gridPoints:
                 if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
                     house.gridID = point.ID
+        return True
