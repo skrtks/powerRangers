@@ -66,5 +66,5 @@ Add additional notes about how to deploy this on a live system
 
 ## Acknowledgments
 
-* A* inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
+* Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
 * Tech assistent: Maarten
