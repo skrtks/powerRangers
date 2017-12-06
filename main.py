@@ -4,11 +4,11 @@ import connecter
 
 
 def main():
-    smartGrid.fileReader("Huizen&Batterijen/wijk2_huizen.csv",
-                        "Huizen&Batterijen/wijk2_batterijen.csv")
+    smartGrid.fileReader("Huizen&Batterijen/wijk1_huizen.csv",
+                        "Huizen&Batterijen/wijk1_batterijen.csv")
     smartGrid.gridFiller()
     smartGrid.manhattanDistance()
-    # connecter.connecter()
+    #connecter.connecter()
     optimalizationAlgorithm()
     smartGrid.gridDrawer()
 
