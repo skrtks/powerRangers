@@ -62,10 +62,10 @@ class smartGrid:
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
                 # generate a star path
-                (came_from, score) = aStar.a_star_search(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
+                (cameFrom, score) = dijkstra.dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
                 totalScore += score[battery.gridID]
                 # reconstruct the path
-                path = aStar.reconstruct_path(came_from, smartGrid.houses[houseID].gridID, battery.gridID)
+                path = dijkstra.reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
 
                 # update the costs for the gridpoints
                 for point in path:
@@ -161,6 +161,6 @@ import batteryClass
 import gridClass
 import numpy as np
 import itertools
-import aStar as aStar
+import dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv
