@@ -35,15 +35,6 @@ class smartGrid:
         xBattery = []
         yBattery = []
 
-        # Fill lists with coordinates
-        for house in smartGrid.houses:
-            xHouse.append(house.xLocation)
-            yHouse.append(house.yLocation)
-
-        for battery in smartGrid.batteries:
-            xBattery.append(battery.xLocation)
-            yBattery.append(battery.yLocation)
-
         # Make square figure and draw axis and ticks
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
@@ -55,10 +46,31 @@ class smartGrid:
         ax.grid(which='minor', alpha=0.2, linestyle='-')
         ax.grid(which='major', alpha=0.5, linestyle='-')
 
+        # Fill lists with coordinates
+        for house in smartGrid.houses:
+            xHouse.append(house.xLocation)
+            yHouse.append(house.yLocation)
+
+        for battery in smartGrid.batteries:
+            xBattery.append(battery.xLocation)
+            yBattery.append(battery.yLocation)
+
         # Draw connections from houses to batteries in grid
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in smartGrid.batteries:
+
+            # # Make square figure and draw axis and ticks
+            # fig = plt.figure()
+            # ax = fig.add_subplot(1, 1, 1)
+            # ax.set_aspect('equal')
+            # ax.set_xticks(np.arange(0, 51, 1), minor=True)
+            # ax.set_yticks(np.arange(0, 51, 1), minor=True)
+            #
+            # # Draw gridlines
+            # ax.grid(which='minor', alpha=0.2, linestyle='-')
+            # ax.grid(which='major', alpha=0.5, linestyle='-')
+
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
                 # generate a star path
