@@ -36,15 +36,15 @@ class smartGrid:
         yBattery = []
 
         # Make square figure and draw axis and ticks
-        fig = plt.figure()
-        ax = fig.add_subplot(1, 1, 1)
-        ax.set_aspect('equal')
-        ax.set_xticks(np.arange(0, 51, 1), minor=True)
-        ax.set_yticks(np.arange(0, 51, 1), minor=True)
-
-        # Draw gridlines
-        ax.grid(which='minor', alpha=0.2, linestyle='-')
-        ax.grid(which='major', alpha=0.5, linestyle='-')
+        # fig = plt.figure()
+        # ax = fig.add_subplot(1, 1, 1)
+        # ax.set_aspect('equal')
+        # ax.set_xticks(np.arange(0, 51, 1), minor=True)
+        # ax.set_yticks(np.arange(0, 51, 1), minor=True)
+        #
+        # # Draw gridlines
+        # ax.grid(which='minor', alpha=0.2, linestyle='-')
+        # ax.grid(which='major', alpha=0.5, linestyle='-')
 
         # Fill lists with coordinates
         for house in smartGrid.houses:
@@ -60,16 +60,16 @@ class smartGrid:
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in smartGrid.batteries:
 
-            # # Make square figure and draw axis and ticks
-            # fig = plt.figure()
-            # ax = fig.add_subplot(1, 1, 1)
-            # ax.set_aspect('equal')
-            # ax.set_xticks(np.arange(0, 51, 1), minor=True)
-            # ax.set_yticks(np.arange(0, 51, 1), minor=True)
-            #
-            # # Draw gridlines
-            # ax.grid(which='minor', alpha=0.2, linestyle='-')
-            # ax.grid(which='major', alpha=0.5, linestyle='-')
+            # Make square figure and draw axis and ticks
+            fig = plt.figure()
+            ax = fig.add_subplot(1, 1, 1)
+            ax.set_aspect('equal')
+            ax.set_xticks(np.arange(0, 51, 1), minor=True)
+            ax.set_yticks(np.arange(0, 51, 1), minor=True)
+
+            # Draw gridlines
+            ax.grid(which='minor', alpha=0.2, linestyle='-')
+            ax.grid(which='major', alpha=0.5, linestyle='-')
 
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:

@@ -1,6 +1,7 @@
 from smartGrid import smartGrid
-from optimalizationAlgorithm import optimalizationAlgorithm
+from randomFunction import randomFunction
 import connecter
+import hillClimber
 import sys
 
 
@@ -13,9 +14,10 @@ def main():
     smartGrid.fileReader("../Huizen&Batterijen/wijk1_huizen.csv", "../Huizen&Batterijen/wijk1_batterijen.csv")
     smartGrid.gridFiller()
     smartGrid.manhattanDistance()
-    connecter.connecter()
-    # optimalizationAlgorithm()
-    smartGrid.gridDrawer()
+    # connecter.connecter()
+    randomFunction()
+    hillClimber.hillClimber()
+    # smartGrid.gridDrawer()
 
 
 if __name__ == "__main__":

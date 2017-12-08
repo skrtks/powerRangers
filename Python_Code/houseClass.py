@@ -10,6 +10,7 @@ class house:
         self.power = power
         self.gridID = gridID
         self.connected = connected
+        self.batteryId = None
         if manhattanDistance == None:
             self.manhattanDistance = []
 
