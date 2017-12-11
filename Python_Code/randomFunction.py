@@ -2,7 +2,7 @@ import itertools
 import random
 from smartGrid import smartGrid
 
-def optimalizationAlgorithm():
+def randomFunction():
     """Find best connection for batteries and houses """
 
     maxScore = 100000
@@ -38,6 +38,7 @@ def optimalizationAlgorithm():
                     battery.capacity -= house.power
                     connectedTemp[battery.ID].append(house.ID)
                     house.connected = True
+                    house.batteryId = battery.ID
                     connecterScore += house.manhattanDistance[battery.ID]
                     break
 
@@ -64,7 +65,7 @@ def optimalizationAlgorithm():
     #     if not house.connected:
     #         print("unconnected house(s): {}".format(house.ID))
     #         print("power supply unconnected house(s): {}".format(house.power))
-
+    #
     # print(len(houseOrderX), len(houseOrderY))
     # print(houseOrderX, houseOrderY)
 

@@ -1,6 +1,7 @@
 from smartGrid import smartGrid
-from optimalizationAlgorithm import optimalizationAlgorithm
+from randomFunction import randomFunction
 import connecter
+import hillClimber
 import sys
 
 
@@ -14,7 +15,8 @@ def main():
     smartGrid.gridFiller()
     smartGrid.manhattanDistance()
     # connecter.connecter()
-    optimalizationAlgorithm()
+    randomFunction()
+    hillClimber.hillClimber()
     # smartGrid.gridDrawer()
 
 
