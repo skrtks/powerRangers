@@ -14,7 +14,7 @@ def hillClimber():
     for x in range(5):
         for battery in smartGrid.batteries:
             for houseID in battery.connectedHouses:
-                # generate a star path
+                # generate dijkstra path
                 (cameFrom, score) = dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
                 totalScore += score[battery.gridID]
 
