@@ -48,29 +48,25 @@ def optimalizationAlgorithm():
 
         # Remeber values of bestscore
         if connecterScore < bestScore:
-            houseOrderX = shuffledHousesX
-            houseOrderY = shuffledHousesY
             bestScore = connecterScore
 
             for battery in smartGrid.batteries:
                 battery.connectedHouses = connectedTemp[battery.ID]
-                # print("battery[{}]: {}".format(battery.ID, battery.connectedHouses))
-
 
         print("bestScore : {}".format(bestScore))
         print("connecterScore : {}".format(connecterScore))
 
-    # Print statements for checking.
-    for battery in smartGrid.batteries:
-        print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
+    # # Print statements for checking.
+    # for battery in smartGrid.batteries:
+    #     print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
+    #
+    # for house in smartGrid.houses:
+    #     if not house.connected:
+    #         print("unconnected house(s): {}".format(house.ID))
+    #         print("power supply unconnected house(s): {}".format(house.power))
 
-    for house in smartGrid.houses:
-        if not house.connected:
-            print("unconnected house(s): {}".format(house.ID))
-            print("power supply unconnected house(s): {}".format(house.power))
-
-    print(len(houseOrderX), len(houseOrderY))
-    print(houseOrderX, houseOrderY)
+    # print(len(houseOrderX), len(houseOrderY))
+    # print(houseOrderX, houseOrderY)
 
 # return [houseOrderX, houseOrderY, bestScore]
 # [xHouse,yHouse,s] = optimalizationAlgorithm()
