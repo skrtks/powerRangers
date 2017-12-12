@@ -55,21 +55,23 @@ class smartGrid:
             xBattery.append(battery.xLocation)
             yBattery.append(battery.yLocation)
 
+        # Make square figure and draw axis and ticks
+        fig = plt.figure()
+        ax = fig.add_subplot(1, 1, 1)
+        ax.set_aspect('equal')
+        ax.set_xticks(np.arange(0, 51, 1), minor=True)
+        ax.set_yticks(np.arange(0, 51, 1), minor=True)
+
+        # Draw gridlines
+        ax.grid(which='minor', alpha=0.2, linestyle='-')
+        ax.grid(which='major', alpha=0.5, linestyle='-')
+
         # Draw connections from houses to batteries in grid
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in smartGrid.batteries:
 
-            # Make square figure and draw axis and ticks
-            fig = plt.figure()
-            ax = fig.add_subplot(1, 1, 1)
-            ax.set_aspect('equal')
-            ax.set_xticks(np.arange(0, 51, 1), minor=True)
-            ax.set_yticks(np.arange(0, 51, 1), minor=True)
 
-            # Draw gridlines
-            ax.grid(which='minor', alpha=0.2, linestyle='-')
-            ax.grid(which='major', alpha=0.5, linestyle='-')
 
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
@@ -98,11 +100,11 @@ class smartGrid:
         # Make points for houses and batteries
         plt.plot(xHouse, yHouse, "k.")
         plt.plot(xBattery, yBattery, marker="s", linestyle="None", color="blue")
-        for battery in smartGrid.batteries:
-            ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
+        #for battery in smartGrid.batteries:
+        ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
 
         # totalScore plus battery cost
-        totalScore += 25000
+        # totalScore += 25000
         plt.title("Score: " + str(totalScore))
         plt.show()
 
@@ -132,7 +134,7 @@ class smartGrid:
             for row in readerBatteries:
                 smartGrid.batteries.append(batteryClass.battery(ID, int(row[0]), int(row[1]), float(row[2])))
                 ID += 1
-        
+
 
 
     def manhattanDistance():

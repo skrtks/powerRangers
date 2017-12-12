@@ -1,5 +1,6 @@
 import itertools
 import random
+import copy
 from smartGrid import smartGrid
 
 def randomFunction():
@@ -10,9 +11,7 @@ def randomFunction():
     houseOrderY = []
     bestScore = maxScore
 
-    shuffledHouses = []
-    for item in smartGrid.houses:
-        shuffledHouses.append(item)
+    shuffledHouses = copy.deepcopy(smartGrid.houses)
 
     for x in range(200):
         #print(x)
