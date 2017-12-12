@@ -56,10 +56,15 @@ def swapHouses():
         if house.batteryId is not randomHouse.batteryId and house.power <= spaceRHBat:
             spaceSHBat = smartGrid.batteries[house.batteryId].capacity + house.power
             if randomHouse.power <= spaceSHBat:
+                print("Connectedhousesbat0 = {}" .format(smartGrid.batteries[0].connectedHouses))
+                print("Connectedhousesbat1 = {}" .format(smartGrid.batteries[1].connectedHouses))
+                print("Connectedhousesbat2 = {}" .format(smartGrid.batteries[2].connectedHouses))
+                print("Connectedhousesbat3 = {}" .format(smartGrid.batteries[3].connectedHouses))
+                print("Connectedhousesbat4 = {}" .format(smartGrid.batteries[4].connectedHouses))
+                print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryId))
                 smartGrid.batteries[house.batteryId].connectedHouses.remove(house.ID)
-                smartGrid.batteries[randomHouse.batteryId].connectedHouses.remove(randomHouse.ID)
-
                 smartGrid.batteries[house.batteryId].connectedHouses.append(randomHouse.ID)
+                smartGrid.batteries[randomHouse.batteryId].connectedHouses.remove(randomHouse.ID)
                 smartGrid.batteries[randomHouse.batteryId].connectedHouses.append(house.ID)
 
                 (house.batteryId, randomHouse.batteryId) = (randomHouse.batteryId, house.batteryId)

@@ -44,7 +44,7 @@ def randomFunction():
 
         # Set connecterscore to 10000 when a house is not connected to make sure it's not an option
         for house in smartGrid.houses:
-            if house.connected == False:
+            if not house.connected:
                 connecterScore = maxScore
 
         # Remeber values of bestscore
@@ -55,11 +55,16 @@ def randomFunction():
 
             for battery in smartGrid.batteries:
                 battery.connectedHouses = connectedTemp[battery.ID]
+                for houseID in battery.connectedHouses:
+                    #print("houseIDnew: {}, batteryIDnew: {}".format(smartGrid.houses[houseID].ID, smartGrid.houses[houseID].batteryId))
+                    smartGrid.houses[houseID].batteryId = battery.ID
+                    #print("houseIDold: {}, batteryIDold: {}".format(smartGrid.houses[houseID].ID, smartGrid.houses[houseID].batteryId))
+
                 # print("battery[{}]: {}".format(battery.ID, battery.connectedHouses))
 
 
-        print("bestScore : {}".format(bestScore))
-        print("connecterScore : {}".format(connecterScore))
+        #print("bestScore : {}".format(bestScore))
+        #print("connecterScore : {}".format(connecterScore))
 
     # # Print statements for checking.
     # for battery in smartGrid.batteries:
