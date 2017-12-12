@@ -58,7 +58,7 @@ def hillClimber():
             backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
 
             sameRuns += 1
-            if sameRuns == 100:
+            if sameRuns == 149:
                 print("Break Hill Climber")
                 print("__________________")
                 break
