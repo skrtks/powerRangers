@@ -49,12 +49,11 @@ def randomFunction():
 
         # Remeber values of bestscore
         if connecterScore < bestScore:
-            houseOrderX = shuffledHousesX
-            houseOrderY = shuffledHousesY
             bestScore = connecterScore
 
             for battery in smartGrid.batteries:
                 battery.connectedHouses = connectedTemp[battery.ID]
+<<<<<<< HEAD
                 for houseID in battery.connectedHouses:
                     #print("houseIDnew: {}, batteryIDnew: {}".format(smartGrid.houses[houseID].ID, smartGrid.houses[houseID].batteryId))
                     smartGrid.houses[houseID].batteryId = battery.ID
@@ -62,6 +61,8 @@ def randomFunction():
 
                 # print("battery[{}]: {}".format(battery.ID, battery.connectedHouses))
 
+=======
+>>>>>>> 30869ceb97f0d7a595128cf435c86ab4aa8a060f
 
         #print("bestScore : {}".format(bestScore))
         #print("connecterScore : {}".format(connecterScore))
