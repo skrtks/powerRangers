@@ -3,6 +3,7 @@ from randomFunction import randomFunction
 from smartGrid import smartGrid
 import csv
 import random
+import copy
 from pathFinder import pathFinder
 
 def hillClimber():
@@ -10,19 +11,19 @@ def hillClimber():
 
     savedData = []
     runs = 0
+    sameRuns = 0
     bestScore = 100000
-    backUpHouses = []
-    backUpBatteries = []
-    backUpGridpoints = []
+    numberOfLoops = 4
 
-
-    for x in range(100):
+    for x in range(numberOfLoops):
+        for point in smartGrid.gridPoints:
+            point.cable = [9, 9, 9, 9, 9]
         totalScore = 0
         for battery in smartGrid.batteries:
             for houseID in battery.connectedHouses:
                 # Oude AStar!
                 resultPathFinder = pathFinder(battery, smartGrid.houses, houseID, smartGrid.gridPoints)
-
+                smartGrid.houses[houseID].score = resultPathFinder["score"]
                 totalScore += resultPathFinder["score"]
 
                 # Dijkstra!
@@ -39,37 +40,49 @@ def hillClimber():
 
         if totalScore < bestScore:
             bestScore = totalScore
-            savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
-            print(savedData[runs]["runs"], savedData[runs]["score"])
+            #print(savedData[runs]["runs"], savedData[runs]["score"])
             # Make backup of current grid
-            backUpHouses = []
-            backUpBatteries = []
-            backUpGridpoints = []
 
-            backUpHouses.append(smartGrid.houses)
-            backUpBatteries.append(smartGrid.batteries)
-            backUpGridpoints.append(smartGrid.gridPoints)
+            backUpHouses = copy.deepcopy(smartGrid.houses)
+            backUpBatteries = copy.deepcopy(smartGrid.batteries)
+            backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
+
+            sameRuns = 0
         else:
-            smartGrid.houses = []
-            smartGrid.batteries = []
-            smartGrid.gridPoints = []
+            smartGrid.houses = backUpHouses
+            smartGrid.batteries = backUpBatteries
+            smartGrid.gridPoints = backUpGridpoints
 
-            for item in backUpHouses[0]:
-                smartGrid.houses.append(item)
+            backUpHouses = copy.deepcopy(smartGrid.houses)
+            backUpBatteries = copy.deepcopy(smartGrid.batteries)
+            backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
 
-            for item in backUpBatteries[0]:
-                smartGrid.batteries.append(item)
+            sameRuns += 1
+            if sameRuns == 100:
+                print("Break Hill Climber")
+                break
 
-            for item in backUpGridpoints[0]:
-                smartGrid.gridPoints.append(item)
 
-        swapHouses()
-        # print("swapped")
+
+
+
+        savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
+
+        if runs < numberOfLoops:
+            swapHouses()
+
         print("runs: {}, totalScore: {}, bestScore: {}".format(runs, totalScore, bestScore))
         runs += 1
 
+    for point in smartGrid.gridPoints:
+        point.cable = [9, 9, 9, 9, 9]
+
+    return savedData
+
 
 def swapHouses():
+    sortedHouses = sorted(smartGrid.houses, key=lambda house: house.score, reverse=True)
+
     # Select random house.
     randomHouse = random.choice(smartGrid.houses)
 
@@ -77,7 +90,7 @@ def swapHouses():
     spaceRHBat = smartGrid.batteries[randomHouse.batteryId].capacity + randomHouse.power
 
     # Loop through houses
-    for house in smartGrid.houses:
+    for house in sortedHouses:
 
         # Check if house is not in same battery and space is sufficient
         if house.batteryId is not randomHouse.batteryId and house.power <= spaceRHBat:
@@ -112,6 +125,3 @@ def swapHouses():
                 # print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryId))
 
                 break
-
-    for point in smartGrid.gridPoints:
-        point.cable = [9, 9, 9, 9, 9]

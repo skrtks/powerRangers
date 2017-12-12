@@ -27,6 +27,7 @@ def connecter():
             if battery.capacity >= house.power:
                 battery.capacity -= house.power
                 battery.connectedHouses.append(house.ID)
+                house.batteryId = battery.ID
                 house.connected = True
                 break
 
