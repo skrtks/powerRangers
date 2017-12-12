@@ -1,14 +1,13 @@
-import helpers
-from houseClass import house
-from batteryClass import battery
-from gridClass import *
+from smartGrid import smartGrid
+import itertools
+
 
 # A* search algorithm to search the fastest route from a house to a battery.
 # The route consits of gridpoints with the lowest manhattan distance from
 # house to battery.
 # This code is inspired by:  https://gist.github.com/jamiees2/5531924
 # and by: http://web.mit.edu/eranki/www/tutorials/search/
-def aStar(battery, houses, houseID, gridPoints):
+def pathFinder(battery, houses, houseID, gridPoints):
     """ A* search algorithm to search fastest route from house to battery. """
 
     # Set score to -9 to compensate for first step
@@ -97,7 +96,7 @@ def aStar(battery, houses, houseID, gridPoints):
         openset.clear()
 
         # Add children of current to the openset
-        openset.append(helpers.children(gridPoints[current], gridPoints))
+        openset.append(smartGrid.children(gridPoints[current]))
 
         # Remove outer brackets of children
         openset = list(itertools.chain.from_iterable(openset))

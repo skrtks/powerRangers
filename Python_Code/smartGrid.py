@@ -132,6 +132,7 @@ class smartGrid:
             for row in readerBatteries:
                 smartGrid.batteries.append(batteryClass.battery(ID, int(row[0]), int(row[1]), float(row[2])))
                 ID += 1
+        
 
 
     def manhattanDistance():
