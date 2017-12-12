@@ -3,44 +3,71 @@ from randomFunction import randomFunction
 from smartGrid import smartGrid
 import csv
 import random
+from pathFinder import pathFinder
 
 def hillClimber():
 
-    totalScore = 0
+
     savedData = []
     runs = 0
     bestScore = 100000
+    backUpHouses = []
+    backUpBatteries = []
+    backUpGridpoints = []
 
-    for x in range(5):
+
+    for x in range(100):
+        totalScore = 0
         for battery in smartGrid.batteries:
             for houseID in battery.connectedHouses:
-                # generate dijkstra path
-                (cameFrom, score) = dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
-                totalScore += score[battery.gridID]
+                # Oude AStar!
+                resultPathFinder = pathFinder(battery, smartGrid.houses, houseID, smartGrid.gridPoints)
 
-                # reconstruct the path
-                path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
+                totalScore += resultPathFinder["score"]
 
-                # update the costs for the gridpoints
-                for point in path:
-                    smartGrid.gridPoints[point].cable[battery.ID] = 0
+                # Dijkstra!
+                # # generate dijkstra path
+                # (cameFrom, score) = dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
+                # totalScore += score[battery.gridID]
+                #
+                # # reconstruct the path
+                # path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
+                #
+                # # update the costs for the gridpoints
+                # for point in path:
+                #     smartGrid.gridPoints[point].cable[battery.ID] = 0
 
         if totalScore < bestScore:
             bestScore = totalScore
             savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
             print(savedData[runs]["runs"], savedData[runs]["score"])
             # Make backup of current grid
-            backUpHouses = smartGrid.houses
-            backUpBatteries = smartGrid.batteries
-            backUpGridpoints = smartGrid.gridPoints
+            backUpHouses = []
+            backUpBatteries = []
+            backUpGridpoints = []
+
+            backUpHouses.append(smartGrid.houses)
+            backUpBatteries.append(smartGrid.batteries)
+            backUpGridpoints.append(smartGrid.gridPoints)
         else:
-            smartGrid.houses = backUpHouses
-            smartGrid.batteries = backUpBatteries
-            smartGrid.gridPoints = backUpGridpoints
+            smartGrid.houses = []
+            smartGrid.batteries = []
+            smartGrid.gridPoints = []
+
+            for item in backUpHouses[0]:
+                smartGrid.houses.append(item)
+
+            for item in backUpBatteries[0]:
+                smartGrid.batteries.append(item)
+
+            for item in backUpGridpoints[0]:
+                smartGrid.gridPoints.append(item)
 
         swapHouses()
-        print("swapped")
+        # print("swapped")
+        print("runs: {}, totalScore: {}, bestScore: {}".format(runs, totalScore, bestScore))
         runs += 1
+
 
 def swapHouses():
     # Select random house.
@@ -56,18 +83,35 @@ def swapHouses():
         if house.batteryId is not randomHouse.batteryId and house.power <= spaceRHBat:
             spaceSHBat = smartGrid.batteries[house.batteryId].capacity + house.power
             if randomHouse.power <= spaceSHBat:
-                print("Connectedhousesbat0 = {}" .format(smartGrid.batteries[0].connectedHouses))
-                print("Connectedhousesbat1 = {}" .format(smartGrid.batteries[1].connectedHouses))
-                print("Connectedhousesbat2 = {}" .format(smartGrid.batteries[2].connectedHouses))
-                print("Connectedhousesbat3 = {}" .format(smartGrid.batteries[3].connectedHouses))
-                print("Connectedhousesbat4 = {}" .format(smartGrid.batteries[4].connectedHouses))
-                print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryId))
+                # print("randomhouse {}".format(randomHouse.ID))
+                # print("Connectedhousesbat0 = {}" .format(smartGrid.batteries[0].connectedHouses))
+                # print("Connectedhousesbat1 = {}" .format(smartGrid.batteries[1].connectedHouses))
+                # print("Connectedhousesbat2 = {}" .format(smartGrid.batteries[2].connectedHouses))
+                # print("Connectedhousesbat3 = {}" .format(smartGrid.batteries[3].connectedHouses))
+                # print("Connectedhousesbat4 = {}" .format(smartGrid.batteries[4].connectedHouses))
+                # print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryId))
+
                 smartGrid.batteries[house.batteryId].connectedHouses.remove(house.ID)
-                smartGrid.batteries[house.batteryId].connectedHouses.append(randomHouse.ID)
-                smartGrid.batteries[randomHouse.batteryId].connectedHouses.remove(randomHouse.ID)
+                # print("battery {} removed {}".format(smartGrid.batteries[house.batteryId].ID, house.ID))
                 smartGrid.batteries[randomHouse.batteryId].connectedHouses.append(house.ID)
+                # print("battery {} append {}".format(smartGrid.batteries[randomHouse.batteryId].ID, house.ID))
+                smartGrid.batteries[randomHouse.batteryId].connectedHouses.remove(randomHouse.ID)
+                # print("battery {} remove {}".format(smartGrid.batteries[randomHouse.batteryId].ID, randomHouse.ID))
+                smartGrid.batteries[house.batteryId].connectedHouses.append(randomHouse.ID)
+                # print("battery {} append {}".format(smartGrid.batteries[house.batteryId].ID, randomHouse.ID))
 
+                # print("bat with house {}, bat with randomHouse {}".format(house.batteryId, randomHouse.batteryId))
                 (house.batteryId, randomHouse.batteryId) = (randomHouse.batteryId, house.batteryId)
+                # print("after swap: bat with house {}, bat with randomHouse {}".format(house.batteryId, randomHouse.batteryId))
+                # print("__________________________________")
+                # print("Connectedhousesbat0 = {}" .format(smartGrid.batteries[0].connectedHouses))
+                # print("Connectedhousesbat1 = {}" .format(smartGrid.batteries[1].connectedHouses))
+                # print("Connectedhousesbat2 = {}" .format(smartGrid.batteries[2].connectedHouses))
+                # print("Connectedhousesbat3 = {}" .format(smartGrid.batteries[3].connectedHouses))
+                # print("Connectedhousesbat4 = {}" .format(smartGrid.batteries[4].connectedHouses))
+                # print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryId))
 
-    for point in smartGrid.gridPoints.cable:
+                break
+
+    for point in smartGrid.gridPoints:
         point.cable = [9, 9, 9, 9, 9]

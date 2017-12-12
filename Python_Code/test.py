@@ -1,17 +1,15 @@
-import csv
-import smartGrid
-val = 22
-# with open("../results.csv", "w", newline= "") as resultsFile:
-#     fieldnames = ["runs", "score", "battery0", "battery1", "battery2", "battery3", "battery4"]
-#     writer = csv.DictWriter(resultsFile, fieldnames = fieldnames)
-#
-#     writer.writeheader()
-#     for i in range(22):
-#         writer.writerow({'runs': i})
+import random
 
-var1 = 2
-var2 = 34
+lijst = [22, 23, 24]
 
-(var1, var2) = (var2, var1)
+test = []
 
-print(var1, var2)
+for item in lijst:
+    test.append(item)
+
+print(test)
+
+random.shuffle(test)
+
+print(test)
+print(lijst)

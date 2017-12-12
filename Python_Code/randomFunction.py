@@ -9,16 +9,21 @@ def randomFunction():
     houseOrderX = []
     houseOrderY = []
     bestScore = maxScore
+
+    shuffledHouses = []
+    for item in smartGrid.houses:
+        shuffledHouses.append(item)
+
     for x in range(200):
         #print(x)
         connecterScore = 0
         shuffledHousesX = []
         shuffledHousesY = []
-        random.shuffle(smartGrid.houses)
+        random.shuffle(shuffledHouses)
         connectedTemp = {0: [], 1: [], 2: [], 3: [], 4: []}
 
         # Set values back to begin values
-        for house in smartGrid.houses:
+        for house in shuffledHouses:
             house.connected = False
 
         for battery in smartGrid.batteries:
@@ -26,7 +31,7 @@ def randomFunction():
             # battery.connectedHouses = []
 
         # Connect shuffledhouses with preverence for closest batteries
-        for house in smartGrid.houses:
+        for house in shuffledHouses:
             shuffledHousesX.append(house.xLocation)
             shuffledHousesY.append(house.yLocation)
 
@@ -38,12 +43,12 @@ def randomFunction():
                     battery.capacity -= house.power
                     connectedTemp[battery.ID].append(house.ID)
                     house.connected = True
-                    house.batteryId = battery.ID
+                    #house.batteryId = battery.ID
                     connecterScore += house.manhattanDistance[battery.ID]
                     break
 
         # Set connecterscore to 10000 when a house is not connected to make sure it's not an option
-        for house in smartGrid.houses:
+        for house in shuffledHouses:
             if not house.connected:
                 connecterScore = maxScore
 
@@ -55,11 +60,11 @@ def randomFunction():
                 battery.connectedHouses = connectedTemp[battery.ID]
 
                 for houseID in battery.connectedHouses:
-                    #print("houseIDnew: {}, batteryIDnew: {}".format(smartGrid.houses[houseID].ID, smartGrid.houses[houseID].batteryId))
-                    smartGrid.houses[houseID].batteryId = battery.ID
-                    #print("houseIDold: {}, batteryIDold: {}".format(smartGrid.houses[houseID].ID, smartGrid.houses[houseID].batteryId))
 
-                # print("battery[{}]: {}".format(battery.ID, battery.connectedHouses))
+                    smartGrid.houses[houseID].batteryId = battery.ID
+
+                    #print("BatID: {}, ConnectedHouses: {}, house.batteryID: {}, house.ID: {}".format(battery.ID, battery.connectedHouses, shuffledHouses[houseID].batteryId, shuffledHouses[houseID].ID))
+                    #print("houseIDold: {}, batteryIDold: {}".format(shuffledHouses[houseID].ID, shuffledHouses[houseID].batteryId))
 
         #print("bestScore : {}".format(bestScore))
         #print("connecterScore : {}".format(connecterScore))
@@ -68,7 +73,7 @@ def randomFunction():
     # for battery in smartGrid.batteries:
     #     print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
     #
-    # for house in smartGrid.houses:
+    # for house in shuffledHouses:
     #     if not house.connected:
     #         print("unconnected house(s): {}".format(house.ID))
     #         print("power supply unconnected house(s): {}".format(house.power))
