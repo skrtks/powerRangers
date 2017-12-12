@@ -13,7 +13,7 @@ def hillClimber():
     runs = 0
     sameRuns = 0
     bestScore = 100000
-    numberOfLoops = 4
+    numberOfLoops = 100000
 
     for x in range(numberOfLoops):
         for point in smartGrid.gridPoints:
@@ -60,6 +60,7 @@ def hillClimber():
             sameRuns += 1
             if sameRuns == 100:
                 print("Break Hill Climber")
+                print("__________________")
                 break
 
 
