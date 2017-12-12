@@ -1,0 +1,7 @@
+Loop door random huizen lijst(a)
+    loop door huizen - huizen van zelfde batterij (b)
+        als huis (b) in batterij -huis (a) past en huis (a) past in batterij (b)- huis(b)
+            wissel (append aan connected battery)
+            aStar(akaduikstera) zonder tekenen alleen score
+            score eerst > score twee
+                opslaan of terug draaien
