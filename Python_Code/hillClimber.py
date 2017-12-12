@@ -11,6 +11,7 @@ def hillClimber():
 
     savedData = []
     runs = 0
+    sameRuns = 0
     bestScore = 100000
     numberOfLoops = 4
 
@@ -45,6 +46,8 @@ def hillClimber():
             backUpHouses = copy.deepcopy(smartGrid.houses)
             backUpBatteries = copy.deepcopy(smartGrid.batteries)
             backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
+
+            sameRuns = 0
         else:
             smartGrid.houses = backUpHouses
             smartGrid.batteries = backUpBatteries
@@ -53,6 +56,15 @@ def hillClimber():
             backUpHouses = copy.deepcopy(smartGrid.houses)
             backUpBatteries = copy.deepcopy(smartGrid.batteries)
             backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
+
+            sameRuns += 1
+            if sameRuns == 100:
+                print("Break Hill Climber")
+                break
+
+
+
+
 
         savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
 

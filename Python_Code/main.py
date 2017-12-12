@@ -16,10 +16,13 @@ def main():
     smartGrid.gridFiller()
     smartGrid.manhattanDistance()
     #connecter.connecter()
-    randomFunction()
-    # scoreData = hillClimber.hillClimber()
-    # writeCSV(scoreData)
-    smartGrid.gridDrawer()
+
+    for i in range(4):
+        filename = "results" + str(i) + ".csv"
+        randomFunction()
+        scoreData = hillClimber.hillClimber()
+        writeCSV(scoreData, filename)
+    #smartGrid.gridDrawer()
 
 
 if __name__ == "__main__":
