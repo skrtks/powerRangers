@@ -1,7 +1,7 @@
 from smartGrid import smartGrid
 from randomFunction import randomFunction
 import connecter
-import hillClimber
+from hillClimber import hillClimber
 import sys
 from CSVWriter import writeCSV
 
@@ -24,10 +24,10 @@ def main():
     # scoreData = hillClimber.hillClimber(A)
     # writeCSV(scoreData, filename)
 
-    for i in range(10):
+    for i in range(1):
         filename = "results" + str(i) + ".csv"
         randomFunction(A)
-        scoreData = hillClimber.hillClimber(A)
+        scoreData = hillClimber(A)
         writeCSV(scoreData, filename)
     # smartGrid.gridDrawer()
 
