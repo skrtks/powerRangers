@@ -7,7 +7,7 @@ import itertools
 # house to battery.
 # This code is inspired by:  https://gist.github.com/jamiees2/5531924
 # and by: http://web.mit.edu/eranki/www/tutorials/search/
-def pathFinder(battery, houses, houseID, gridPoints):
+def pathFinder(battery, smartGrid, houseID):
     """ A* search algorithm to search fastest route from house to battery. """
 
     # Set score to -9 to compensate for first step
@@ -21,9 +21,9 @@ def pathFinder(battery, houses, houseID, gridPoints):
     path = []
 
     # Itterate over gridpoints and append gridpoint that match x and y location of current house to a list
-    for gridpoint in gridPoints:
-        if (gridpoint.xLocation == houses[houseID].xLocation and
-            gridpoint.yLocation == houses[houseID].yLocation):
+    for gridpoint in smartGrid.gridPoints:
+        if (gridpoint.xLocation == smartGrid.houses[houseID].xLocation and
+            gridpoint.yLocation == smartGrid.houses[houseID].yLocation):
                 openlist.append(gridpoint.ID)
 
     # While the open set is not empty
@@ -42,9 +42,9 @@ def pathFinder(battery, houses, houseID, gridPoints):
             distances.setdefault('ID',[])
             distances.setdefault('Dist',[])
             distances.setdefault('Cost',[])
-            distances['ID'].append(gridPoints[gridID].ID)
-            distances['Dist'].append(gridPoints[gridID].manhattanDistance[battery.ID])
-            distances['Cost'].append(gridPoints[gridID].cable[battery.ID])
+            distances['ID'].append(smartGrid.gridPoints[gridID].ID)
+            distances['Dist'].append(smartGrid.gridPoints[gridID].manhattanDistance[battery.ID])
+            distances['Cost'].append(smartGrid.gridPoints[gridID].cable[battery.ID])
 
         # Set position counter to zero
         position = 0
@@ -78,15 +78,15 @@ def pathFinder(battery, houses, houseID, gridPoints):
         path.append(current)
 
         # If there is an other path to battery, return path
-        if gridPoints[current].cable[battery.ID] == 0:
+        if smartGrid.gridPoints[current].cable[battery.ID] == 0:
             return {"path": path, "score": score}
 
         # Cable cost is 0 for battery.ID on gridPoint
-        gridPoints[current].cable[battery.ID] = 0
+        smartGrid.gridPoints[current].cable[battery.ID] = 0
 
         # If current gridID is on the same location as battery, return path
-        if (gridPoints[current].xLocation == battery.xLocation and
-            gridPoints[current].yLocation == battery.yLocation):
+        if (smartGrid.gridPoints[current].xLocation == battery.xLocation and
+            smartGrid.gridPoints[current].yLocation == battery.yLocation):
             return {"path": path, "score": score}
 
         # Add gridIDs from openlist to closedlist
@@ -96,7 +96,7 @@ def pathFinder(battery, houses, houseID, gridPoints):
         openlist.clear()
 
         # Add children of current to the openlist
-        openlist.append(smartGrid.children(gridPoints[current]))
+        openlist.append(smartGrid.children(smartGrid.gridPoints[current]))
 
         # Remove outer brackets of children
         openlist = list(itertools.chain.from_iterable(openlist))
