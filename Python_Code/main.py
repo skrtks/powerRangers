@@ -12,17 +12,24 @@ def main():
     distr2 = "Huizen&Batterijen/wijk2_huizen.csv", "Huizen&Batterijen/wijk2_batterijen.csv"
     distr3 = "Huizen&Batterijen/wijk3_huizen.csv", "Huizen&Batterijen/wijk3_batterijen.csv"
 
-    smartGrid.fileReader("../Huizen&Batterijen/wijk1_huizen.csv", "../Huizen&Batterijen/wijk1_batterijen.csv")
-    smartGrid.gridFiller()
-    smartGrid.manhattanDistance()
-    #connecter.connecter()
+    A = smartGrid()
 
-    for i in range(4):
+    A.fileReader("../Huizen&Batterijen/wijk1_huizen.csv", "../Huizen&Batterijen/wijk1_batterijen.csv")
+
+    A.gridFiller()
+    A.manhattanDistance()
+    connecter.connecter(A)
+
+    # filename = "results" + str(1) + ".csv"
+    # scoreData = hillClimber.hillClimber(A)
+    # writeCSV(scoreData, filename)
+
+    for i in range(10):
         filename = "results" + str(i) + ".csv"
-        randomFunction()
-        scoreData = hillClimber.hillClimber()
+        randomFunction(A)
+        scoreData = hillClimber.hillClimber(A)
         writeCSV(scoreData, filename)
-    #smartGrid.gridDrawer()
+    # smartGrid.gridDrawer()
 
 
 if __name__ == "__main__":

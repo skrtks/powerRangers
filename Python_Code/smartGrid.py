@@ -1,11 +1,12 @@
 
 class smartGrid:
 
-    gridPoints = []
-    houses = []
-    batteries = []
+    def __init__(self):
+        self.gridPoints = []
+        self.houses = []
+        self.batteries = []
 
-    def gridFiller():
+    def gridFiller(self):
         """"Create grid"""
 
         # Initiate ID, xLocation and yLocation.
@@ -16,17 +17,31 @@ class smartGrid:
         # Create instances of grid points.
         for i in range(51):
             for j in range(51):
-                smartGrid.gridPoints.append(gridClass.gridPoint(ID, xLocation, yLocation))
+                self.gridPoints.append(gridClass.gridPoint(ID, xLocation, yLocation))
                 ID += 1
                 xLocation += 1
             yLocation += 1
             xLocation = 0
 
-        batteryClass.battery.assignGridIDs(smartGrid.batteries, smartGrid.gridPoints)
-        houseClass.house.assignGridIDs(smartGrid.houses, smartGrid.gridPoints)
+        self.assignGridIDs()
+
+    def assignGridIDs(self):
+        """
+        description
+        returns: True if succes
+        """
+        # Iterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
+        for point in self.gridPoints:
+            for house in self.houses:
+                if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
+                    house.gridID = point.ID
+            for battery in self.batteries:
+                if point.xLocation == battery.xLocation and point.yLocation == battery.yLocation:
+                    battery.gridID = point.ID
+        return True
 
 
-    def gridDrawer():
+    def gridDrawer(self):
         """"Draw grid with batteries, houses and connections"""
 
         # Initiate list for coordinates from houses and batteries
@@ -47,11 +62,11 @@ class smartGrid:
         # ax.grid(which='major', alpha=0.5, linestyle='-')
 
         # Fill lists with coordinates
-        for house in smartGrid.houses:
+        for house in self.houses:
             xHouse.append(house.xLocation)
             yHouse.append(house.yLocation)
 
-        for battery in smartGrid.batteries:
+        for battery in self.batteries:
             xBattery.append(battery.xLocation)
             yBattery.append(battery.yLocation)
 
@@ -69,21 +84,21 @@ class smartGrid:
         # Draw connections from houses to batteries in grid
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
-        for battery in smartGrid.batteries:
+        for battery in self.batteries:
 
 
 
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
                 # generate a star path
-                (cameFrom, score) = dijkstra.dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
+                (cameFrom, score) = dijkstra.dijkstraSearch(self.gridPoints, battery, self.houses[houseID].gridID, battery.gridID)
                 totalScore += score[battery.gridID]
                 # reconstruct the path
-                path = dijkstra.reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
+                path = dijkstra.reconstructPath(cameFrom, self.houses[houseID].gridID, battery.gridID)
 
                 # update the costs for the gridpoints
                 for point in path:
-                    smartGrid.gridPoints[point].cable[battery.ID] = 0
+                    self.gridPoints[point].cable[battery.ID] = 0
 
                 # totalScore += returnValues["score"]
 
@@ -91,8 +106,8 @@ class smartGrid:
                 pathY = []
 
                 for ID in path:
-                    pathX.append(smartGrid.gridPoints[ID].xLocation)
-                    pathY.append(smartGrid.gridPoints[ID].yLocation)
+                    pathX.append(self.gridPoints[ID].xLocation)
+                    pathY.append(self.gridPoints[ID].yLocation)
 
                 # Draw lines
                 plt.plot(pathX, pathY, color)
@@ -108,7 +123,7 @@ class smartGrid:
         plt.title("Score: " + str(totalScore))
         plt.show()
 
-    def fileReader(fileHouses, fileBatteries):
+    def fileReader(self, fileHouses, fileBatteries):
         """"Read information of houses and batteries from files"""
 
         # Initiate ID.
@@ -127,34 +142,34 @@ class smartGrid:
 
             # Create instances of houses or batteries.
             for row in readerHouses:
-                smartGrid.houses.append(houseClass.house(ID, int(row[0]), int(row[1]), float(row[2])))
+                self.houses.append(houseClass.house(ID, int(row[0]), int(row[1]), float(row[2])))
                 ID += 1
 
             ID = 0
             for row in readerBatteries:
-                smartGrid.batteries.append(batteryClass.battery(ID, int(row[0]), int(row[1]), float(row[2])))
+                self.batteries.append(batteryClass.battery(ID, int(row[0]), int(row[1]), float(row[2])))
                 ID += 1
 
 
 
-    def manhattanDistance():
+    def manhattanDistance(self):
         """"Calculate mannhattendistance for avery gridpoint to batteries"""
 
         # Loop trough batteries and gridpoints calculate manhattendistance between them
-        for battery in smartGrid.batteries:
-            for gridPoint in smartGrid.gridPoints:
+        for battery in self.batteries:
+            for gridPoint in self.gridPoints:
                 distance = abs(gridPoint.xLocation - battery.xLocation) + abs(gridPoint.yLocation - battery.yLocation)
                 gridPoint.manhattanDistance.append(distance)
                 gridPoint.cable.append(9)
 
                 # If house on gridPoint, append distance to house
-                for house in smartGrid.houses:
+                for house in self.houses:
                     if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
                         house.manhattanDistance.append(distance)
 
 
 
-    def children(gridPoint):
+    def children(self, gridPoint):
         '''returns gridpoint ID's for possible moves from current gridpoint'''
 
         # Calculate possible locations for x and y
@@ -164,7 +179,7 @@ class smartGrid:
         children = []
 
         # Itterate over gridpoints and append gridpoints that match x and y locations of children to a list
-        for gridpoint in smartGrid.gridPoints:
+        for gridpoint in self.gridPoints:
             for i in range(4):
                 if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
                     children.append(gridpoint.ID)

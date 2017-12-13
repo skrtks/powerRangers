@@ -1,19 +1,17 @@
 from dijkstra import dijkstraSearch, reconstructPath
-from randomFunction import randomFunction
-from smartGrid import smartGrid
 import csv
 import random
 import copy
 from pathFinder import pathFinder
 
-def hillClimber():
+def hillClimber(smartGrid):
 
 
     savedData = []
     runs = 0
     sameRuns = 0
     bestScore = 100000
-    numberOfLoops = 100000
+    numberOfLoops = 15000
 
     for x in range(numberOfLoops):
         for point in smartGrid.gridPoints:
@@ -57,11 +55,11 @@ def hillClimber():
             backUpBatteries = copy.deepcopy(smartGrid.batteries)
             backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
 
-            sameRuns += 1
-            if sameRuns == 149:
-                print("Break Hill Climber")
-                print("__________________")
-                break
+            # sameRuns += 1
+            # if sameRuns == 149:
+            #     print("Break Hill Climber")
+            #     print("__________________")
+            #     break
 
 
 
@@ -70,7 +68,7 @@ def hillClimber():
         savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
 
         if runs < numberOfLoops:
-            swapHouses()
+            swapHouses(smartGrid)
 
         print("runs: {}, totalScore: {}, bestScore: {}".format(runs, totalScore, bestScore))
         runs += 1
@@ -81,7 +79,7 @@ def hillClimber():
     return savedData
 
 
-def swapHouses():
+def swapHouses(smartGrid):
     sortedHouses = sorted(smartGrid.houses, key=lambda house: house.score, reverse=True)
 
     # Select random house.

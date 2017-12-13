@@ -1,6 +1,6 @@
-from smartGrid import smartGrid
+# from smartGrid import smartGrid
 
-def connecter():
+def connecter(smartGrid):
     """"Connect houses with nearest batteries """
 
     # Connect batteries sorted on power output house
@@ -32,16 +32,17 @@ def connecter():
                 break
 
     #  -> Houses sorted on manhattenDistance <- #
-    # unconnected = len(houses)
+    # unconnected = len(smartGrid.houses)
     #
     # while unconnected > 0:
-    #     for battery in batteries:
-    #         sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
+    #     for battery in smartGrid.batteries:
+    #         sortedHouses = sorted(smartGrid.houses, key=lambda house: house.manhattanDistance[battery.ID])
     #         for house in sortedHouses:
     #             if battery.capacity > house.power and not house.connected:
     #                 battery.capacity -= house.power
     #                 battery.connectedHouses.append(house.ID)
     #                 house.connected = True
+    #                 house.batteryId = battery.ID
     #                 unconnected -= 1
     #                 print("connected")
     #                 break
@@ -57,14 +58,15 @@ def connecter():
     #             house.connected = True
 
     # -> houses sorted on shortest manhattenDistance for every battery <- #
-    # for battery in batteries:
-    #     sortedHouses = sorted(houses, key=lambda house: house.manhattanDistance[battery.ID])
+    # for battery in smartGrid.batteries:
+    #     sortedHouses = sorted(smartGrid.houses, key=lambda house: house.manhattanDistance[battery.ID])
     #
     #     # Loop trough sorted houses and connect house with battery if enough capacity
     #     for house in sortedHouses:
     #         if battery.capacity > house.power and not house.connected:
     #             battery.capacity -= house.power
     #             battery.connectedHouses.append(house.ID)
+    #             house.batteryId = battery.ID
     #             house.connected = True
 
     # Print statements for checking

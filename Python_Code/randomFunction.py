@@ -3,7 +3,7 @@ import random
 import copy
 from smartGrid import smartGrid
 
-def randomFunction():
+def randomFunction(smartGrid):
     """Find best connection for batteries and houses """
 
     maxScore = 100000
@@ -13,7 +13,7 @@ def randomFunction():
 
     shuffledHouses = copy.deepcopy(smartGrid.houses)
 
-    for x in range(200):
+    for x in range(10000):
         #print(x)
         connecterScore = 0
         shuffledHousesX = []
