@@ -14,8 +14,8 @@ def pathFinder(battery, houses, houseID, gridPoints):
     score = -9
 
     # The open and closed lists
-    openset = []
-    closedset = []
+    openlist = []
+    closedlist = []
 
     # Make an empty list for path
     path = []
@@ -24,21 +24,21 @@ def pathFinder(battery, houses, houseID, gridPoints):
     for gridpoint in gridPoints:
         if (gridpoint.xLocation == houses[houseID].xLocation and
             gridpoint.yLocation == houses[houseID].yLocation):
-                openset.append(gridpoint.ID)
+                openlist.append(gridpoint.ID)
 
     # While the open set is not empty
-    while openset:
+    while openlist:
 
         # Make an empty dict distances
         distances = {}
 
-        # Remove gridID if in closedset
-        for gridID in openset:
-            if gridID in closedset:
-                openset.remove(gridID)
+        # Remove gridID if in closedlist
+        for gridID in openlist:
+            if gridID in closedlist:
+                openlist.remove(gridID)
 
         # Append gridID and manhattandistance to distances
-        for gridID in openset:
+        for gridID in openlist:
             distances.setdefault('ID',[])
             distances.setdefault('Dist',[])
             distances.setdefault('Cost',[])
@@ -89,14 +89,14 @@ def pathFinder(battery, houses, houseID, gridPoints):
             gridPoints[current].yLocation == battery.yLocation):
             return {"path": path, "score": score}
 
-        # Add gridIDs from openset to closedset
-        closedset.append(current)
+        # Add gridIDs from openlist to closedlist
+        closedlist.append(current)
 
-        # Empty openset
-        openset.clear()
+        # Empty openlist
+        openlist.clear()
 
-        # Add children of current to the openset
-        openset.append(smartGrid.children(gridPoints[current]))
+        # Add children of current to the openlist
+        openlist.append(smartGrid.children(gridPoints[current]))
 
         # Remove outer brackets of children
-        openset = list(itertools.chain.from_iterable(openset))
+        openlist = list(itertools.chain.from_iterable(openlist))
