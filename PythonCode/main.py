@@ -18,18 +18,27 @@ def main():
 
     A.gridFiller()
     A.manhattanDistance()
-    connecter.connecter(A)
+    connecters.connectWithBatteries(A)
 
     # filename = "results" + str(1) + ".csv"
     # scoreData = hillClimber.hillClimber(A)
     # writeCSV(scoreData, filename)
 
-    for i in range(1):
-        filename = "results" + str(i) + ".csv"
-        randomFunction(A)
-        scoreData = hillClimber(A)
-        writeCSV(scoreData, filename)
+    # for i in range(1):
+    #     filename = "results" + str(i) + ".csv"
+    #     randomFunction(A)
+    #     scoreData = hillClimber(A)
+    #     writeCSV(scoreData, filename)
     # smartGrid.gridDrawer()
+
+    # Print statements for checking
+    for battery in smartGrid.batteries:
+        print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
+
+    for house in smartGrid.houses:
+        if not house.connected:
+            print("unconnected house(s): {}".format(house.ID))
+            print("power supply unconnected house(s): {}".format(house.power))
 
 
 if __name__ == "__main__":
