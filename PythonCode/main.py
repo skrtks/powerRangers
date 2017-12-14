@@ -14,22 +14,35 @@ def main():
 
     A = smartGrid()
 
-    A.fileReader("../Huizen&Batterijen/wijk1_huizen.csv", "../Huizen&Batterijen/wijk1_batterijen.csv")
+    A.fileReader("../Huizen&Batterijen/wijk2_huizen.csv", "../Huizen&Batterijen/wijk2_batterijen.csv")
 
     A.gridFiller()
     A.manhattanDistance()
-    connecters.randomConnecter(A)
+    connecters.greedyAlgorithm(A)
 
-    # filename = "results" + str(1) + ".csv"
-    # scoreData = hillClimber.hillClimber(A)
-    # writeCSV(scoreData, filename)
+    print(A.batteries[0].connectedHouses)
+    print(A.batteries[1].connectedHouses)
+    print(A.batteries[2].connectedHouses)
+    print(A.batteries[3].connectedHouses)
+    print(A.batteries[4].connectedHouses)
+
+    filename = "results" + str(1) + ".csv"
+    scoreData = hillClimber(A)
+    writeCSV(scoreData, filename)
+    print(scoreData)
+
+    print(A.batteries[0].connectedHouses)
+    print(A.batteries[1].connectedHouses)
+    print(A.batteries[2].connectedHouses)
+    print(A.batteries[3].connectedHouses)
+    print(A.batteries[4].connectedHouses)
 
     # for i in range(1):
     #     filename = "results" + str(i) + ".csv"
     #     randomFunction(A)
     #     scoreData = hillClimber(A)
     #     writeCSV(scoreData, filename)
-    # smartGrid.gridDrawer()
+    # A.gridDrawer()
 
     # # Print statements for checking
     # for battery in A.batteries:

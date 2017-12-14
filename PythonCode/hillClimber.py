@@ -6,88 +6,81 @@ from pathFinder import pathFinder
 
 def hillClimber(smartGrid):
 
-
     savedData = []
-    runs = 0
-    sameRuns = 0
-    bestScore = 100000
     numberOfLoops = 10
+    # sameRuns = 0
 
-    for x in range(numberOfLoops):
-        for point in smartGrid.gridPoints:
-            point.cable = [9, 9, 9, 9, 9]
-        totalScore = 0
-        for battery in smartGrid.batteries:
-            for houseID in battery.connectedHouses:
-                # Oude AStar!
-                resultPathFinder = pathFinder(battery, smartGrid, houseID)
-                smartGrid.houses[houseID].score = resultPathFinder["score"]
-                totalScore += resultPathFinder["score"]
+    currentScore = calculateScore(smartGrid)
+    bestScore = currentScore
+    backup =  copy.deepcopy(smartGrid)
 
-                # Dijkstra!
-                # # generate dijkstra path
-                # (cameFrom, score) = dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
-                # totalScore += score[battery.gridID]
-                #
-                # # reconstruct the path
-                # path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
-                #
-                # # update the costs for the gridpoints
-                # for point in path:
-                #     smartGrid.gridPoints[point].cable[battery.ID] = 0
+    print("first check:")
+    print(smartGrid.batteries[0].connectedHouses)
+    print(smartGrid.batteries[1].connectedHouses)
+    print(smartGrid.batteries[2].connectedHouses)
+    print(smartGrid.batteries[3].connectedHouses)
+    print(smartGrid.batteries[4].connectedHouses)
 
-        if totalScore < bestScore:
-            print("Nieuwe score, gooi backup weg, run {}".format(runs))
-            bestScore = totalScore
-            #print(savedData[runs]["runs"], savedData[runs]["score"])
-            # Make backup of current grid
+    for runs in range(numberOfLoops):
+        swap(smartGrid)
+        currentScore = calculateScore(smartGrid)
+        if currentScore <= bestScore:
+            backup = copy.deepcopy(smartGrid)
+            bestScore = currentScore
+            savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
+            print("if:")
+            print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
+            print(smartGrid.batteries[0].connectedHouses)
+            print(smartGrid.batteries[1].connectedHouses)
+            print(smartGrid.batteries[2].connectedHouses)
+            print(smartGrid.batteries[3].connectedHouses)
+            print(smartGrid.batteries[4].connectedHouses)
+            print("------------------------------")
 
-            sameRuns = 0
         else:
-            print("Zet backup terug, run {}".format(runs))
-            smartGrid.houses = copy.deepcopy(backUpHouses)
-            smartGrid.batteries[0].connectedHouses = copy.deepcopy(backUpBatteries0)
-            smartGrid.batteries[1].connectedHouses = copy.deepcopy(backUpBatteries1)
-            smartGrid.batteries[2].connectedHouses = copy.deepcopy(backUpBatteries2)
-            smartGrid.batteries[3].connectedHouses = copy.deepcopy(backUpBatteries3)
-            smartGrid.batteries[4].connectedHouses = copy.deepcopy(backUpBatteries4)
-            smartGrid.gridPoints = copy.deepcopy(backUpGridpoints)
+            smartGrid = copy.deepcopy(backup)
+            savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
+            print("else:")
+            print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
+            print(smartGrid.batteries[0].connectedHouses)
+            print(smartGrid.batteries[1].connectedHouses)
+            print(smartGrid.batteries[2].connectedHouses)
+            print(smartGrid.batteries[3].connectedHouses)
+            print(smartGrid.batteries[4].connectedHouses)
+            print("------------------------------")
 
 
-            # sameRuns += 1
-            # if sameRuns == 149:
-            #     print("Break Hill Climber")
-            #     print("__________________")
-            #     break
-
-
-
-
-
-        savedData.append({"runs": runs, "score": bestScore, "battery0": smartGrid.batteries[0].connectedHouses, "battery1": smartGrid.batteries[1].connectedHouses, "battery2": smartGrid.batteries[2].connectedHouses, "battery3": smartGrid.batteries[3].connectedHouses, "battery4": smartGrid.batteries[4].connectedHouses})
-        print("runs: {}, totalScore: {}, bestScore: {}".format(runs, totalScore, bestScore))
-
-        backUpHouses = copy.deepcopy(smartGrid.houses)
-        backUpBatteries0 = copy.deepcopy(smartGrid.batteries[0].connectedHouses)
-        backUpBatteries1 = copy.deepcopy(smartGrid.batteries[1].connectedHouses)
-        backUpBatteries2 = copy.deepcopy(smartGrid.batteries[2].connectedHouses)
-        backUpBatteries3 = copy.deepcopy(smartGrid.batteries[3].connectedHouses)
-        backUpBatteries4 = copy.deepcopy(smartGrid.batteries[4].connectedHouses)
-        backUpGridpoints = copy.deepcopy(smartGrid.gridPoints)
-
-        if runs < numberOfLoops:
-            swapHouses(smartGrid)
-
-
-        runs += 1
-
-    for point in smartGrid.gridPoints:
-        point.cable = [9, 9, 9, 9, 9]
 
     return savedData
 
 
-def swapHouses(smartGrid):
+def calculateScore(smartGrid):
+    for point in smartGrid.gridPoints:
+        point.cable = [9, 9, 9, 9, 9]
+    totalScore = 0
+    for battery in smartGrid.batteries:
+        for houseID in battery.connectedHouses:
+            # Oude AStar!
+            resultPathFinder = pathFinder(battery, smartGrid, houseID)
+            smartGrid.houses[houseID].score = resultPathFinder["score"]
+            totalScore += resultPathFinder["score"]
+
+    return totalScore
+
+    # Dijkstra!
+    # # generate dijkstra path
+    # (cameFrom, score) = dijkstraSearch(smartGrid.gridPoints, battery, smartGrid.houses[houseID].gridID, battery.gridID)
+    # totalScore += score[battery.gridID]
+    #
+    # # reconstruct the path
+    # path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
+    #
+    # # update the costs for the gridpoints
+    # for point in path:
+    #     smartGrid.gridPoints[point].cable[battery.ID] = 0
+
+
+def swap(smartGrid):
     sortedHouses = sorted(smartGrid.houses, key=lambda house: house.score, reverse=True)
 
     # Select random house.
