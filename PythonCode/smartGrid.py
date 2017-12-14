@@ -119,8 +119,9 @@ class smartGrid:
         # Make points for houses and batteries
         plt.plot(xHouse, yHouse, "k.")
         plt.plot(xBattery, yBattery, marker="s", linestyle="None", color="blue")
-        #for battery in smartGrid.batteries:
-        ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
+
+        for battery in self.batteries:
+            ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
 
         # totalScore plus battery cost
         # totalScore += 25000

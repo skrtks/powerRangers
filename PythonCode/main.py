@@ -12,6 +12,8 @@ def main():
     A.gridFiller()
     A.manhattanDistance()
     connecters.randomWithPreverence(A)
+    print("connected")
+    print("drawing...")
     A.gridDrawer()
 
 
