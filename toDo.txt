@@ -9,6 +9,7 @@ Datastructuur
 - scores in grafiek laten zien
 - gebruiker laten kiezen voor welke wijk de huizen aan batterijen verbonden moeten worden
 - gebruiker laten kiezen welke algoritmes te gebruiken?
+- house.batteryId veranderen!
 
 Experimentatie
 - hillclimber en/of simulated anealing

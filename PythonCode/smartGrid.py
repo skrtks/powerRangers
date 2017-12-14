@@ -1,4 +1,3 @@
-
 class smartGrid:
 
     def __init__(self):
@@ -90,8 +89,13 @@ class smartGrid:
 
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
+
+                # resultPathFinder = pathFinder(battery, self, houseID)
+                # totalScore += resultPathFinder["score"]
+                # path = resultPathFinder["path"]
+
                 # generate a star path
-                (cameFrom, score) = dijkstra.dijkstraSearch(self.gridPoints, battery, self.houses[houseID].gridID, battery.gridID)
+                (cameFrom, score) = dijkstra.dijkstraSearch(battery, self, self.houses[houseID].gridID, battery.gridID)
                 totalScore += score[battery.gridID]
                 # reconstruct the path
                 path = dijkstra.reconstructPath(cameFrom, self.houses[houseID].gridID, battery.gridID)
@@ -194,3 +198,4 @@ import itertools
 import dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv
+from pathFinder import pathFinder
