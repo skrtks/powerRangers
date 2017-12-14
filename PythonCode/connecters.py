@@ -122,7 +122,7 @@ def randomWithPreverence(smartGrid):
     of manhatten distances is smaller than the total sum of the previous found connection"""
 
     maxScore = 100000
-    numberOfLoops = 10000
+    numberOfLoops = 100
     bestScore = maxScore
     shuffledHouses = copy.deepcopy(smartGrid.houses)
 
