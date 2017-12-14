@@ -1,5 +1,6 @@
 import random
 import copy
+import itertools
 
 def connectWithBatteries(smartGrid):
     """"Connect houses with nearest batteries """
@@ -108,7 +109,6 @@ def randomConnecter(smartGrid):
                     unconnected -= 1
                     break
 
-        
 
     #     # Print statements for checking
     #     for battery in shuffledBatteries:
@@ -120,3 +120,55 @@ def randomConnecter(smartGrid):
     #         print("power supply unconnected house(s): {}".format(house.power))
 
     return True
+
+def randomWithPreverence(smartGrid):
+    """Find connection for houses to batteries with preverence for batteries with
+    the smallest manhattan distance. Only replaces connections when the total sum
+    of manhatten distances is smaller than the total sum of the previous found connection"""
+
+    maxScore = 100000
+    numberOfLoops = 10000
+    bestScore = maxScore
+    shuffledHouses = copy.deepcopy(smartGrid.houses)
+
+    for x in range(numberOfLoops):
+        connecterScore = 0
+        random.shuffle(shuffledHouses)
+        connectedTemp = {0: [], 1: [], 2: [], 3: [], 4: []}
+
+        # Set values back to begin values
+        for house in shuffledHouses:
+            house.connected = False
+
+        for battery in smartGrid.batteries:
+            battery.capacity = 1507
+
+        # Connect shuffledhouses with preverence for closest batteries
+        for house in shuffledHouses:
+
+            sortedBatteries = sorted(smartGrid.batteries, key=lambda battery: house.manhattanDistance[battery.ID])
+            # random.shuffle(smartGrid.batteries)
+
+            for battery in sortedBatteries:
+                if battery.capacity >= house.power:
+                    battery.capacity -= house.power
+                    connectedTemp[battery.ID].append(house.ID)
+                    house.connected = True
+                    connecterScore += house.manhattanDistance[battery.ID]
+                    break
+
+        # Set connecterscore to 10000 when a house is not connected to make sure it's not an option
+        for house in shuffledHouses:
+            if not house.connected:
+                connecterScore = maxScore
+
+        # Remeber values of bestscore
+        if connecterScore < bestScore:
+            bestScore = connecterScore
+
+        for battery in smartGrid.batteries:
+            battery.connectedHouses = connectedTemp[battery.ID]
+
+            for houseID in battery.connectedHouses:
+
+                smartGrid.houses[houseID].batteryId = battery.ID

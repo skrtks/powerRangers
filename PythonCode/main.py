@@ -1,5 +1,4 @@
 from smartGrid import smartGrid
-from randomFunction import randomFunction
 import connecters
 from hillClimber import hillClimber
 import sys
@@ -18,7 +17,7 @@ def main():
 
     A.gridFiller()
     A.manhattanDistance()
-    connecters.randomConnecter(A)
+    connecters.randomWithPreverence(A)
     A.gridDrawer()
 
     # print(A.batteries[0].connectedHouses)
