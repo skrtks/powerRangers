@@ -87,8 +87,7 @@ def randomConnecter(smartGrid):
     unconnected = len(smartGrid.houses)
 
     # Loop untill all houses are connected
-    # while unconnected > 0:
-    for i in range(1):
+    while unconnected > 0:
 
         # Copy houses and batteries to remember unshuffled order and set changes back in new loop
         unconnected = len(smartGrid.houses)
@@ -98,28 +97,26 @@ def randomConnecter(smartGrid):
         random.shuffle(shuffledHouses)
         random.shuffle(shuffledBatteries)
 
-    while unconnected > 2:
-
         # Loop trough random shuffled houses and batteries and connect
-        for battery in shuffledBatteries:
-            for house in shuffledHouses:
+        for house in shuffledHouses:
+            for battery in shuffledBatteries:
                 if battery.capacity >= house.power and not house.connected:
                     battery.capacity -= house.power
                     battery.connectedHouses.append(house.ID)
                     house.connected = True
                     house.batteryId = battery.ID
-                    print(unconnected)
                     unconnected -= 1
                     break
 
+        
 
-        # Print statements for checking
-        for battery in shuffledBatteries:
-            print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
-
-    for house in shuffledHouses:
-        if not house.connected:
-            print("unconnected house(s): {}".format(house.ID))
-            print("power supply unconnected house(s): {}".format(house.power))
+    #     # Print statements for checking
+    #     for battery in shuffledBatteries:
+    #         print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
+    #
+    # for house in shuffledHouses:
+    #     if not house.connected:
+    #         print("unconnected house(s): {}".format(house.ID))
+    #         print("power supply unconnected house(s): {}".format(house.power))
 
     return True

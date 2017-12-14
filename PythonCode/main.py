@@ -18,40 +18,31 @@ def main():
 
     A.gridFiller()
     A.manhattanDistance()
-    connecters.greedyAlgorithm(A)
+    connecters.randomConnecter(A)
+    A.gridDrawer()
 
-    print(A.batteries[0].connectedHouses)
-    print(A.batteries[1].connectedHouses)
-    print(A.batteries[2].connectedHouses)
-    print(A.batteries[3].connectedHouses)
-    print(A.batteries[4].connectedHouses)
-
-    filename = "results" + str(1) + ".csv"
-    scoreData = hillClimber(A)
-    writeCSV(scoreData, filename)
-    print(scoreData)
-
-    print(A.batteries[0].connectedHouses)
-    print(A.batteries[1].connectedHouses)
-    print(A.batteries[2].connectedHouses)
-    print(A.batteries[3].connectedHouses)
-    print(A.batteries[4].connectedHouses)
+    # print(A.batteries[0].connectedHouses)
+    # print(A.batteries[1].connectedHouses)
+    # print(A.batteries[2].connectedHouses)
+    # print(A.batteries[3].connectedHouses)
+    # print(A.batteries[4].connectedHouses)
+    #
+    # filename = "results" + str(1) + ".csv"
+    # scoreData = hillClimber(A)
+    # writeCSV(scoreData, filename)
+    # print(scoreData)
+    #
+    # print(A.batteries[0].connectedHouses)
+    # print(A.batteries[1].connectedHouses)
+    # print(A.batteries[2].connectedHouses)
+    # print(A.batteries[3].connectedHouses)
+    # print(A.batteries[4].connectedHouses)
 
     # for i in range(1):
     #     filename = "results" + str(i) + ".csv"
     #     randomFunction(A)
     #     scoreData = hillClimber(A)
     #     writeCSV(scoreData, filename)
-    # A.gridDrawer()
-
-    # # Print statements for checking
-    # for battery in A.batteries:
-    #     print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
-    #
-    # for house in A.houses:
-    #     if not house.connected:
-    #         print("unconnected house(s): {}".format(house.ID))
-    #         print("power supply unconnected house(s): {}".format(house.power))
 
 
 if __name__ == "__main__":
