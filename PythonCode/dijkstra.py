@@ -25,7 +25,7 @@ this is a prio queue stolen from https://www.redblobgames.com/pathfinding/a-star
         return heapq.heappop(self.elements)[1]
 
 
-def dijkstraSearch(gridPoints, battery, startGridPointID, goalGridPointID):
+def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
     frontier = PriorityQueue()
     frontier.put(startGridPointID, 0)
     cameFrom = {startGridPointID: None}
@@ -37,12 +37,12 @@ def dijkstraSearch(gridPoints, battery, startGridPointID, goalGridPointID):
         if current == goalGridPointID:
             break
 
-        childrenList = smartGrid.children(gridPoints[current])
+        childrenList = smartGrid.children(smartGrid.gridPoints[current])
         for child in childrenList:
-            newCost = costSoFar[current] + gridPoints[current].cable[battery.ID]
+            newCost = costSoFar[current] + smartGrid.gridPoints[current].cable[battery.ID]
             if child not in costSoFar or newCost < costSoFar[child]:
                 costSoFar[child] = newCost
-                priority = newCost + gridPoints[child].manhattanDistance[battery.ID]
+                priority = newCost + smartGrid.gridPoints[child].manhattanDistance[battery.ID]
                 frontier.put(child, priority)
                 cameFrom[child] = current
 

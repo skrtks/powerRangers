@@ -86,14 +86,17 @@ def randomConnecter(smartGrid):
     """Makes random connection for batteries and houses"""
 
     unconnected = len(smartGrid.houses)
-
+    backup = copy.deepcopy(smartGrid)
+    print(unconnected)
+    print(smartGrid.batteries[0].connectedHouses)
     # Loop untill all houses are connected
-    while unconnected > 0:
-
+    while unconnected >= 1:
         # Copy houses and batteries to remember unshuffled order and set changes back in new loop
         unconnected = len(smartGrid.houses)
-        shuffledHouses = copy.deepcopy(smartGrid.houses)
-        shuffledBatteries = copy.deepcopy(smartGrid.batteries)
+
+        smartGrid = copy.deepcopy(backup)
+        shuffledHouses = copy.deepcopy(backup.houses)
+        shuffledBatteries = copy.deepcopy(backup.batteries)
 
         random.shuffle(shuffledHouses)
         random.shuffle(shuffledBatteries)
@@ -101,23 +104,15 @@ def randomConnecter(smartGrid):
         # Loop trough random shuffled houses and batteries and connect
         for house in shuffledHouses:
             for battery in shuffledBatteries:
-                if battery.capacity >= house.power and not house.connected:
-                    battery.capacity -= house.power
-                    battery.connectedHouses.append(house.ID)
-                    house.connected = True
-                    house.batteryId = battery.ID
+                if smartGrid.batteries[battery.ID].capacity >= smartGrid.houses[house.ID].power and not smartGrid.houses[house.ID].connected:
+                    smartGrid.batteries[battery.ID].capacity -= house.power
+                    smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
+                    smartGrid.houses[house.ID].connected = True
+                    smartGrid.houses[house.ID].batteryId = battery.ID
                     unconnected -= 1
                     break
 
 
-    #     # Print statements for checking
-    #     for battery in shuffledBatteries:
-    #         print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
-    #
-    # for house in shuffledHouses:
-    #     if not house.connected:
-    #         print("unconnected house(s): {}".format(house.ID))
-    #         print("power supply unconnected house(s): {}".format(house.power))
 
     return True
 

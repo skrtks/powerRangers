@@ -8,6 +8,7 @@ def hillClimber(smartGrid):
 
     savedData = []
     numberOfLoops = 10
+    temp
     # sameRuns = 0
 
     currentScore = calculateScore(smartGrid)
