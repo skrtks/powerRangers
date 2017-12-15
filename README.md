@@ -66,7 +66,8 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 ## Changing used district
 
-Used district can be changed by setting the filename in main.py
+Used district can be changed by setting the filename in main.py. 
+Set connector, hill climber and simulated annealing in main.py as well.
 
 ## Built With
 
@@ -81,4 +82,4 @@ Used district can be changed by setting the filename in main.py
 ## Acknowledgments
 
 * Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
-* Tech assistent: Maarten
+* Tech assistent: Maarten van der Sande
