@@ -49,9 +49,6 @@ def hillClimber(smartGrid):
             # print(smartGrid.batteries[4].connectedHouses)
             # print("------------------------------")
 
-        for point in smartGrid.gridPoints:
-            point.cable = [9, 9, 9, 9, 9]
-
         if sameRuns == 150:
             return savedData, smartGrid
 
@@ -66,6 +63,9 @@ def calculateScore(smartGrid):
             resultPathFinder = pathFinder(battery, smartGrid, houseID)
             smartGrid.houses[houseID].score = resultPathFinder["score"]
             totalScore += resultPathFinder["score"]
+
+    for point in smartGrid.gridPoints:
+        point.cable = [9, 9, 9, 9, 9]
 
     return totalScore
 
