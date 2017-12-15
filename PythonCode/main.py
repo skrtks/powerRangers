@@ -8,21 +8,19 @@ def main():
 
     A = smartGrid()
 
-    A.fileReader("../Huizen&Batterijen/wijk2_huizen.csv", "../Huizen&Batterijen/wijk2_batterijen.csv")
+    A.fileReader("../Huizen&Batterijen/wijk3_huizen.csv", "../Huizen&Batterijen/wijk3_batterijen.csv")
     A.gridFiller()
     A.manhattanDistance()
-    # connecters.randomWithPreverence(A)
-    #
-    A = connecters.randomWithPreverence(A)
-    # print(A.batteries)
-    # scoreData, A = hillClimber(A)
 
-    # A = connecters.randomConnecter(A)
+    A, scoreData = connecters.randomWithPreference(A)
+    filename = "results" + "RandomWithPreference" + ".csv"
+    writeCSV(scoreData, filename)
+
 
     # for i in range(1):
     #     filename = "results" + str(i) + ".csv"
-    #     A = connecters.randomConnecter(A)
-    #     # connecters.randomWithPreverence(A)
+    #     # A = connecters.randomConnecter(A)
+    #     A, scoreRandom = connecters.randomWithPreference(A)
     #     scoreData, A = hillClimber(A)
     #     writeCSV(scoreData, filename)
 
@@ -38,7 +36,7 @@ def main():
             print("unconnected house(s): {}".format(house.ID))
             print("power supply unconnected house(s): {}".format(house.power))
 
-    A.gridDrawer()
+    A.gridDrawer(A)
 
 if __name__ == "__main__":
     main()

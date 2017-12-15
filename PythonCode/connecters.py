@@ -110,18 +110,19 @@ def randomConnecter(smartGrid):
 
     return smartGrid
 
-def randomWithPreverence(smartGrid):
+def randomWithPreference(smartGrid):
     """Find connection for houses to batteries with preverence for batteries with
     the smallest manhattan distance. Only replaces connections when the total sum
     of manhatten distances is smaller than the total sum of the previous found connection"""
 
-    unconnected = len(smartGrid.houses)
+    savedData = []
     backup = copy.deepcopy(smartGrid)
-    numberOfLoops = 10
+    numberOfLoops = 2
     bestScore = 100000
 
     for run in range(numberOfLoops):
         print("run: {}".format(run))
+        unconnected = len(smartGrid.houses)
         # Loop untill all houses are connected
         while unconnected > 0:
             # Copy houses and batteries to remember unshuffled order and set changes back in new loop
@@ -153,10 +154,14 @@ def randomWithPreverence(smartGrid):
 
         # Remeber values of bestscore
         if connecterScore < bestScore:
+            bestConfig = copy.deepcopy(smartGrid)
             bestScore = connecterScore
+        savedData.append({"runs": run, "score": connecterScore, "battery0": 0, "battery1": 0, "battery2": 0, "battery3": 0, "battery4": 0})
+        print("connecterscore: {}".format(connecterScore))
+        print("bestscore: {}".format(bestScore))
 
-    print("connecterscore: {}".format(connecterScore))
-    return smartGrid
+    smartGrid = copy.deepcopy(bestConfig)
+    return smartGrid, savedData
 
 import random
 import copy
