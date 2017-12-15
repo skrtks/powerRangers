@@ -115,12 +115,12 @@ def randomWithPreverence(smartGrid):
     the smallest manhattan distance. Only replaces connections when the total sum
     of manhatten distances is smaller than the total sum of the previous found connection"""
 
-    unconnected = len(smartGrid.houses)
     backup = copy.deepcopy(smartGrid)
-    numberOfLoops = 10
+    numberOfLoops = 100
     bestScore = 100000
 
     for run in range(numberOfLoops):
+        unconnected = len(smartGrid.houses)
         print("run: {}".format(run))
         # Loop untill all houses are connected
         while unconnected > 0:
@@ -155,7 +155,9 @@ def randomWithPreverence(smartGrid):
         if connecterScore < bestScore:
             bestScore = connecterScore
 
-    print("connecterscore: {}".format(connecterScore))
+        print("connecterscore: {}".format(connecterScore))
+        print("bestscore: {}".format(bestScore))
+
     return smartGrid
 
 import random
