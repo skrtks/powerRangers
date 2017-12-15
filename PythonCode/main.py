@@ -11,11 +11,11 @@ def main():
     A.fileReader("../Huizen&Batterijen/wijk2_huizen.csv", "../Huizen&Batterijen/wijk2_batterijen.csv")
     A.gridFiller()
     A.manhattanDistance()
-    connecters.randomWithPreverence(A)
-
-    A = connecters.randomConnecter(A)
-    print(A.batteries)
-    scoreData, A = hillClimber(A)
+    # connecters.randomWithPreverence(A)
+    #
+    A = connecters.randomConnecterPreverence(A)
+    # print(A.batteries)
+    # scoreData, A = hillClimber(A)
 
     # A = connecters.randomConnecter(A)
 
@@ -29,7 +29,16 @@ def main():
     print("connected")
     print("drawing...")
 
-    A.gridDrawer()
+    # Print statements for checking.
+    for battery in A.batteries:
+        print("battery capacity[{}]: {}".format(battery.ID, battery.capacity))
+
+    for house in A.houses:
+        if not house.connected:
+            print("unconnected house(s): {}".format(house.ID))
+            print("power supply unconnected house(s): {}".format(house.power))
+
+    # A.gridDrawer()
 
 if __name__ == "__main__":
     main()
