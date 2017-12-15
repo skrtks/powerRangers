@@ -11,17 +11,17 @@ def main():
     A.fileReader("../Huizen&Batterijen/wijk2_huizen.csv", "../Huizen&Batterijen/wijk2_batterijen.csv")
     A.gridFiller()
     A.manhattanDistance()
-    # connecters.randomWithPreverence(A)
+    connecters.randomWithPreverence(A)
 
 
     # A = connecters.randomConnecter(A)
 
-    for i in range(1):
-        filename = "results" + str(i) + ".csv"
-        # A = connecters.randomConnecter(A)
-        connecters.randomWithPreverence(A)
-        scoreData, A = hillClimber(A)
-        writeCSV(scoreData, filename)
+    # for i in range(1):
+    #     filename = "results" + str(i) + ".csv"
+    #     A = connecters.randomConnecter(A)
+    #     # connecters.randomWithPreverence(A)
+    #     scoreData, A = hillClimber(A)
+    #     writeCSV(scoreData, filename)
 
     print("connected")
     print("drawing...")
