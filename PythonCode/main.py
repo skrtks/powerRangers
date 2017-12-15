@@ -1,8 +1,8 @@
 from smartGrid import smartGrid
 import connecters
 from hillClimber import hillClimber
+from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
-
 
 def main():
 
@@ -13,6 +13,9 @@ def main():
     A.manhattanDistance()
     connecters.randomWithPreverence(A)
 
+    A = connecters.randomConnecter(A)
+    print(A.batteries)
+    scoreData, A = hillClimber(A)
 
     # A = connecters.randomConnecter(A)
 
@@ -25,6 +28,7 @@ def main():
 
     print("connected")
     print("drawing...")
+
     A.gridDrawer()
 
 if __name__ == "__main__":

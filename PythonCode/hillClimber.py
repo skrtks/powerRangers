@@ -7,19 +7,19 @@ from pathFinder import pathFinder
 def hillClimber(smartGrid):
 
     savedData = []
-    numberOfLoops = 10
-    # sameRuns = 0
+    numberOfLoops = 10000
+    sameRuns = 0
 
     currentScore = calculateScore(smartGrid)
     bestScore = currentScore
     backup =  copy.deepcopy(smartGrid)
 
-    print("first check:")
-    print(smartGrid.batteries[0].connectedHouses)
-    print(smartGrid.batteries[1].connectedHouses)
-    print(smartGrid.batteries[2].connectedHouses)
-    print(smartGrid.batteries[3].connectedHouses)
-    print(smartGrid.batteries[4].connectedHouses)
+    # print("first check:")
+    # print(smartGrid.batteries[0].connectedHouses)
+    # print(smartGrid.batteries[1].connectedHouses)
+    # print(smartGrid.batteries[2].connectedHouses)
+    # print(smartGrid.batteries[3].connectedHouses)
+    # print(smartGrid.batteries[4].connectedHouses)
 
     for runs in range(numberOfLoops):
         swap(smartGrid)
@@ -28,29 +28,32 @@ def hillClimber(smartGrid):
             backup = copy.deepcopy(smartGrid)
             bestScore = currentScore
             savedData.append({"runs": runs, "score": bestScore, "battery0": copy.deepcopy(smartGrid.batteries[0].connectedHouses), "battery1": copy.deepcopy(smartGrid.batteries[1].connectedHouses), "battery2": copy.deepcopy(smartGrid.batteries[2].connectedHouses), "battery3": copy.deepcopy(smartGrid.batteries[3].connectedHouses), "battery4": copy.deepcopy(smartGrid.batteries[4].connectedHouses)})
-            print("if:")
+            sameRuns = 0
             print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
-            print(smartGrid.batteries[0].connectedHouses)
-            print(smartGrid.batteries[1].connectedHouses)
-            print(smartGrid.batteries[2].connectedHouses)
-            print(smartGrid.batteries[3].connectedHouses)
-            print(smartGrid.batteries[4].connectedHouses)
-            print("------------------------------")
+            # print(smartGrid.batteries[0].connectedHouses)
+            # print(smartGrid.batteries[1].connectedHouses)
+            # print(smartGrid.batteries[2].connectedHouses)
+            # print(smartGrid.batteries[3].connectedHouses)
+            # print(smartGrid.batteries[4].connectedHouses)
+            # print("------------------------------")
 
         else:
             smartGrid = copy.deepcopy(backup)
             savedData.append({"runs": runs, "score": bestScore, "battery0": copy.deepcopy(smartGrid.batteries[0].connectedHouses), "battery1": copy.deepcopy(smartGrid.batteries[1].connectedHouses), "battery2": copy.deepcopy(smartGrid.batteries[2].connectedHouses), "battery3": copy.deepcopy(smartGrid.batteries[3].connectedHouses), "battery4": copy.deepcopy(smartGrid.batteries[4].connectedHouses)})
-            print("else:")
+            sameRuns += 1
             print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
-            print(smartGrid.batteries[0].connectedHouses)
-            print(smartGrid.batteries[1].connectedHouses)
-            print(smartGrid.batteries[2].connectedHouses)
-            print(smartGrid.batteries[3].connectedHouses)
-            print(smartGrid.batteries[4].connectedHouses)
-            print("------------------------------")
+            # print(smartGrid.batteries[0].connectedHouses)
+            # print(smartGrid.batteries[1].connectedHouses)
+            # print(smartGrid.batteries[2].connectedHouses)
+            # print(smartGrid.batteries[3].connectedHouses)
+            # print(smartGrid.batteries[4].connectedHouses)
+            # print("------------------------------")
 
         for point in smartGrid.gridPoints:
             point.cable = [9, 9, 9, 9, 9]
+
+        if sameRuns == 150:
+            return savedData, smartGrid
 
     return savedData, smartGrid
 
