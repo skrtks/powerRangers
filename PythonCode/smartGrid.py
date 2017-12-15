@@ -42,7 +42,7 @@ class smartGrid:
         return True
 
 
-    def gridDrawer(self):
+    def gridDrawer(self, smartGrid):
         """"Draw grid with batteries, houses and connections"""
 
         # Initiate list for coordinates from houses and batteries
@@ -92,17 +92,23 @@ class smartGrid:
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
 
+
+                # Oude AStar!
+                # resultPathFinder = pathFinder(battery, smartGrid, houseID)
+                # path = resultPathFinder["path"]
+                # totalScore += resultPathFinder["score"]
+
                 # generate dijkstra path
                 (cameFrom, score) = dijkstra.dijkstraSearch(battery, self, self.houses[houseID].gridID, battery.gridID)
-                totalScore += score[battery.gridID] - 5000
+                totalScore += score[battery.gridID]
 
                 # reconstruct the path
                 path = dijkstra.reconstructPath(cameFrom, self.houses[houseID].gridID, battery.gridID)
 
                 # update the costs for the gridpoints
                 for point in path:
-                    if self.gridPoints[point].cable[battery.ID] != 0:
-                        self.gridPoints[point].cable[battery.ID] -= 9
+                    #if self.gridPoints[point].cable[battery.ID] != 0:
+                    self.gridPoints[point].cable[battery.ID] = 0
 
                 # totalScore += returnValues["score"]
 
