@@ -35,14 +35,14 @@ class smartGrid:
                 if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
                     house.gridID = point.ID
                     #cost of gridPoint if house on gridpoint
-                    #point.cable = [5000, 5000, 5000, 5000, 5000]
+                    point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
                 if point.xLocation == battery.xLocation and point.yLocation == battery.yLocation:
                     battery.gridID = point.ID
         return True
 
 
-    def gridDrawer(self, smartGrid):
+    def gridDrawer(self):
         """"Draw grid with batteries, houses and connections"""
 
         # Initiate list for coordinates from houses and batteries
@@ -87,30 +87,21 @@ class smartGrid:
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in self.batteries:
 
-
-
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
 
-
-                # Oude AStar!
-                # resultPathFinder = pathFinder(battery, smartGrid, houseID)
-                # path = resultPathFinder["path"]
-                # totalScore += resultPathFinder["score"]
-
                 # generate dijkstra path
                 (cameFrom, score) = dijkstra.dijkstraSearch(battery, self, self.houses[houseID].gridID, battery.gridID)
-                totalScore += score[battery.gridID]
+                totalScore += score[battery.gridID] - 5000
 
                 # reconstruct the path
                 path = dijkstra.reconstructPath(cameFrom, self.houses[houseID].gridID, battery.gridID)
 
                 # update the costs for the gridpoints
                 for point in path:
-                    #if self.gridPoints[point].cable[battery.ID] != 0:
-                    self.gridPoints[point].cable[battery.ID] = 0
-
-                # totalScore += returnValues["score"]
+                    #decrease cable cost
+                    if self.gridPoints[point].cable[battery.ID] != 0:
+                        self.gridPoints[point].cable[battery.ID] -= 9
 
                 pathX = []
                 pathY = []
