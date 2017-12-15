@@ -11,8 +11,6 @@ class house:
         self.gridID = gridID
         self.connected = connected
         self.score = None
-        self.batteryId = None
+        self.batteryID = None
         if manhattanDistance == None:
             self.manhattanDistance = []
-
-    

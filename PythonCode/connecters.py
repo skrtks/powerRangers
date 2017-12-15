@@ -12,7 +12,7 @@ def connectWithBatteries(smartGrid):
             if battery.capacity >= house.power:
                 battery.capacity  = house.power
                 battery.connectedHouses.append(house.ID)
-                house.batteryId = battery.ID
+                house.batteryID = battery.ID
                 house.connected = True
                 break
 
@@ -30,7 +30,7 @@ def connectWithHouses1(smartGrid):
             if battery.capacity > house.power and not house.connected:
                 battery.capacity  = house.power
                 battery.connectedHouses.append(house.ID)
-                house.batteryId = battery.ID
+                house.batteryID = battery.ID
                 house.connected = True
 
     return True
@@ -52,7 +52,7 @@ def connectWithHouses2(smartGrid):
                     battery.capacity  = house.power
                     battery.connectedHouses.append(house.ID)
                     house.connected = True
-                    house.batteryId = battery.ID
+                    house.batteryID = battery.ID
                     unconnected  = 1
                     break
 
@@ -72,7 +72,7 @@ def greedyAlgorithm(smartGrid):
                 battery.capacity  = house.power
                 battery.connectedHouses.append(house.ID)
                 house.connected = True
-                house.batteryId = battery.ID
+                house.batteryID = battery.ID
                 house.connected = True
 
     return True
@@ -104,7 +104,7 @@ def randomConnecter(smartGrid):
                     smartGrid.batteries[battery.ID].capacity  = house.power
                     smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
                     smartGrid.houses[house.ID].connected = True
-                    smartGrid.houses[house.ID].batteryId = battery.ID
+                    smartGrid.houses[house.ID].batteryID = battery.ID
                     unconnected  = 1
                     break
 
@@ -115,14 +115,14 @@ def randomWithPreference(smartGrid):
     the smallest manhattan distance. Only replaces connections when the total sum
     of manhatten distances is smaller than the total sum of the previous found connection"""
 
+    print("connecting...")
+
     savedData = []
     backup = copy.deepcopy(smartGrid)
     numberOfLoops = 2
     bestScore = 100000
 
     for run in range(numberOfLoops):
-        unconnected = len(smartGrid.houses)
-        print("run: {}".format(run))
         unconnected = len(smartGrid.houses)
         # Loop untill all houses are connected
         while unconnected > 0:
@@ -148,7 +148,7 @@ def randomWithPreference(smartGrid):
                         smartGrid.batteries[battery.ID].capacity -= house.power
                         smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
                         smartGrid.houses[house.ID].connected = True
-                        smartGrid.houses[house.ID].batteryId = battery.ID
+                        smartGrid.houses[house.ID].batteryID = battery.ID
                         unconnected -= 1
                         connecterScore += house.manhattanDistance[battery.ID]
                         break
@@ -158,10 +158,9 @@ def randomWithPreference(smartGrid):
             bestConfig = copy.deepcopy(smartGrid)
             bestScore = connecterScore
         savedData.append({"runs": run, "score": connecterScore, "battery0": 0, "battery1": 0, "battery2": 0, "battery3": 0, "battery4": 0})
-        print("connecterscore: {}".format(connecterScore))
-        print("bestscore: {}".format(bestScore))
 
     smartGrid = copy.deepcopy(bestConfig)
+    print("run: {}, bestscore: {}".format(run, bestScore))
     return smartGrid, savedData
 
 import random

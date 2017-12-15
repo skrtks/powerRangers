@@ -45,6 +45,7 @@ class smartGrid:
     def gridDrawer(self):
         """"Draw grid with batteries, houses and connections"""
 
+        print("drawing...")
         # Initiate list for coordinates from houses and batteries
         xHouse = []
         yHouse = []
@@ -122,7 +123,8 @@ class smartGrid:
 
         # totalScore plus battery cost
         # totalScore += 25000
-        plt.title("Score: " + str(totalScore))
+        totalCost = totalScore + 25000
+        plt.title("Cable cost: " + str(totalScore) + "  Battery cost: 25000  Total cost: " + str(totalCost))
         plt.show()
 
     def fileReader(self, fileHouses, fileBatteries):
