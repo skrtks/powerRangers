@@ -35,7 +35,7 @@ class smartGrid:
                 if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
                     house.gridID = point.ID
                     #cost of gridPoint if house on gridpoint
-                    #point.cable = [5000, 5000, 5000, 5000, 5000]
+                    point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
                 if point.xLocation == battery.xLocation and point.yLocation == battery.yLocation:
                     battery.gridID = point.ID
@@ -101,10 +101,10 @@ class smartGrid:
 
                 # update the costs for the gridpoints
                 for point in path:
+                    #decrease cable cost
                     if self.gridPoints[point].cable[battery.ID] != 0:
                         self.gridPoints[point].cable[battery.ID] -= 9
 
-                # totalScore += returnValues["score"]
 
                 pathX = []
                 pathY = []
