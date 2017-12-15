@@ -2,56 +2,57 @@ from dijkstra import dijkstraSearch, reconstructPath
 import csv
 import random
 import copy
+import math
 from pathFinder import pathFinder
 
-def hillClimber(smartGrid):
+def simulatedAnnealing(smartGrid):
 
     savedData = []
     numberOfLoops = 10
-    temp
-    # sameRuns = 0
+
+    # Set initial temp
+    temp = 10000
+
+    # Set cooling rate
+    coolingRate = 16
+
+    sameRuns = 0
 
     currentScore = calculateScore(smartGrid)
     bestScore = currentScore
+    runs = 0
     backup =  copy.deepcopy(smartGrid)
 
-    print("first check:")
-    print(smartGrid.batteries[0].connectedHouses)
-    print(smartGrid.batteries[1].connectedHouses)
-    print(smartGrid.batteries[2].connectedHouses)
-    print(smartGrid.batteries[3].connectedHouses)
-    print(smartGrid.batteries[4].connectedHouses)
+    for point in smartGrid.gridPoints:
+        point.cable = [9, 9, 9, 9, 9]
 
-    for runs in range(numberOfLoops):
+
+    while temp > 1:
         swap(smartGrid)
-        currentScore = calculateScore(smartGrid)
-        if currentScore <= bestScore:
-            backup = copy.deepcopy(smartGrid)
-            bestScore = currentScore
+        newScore = calculateScore(smartGrid)
+        if acceptanceProbability(currentScore, newScore, temp) > random.random():
+            currentScore = newScore
             savedData.append({"runs": runs, "score": bestScore, "battery0": copy.deepcopy(smartGrid.batteries[0].connectedHouses), "battery1": copy.deepcopy(smartGrid.batteries[1].connectedHouses), "battery2": copy.deepcopy(smartGrid.batteries[2].connectedHouses), "battery3": copy.deepcopy(smartGrid.batteries[3].connectedHouses), "battery4": copy.deepcopy(smartGrid.batteries[4].connectedHouses)})
-            print("if:")
             print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
-            print(smartGrid.batteries[0].connectedHouses)
-            print(smartGrid.batteries[1].connectedHouses)
-            print(smartGrid.batteries[2].connectedHouses)
-            print(smartGrid.batteries[3].connectedHouses)
-            print(smartGrid.batteries[4].connectedHouses)
-            print("------------------------------")
+            sameRuns = 0
 
         else:
             smartGrid = copy.deepcopy(backup)
             savedData.append({"runs": runs, "score": bestScore, "battery0": copy.deepcopy(smartGrid.batteries[0].connectedHouses), "battery1": copy.deepcopy(smartGrid.batteries[1].connectedHouses), "battery2": copy.deepcopy(smartGrid.batteries[2].connectedHouses), "battery3": copy.deepcopy(smartGrid.batteries[3].connectedHouses), "battery4": copy.deepcopy(smartGrid.batteries[4].connectedHouses)})
-            print("else:")
             print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
-            print(smartGrid.batteries[0].connectedHouses)
-            print(smartGrid.batteries[1].connectedHouses)
-            print(smartGrid.batteries[2].connectedHouses)
-            print(smartGrid.batteries[3].connectedHouses)
-            print(smartGrid.batteries[4].connectedHouses)
-            print("------------------------------")
+            sameRuns += 1
+
+        if currentScore < bestScore:
+            bestScore = currentScore
 
         for point in smartGrid.gridPoints:
             point.cable = [9, 9, 9, 9, 9]
+
+        if sameRuns == 250:
+            return savedData, smartGrid
+
+        temp -= coolingRate
+        runs += 1
 
     return savedData, smartGrid
 
@@ -125,3 +126,9 @@ def swap(smartGrid):
                 # print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryId))
 
                 break
+
+def acceptanceProbability(currentScore, bestScore, temp):
+    if currentScore < bestScore:
+        return 1
+    else:
+        return math.exp((bestScore - currentScore) / temp)

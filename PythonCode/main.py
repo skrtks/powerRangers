@@ -2,8 +2,8 @@ from smartGrid import smartGrid
 from randomFunction import randomFunction
 import connecters
 from hillClimber import hillClimber
+from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
-
 
 def main():
 
@@ -15,15 +15,15 @@ def main():
 
 
     # A = connecters.randomConnecter(A)
-    randomFunction(A)
+    #randomFunction(A)
 
 
-    # for i in range(1):
-    #     filename = "results" + str(i) + ".csv"
-    #     # A = connecters.randomConnecter(A)
-    #     randomFunction(A)
-    #     scoreData, A = hillClimber(A)
-    #     writeCSV(scoreData, filename)
+    for i in range(100000):
+        filename = "resultsOfSimAn15DEC" + str(i) + ".csv"
+        # A = connecters.randomConnecter(A)
+        randomFunction(A)
+        scoreData, A = simulatedAnnealing(A)
+        writeCSV(scoreData, filename)
 
     A.gridDrawer()
 

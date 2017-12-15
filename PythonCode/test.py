@@ -1,6 +1,10 @@
 import csv
 import smartGrid
-val = 22
+import random
+
+
+print(random.random())
+
 # with open("../results.csv", "w", newline= "") as resultsFile:
 #     fieldnames = ["runs", "score", "battery0", "battery1", "battery2", "battery3", "battery4"]
 #     writer = csv.DictWriter(resultsFile, fieldnames = fieldnames)
