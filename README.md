@@ -8,19 +8,19 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 main.py
 smartGrid
-    houses 			                                        	List containing house objects
-    batteries			                                        List containing battery objects
-    gridPoints			                                      List containing gridPoint objects	
-    gridFiller(self) 			                                Create grid
-    assignGridIDs(self)                                   Assign gridIDs to batteries and houses
-    gridDrawer(self)			                                Draw grid with batteries, houses and connections	
-    fileReader(self, fileHouses, fileBatteries)			      Read information of houses and batteries from files
-    manhattanDistance(self)	  	                          Calculate manhattan distance for every gridpoint to batteries
-    children(self, gridPoint)			                        Returns gridpoint ID's for possible moves from current gridpoint
+housesList 								containing house objects
+    batteries								List containing battery objects
+    gridPoints								List containing gridPoint objects	
+    gridFiller(self)							Create grid
+    assignGridIDs(self)							Assign gridIDs to batteries and houses
+    gridDrawer(self)							Draw grid with batteries, houses and connections	
+    fileReader(self, fileHouses, fileBatteries)				Read information of houses and batteries from files
+    manhattanDistance(self)						Calculate manhattan distance for every gridpoint to batteries
+    children(self, gridPoint)						Returns gridpoint ID's for possible moves from current gridpoint
 
-gridClass.py				                                      Class for gridpoints
-houseClass.py			                                        Define a class for houses, takes ID, x and coordinates, power output, boolean                                                           connected, score, batteryID and manhattandistances to batteries
-batteryClass.py			                                      Define a class for batteries, takes ID, x and y coordinates, capacity and list                                                           of connected houses
+gridClass.py								Class for gridpoints
+houseClass.py								Define a class for houses, takes ID, x and coordinates, power 										output, boolean connected, score, batteryID and 											manhattandistances to batteries
+batteryClass.py								Define a class for batteries, takes ID, x and y coordinates, 										capacity and list of connected houses
 
 connecter.py				 
     connectWithBatteries(smartGrid)                       Connect all houses by sorting them on power output (biggest to smallest) with                                                           nearest batteries
