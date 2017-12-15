@@ -1,24 +1,29 @@
-Infrastructuur
-- readme voor project aanpassen
-- infrastructuur
-- vijf grafiekjes i.p.v. een
-- readme per mapje
+TO DO:
+- comments
+- presentatie
+- randomWithPreverence runnen voor results
+- hillclimber runnen voor results
+- dijksta en pathfinder plaatjes naast elkaar
+- met zonder hillclimber plaatjes naast elkaar
+- algemene readme
+- readme in elke map
+- house.batteryId veranderen
 
-Datastructuur
-- beste opties van optimalizationAlgorithm bewaren
-- scores in grafiek laten zien
+Optioneel:
+- python code opdelen in mapjes?
+- score bewerken (+ batterij score)
 - gebruiker laten kiezen voor welke wijk de huizen aan batterijen verbonden moeten worden
+- simulatedAnnealing
 - gebruiker laten kiezen welke algoritmes te gebruiken?
-- house.batteryId veranderen!
+- vijf grafiekjes i.p.v. een
 
-Experimentatie
-- hillclimber en/of simulated anealing
-- vervolgens toepassen op map waarbij huizen random met batterijen worden verbonden en op de map waarbij de batterij de dichstbijzijnde huizen verbindt
+Algoritmes:
+- random with randomWithPreverence
+- random
+- greedy
+- pathfinder
+- dijkstra
 
-Algoritme
-- random algoritme
-- todo: Hillclimber en/of simulated anealing
-
-Vragen
-- queue afmaken?
-- statespace correct?
+Constraints:
+- kabelkosten delen
+- kabels mogen niet onder huizen door
