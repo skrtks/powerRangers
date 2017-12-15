@@ -34,6 +34,8 @@ class smartGrid:
             for house in self.houses:
                 if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
                     house.gridID = point.ID
+                    #cost of gridPoint if house on gridpoint
+                    #point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
                 if point.xLocation == battery.xLocation and point.yLocation == battery.yLocation:
                     battery.gridID = point.ID
@@ -90,19 +92,17 @@ class smartGrid:
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
 
-                # resultPathFinder = pathFinder(battery, self, houseID)
-                # totalScore += resultPathFinder["score"]
-                # path = resultPathFinder["path"]
-
-                # generate a star path
+                # generate dijkstra path
                 (cameFrom, score) = dijkstra.dijkstraSearch(battery, self, self.houses[houseID].gridID, battery.gridID)
-                totalScore += score[battery.gridID]
+                totalScore += score[battery.gridID] - 5000
+
                 # reconstruct the path
                 path = dijkstra.reconstructPath(cameFrom, self.houses[houseID].gridID, battery.gridID)
 
                 # update the costs for the gridpoints
                 for point in path:
-                    self.gridPoints[point].cable[battery.ID] = 0
+                    if self.gridPoints[point].cable[battery.ID] != 0:
+                        self.gridPoints[point].cable[battery.ID] -= 9
 
                 # totalScore += returnValues["score"]
 
