@@ -14,9 +14,6 @@ def hillClimber(smartGrid):
     bestScore = currentScore
     backup =  copy.deepcopy(smartGrid)
 
-    for point in smartGrid.gridPoints:
-        point.cable = [9, 9, 9, 9, 9]
-
     # print("first check:")
     # print(smartGrid.batteries[0].connectedHouses)
     # print(smartGrid.batteries[1].connectedHouses)
