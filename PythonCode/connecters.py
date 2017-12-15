@@ -111,9 +111,9 @@ def randomConnecter(smartGrid):
     return smartGrid
 
 def randomWithPreverence(smartGrid):
-        """Find connection for houses to batteries with preverence for batteries with
-        the smallest manhattan distance. Only replaces connections when the total sum
-        of manhatten distances is smaller than the total sum of the previous found connection"""
+    """Find connection for houses to batteries with preverence for batteries with
+    the smallest manhattan distance. Only replaces connections when the total sum
+    of manhatten distances is smaller than the total sum of the previous found connection"""
 
     unconnected = len(smartGrid.houses)
     backup = copy.deepcopy(smartGrid)
@@ -155,6 +155,7 @@ def randomWithPreverence(smartGrid):
         if connecterScore < bestScore:
             bestScore = connecterScore
 
+    print("connecterscore: {}".format(connecterScore))
     return smartGrid
 
 import random

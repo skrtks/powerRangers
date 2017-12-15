@@ -13,7 +13,7 @@ def main():
     A.manhattanDistance()
     # connecters.randomWithPreverence(A)
     #
-    A = connecters.randomConnecterPreverence(A)
+    A = connecters.randomWithPreverence(A)
     # print(A.batteries)
     # scoreData, A = hillClimber(A)
 
@@ -38,7 +38,7 @@ def main():
             print("unconnected house(s): {}".format(house.ID))
             print("power supply unconnected house(s): {}".format(house.power))
 
-    # A.gridDrawer()
+    A.gridDrawer()
 
 if __name__ == "__main__":
     main()
