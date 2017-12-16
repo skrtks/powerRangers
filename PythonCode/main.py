@@ -19,7 +19,7 @@ def main():
 
     backup = copy.deepcopy(A)
 
-    for i in range(50):
+    for i in range(3):
         filename = "results" + str(i) + ".csv"
         # A = connecters.randomConnecter(A)
         A = copy.deepcopy(backup)

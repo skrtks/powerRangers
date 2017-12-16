@@ -7,15 +7,12 @@ TO DO:
 - met zonder hillclimber plaatjes naast elkaar
 - algemene readme
 - readme in elke map
-- house.batteryId veranderen
 
 Optioneel:
 - python code opdelen in mapjes?
-- score bewerken (+ batterij score)
-- gebruiker laten kiezen voor welke wijk de huizen aan batterijen verbonden moeten worden
 - simulatedAnnealing
-- gebruiker laten kiezen welke algoritmes te gebruiken?
 - vijf grafiekjes i.p.v. een
+- lijnen in visualisatie anders
 
 Algoritmes:
 - random with randomWithPreverence
