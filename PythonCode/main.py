@@ -5,11 +5,13 @@ from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
 
+
 def main():
 
     A = smartGrid()
 
-    A.fileReader("../Huizen&Batterijen/wijk1_huizen.csv", "../Huizen&Batterijen/wijk1_batterijen.csv")
+    A.fileReader("../Huizen&Batterijen/wijk1_huizen.csv",
+                 "../Huizen&Batterijen/wijk1_batterijen.csv")
     A.gridFiller()
     A.manhattanDistance()
 
@@ -28,6 +30,7 @@ def main():
         writeCSV(scoreData, filename)
 
     A.gridDrawer()
+
 
 if __name__ == "__main__":
     main()

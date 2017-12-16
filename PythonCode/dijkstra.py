@@ -7,9 +7,11 @@ from batteryClass import battery as batteryClass
 
 import heapq
 
+
 class PriorityQueue:
     """
-this is a prio queue stolen from https://www.redblobgames.com/pathfinding/a-star/implementation.html
+this is a prio queue stolen
+from https://www.redblobgames.com/pathfinding/a-star/implementation.html
 
     """
     def __init__(self):
@@ -39,14 +41,20 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 
         childrenList = smartGrid.children(smartGrid.gridPoints[current])
         for child in childrenList:
-            newCost = costSoFar[current] + smartGrid.gridPoints[current].cable[battery.ID]
+            newCost = costSoFar[current]
+            + smartGrid.gridPoints[current].cable[battery.ID]
+
             if child not in costSoFar or newCost < costSoFar[child]:
                 costSoFar[child] = newCost
-                priority = newCost + smartGrid.gridPoints[child].manhattanDistance[battery.ID]
+
+                priority = newCost
+                + smartGrid.gridPoints[child].manhattanDistance[battery.ID]
+
                 frontier.put(child, priority)
                 cameFrom[child] = current
 
     return (cameFrom, costSoFar)
+
 
 def reconstructPath(cameFrom, start, goal):
     current = goal
