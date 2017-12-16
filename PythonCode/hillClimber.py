@@ -8,7 +8,7 @@ def hillClimber(smartGrid):
 
     print("hillClimbing...")
     savedData = []
-    numberOfLoops = 3
+    numberOfLoops = 100000
     sameRuns = 0
 
     currentScore = calculateScore(smartGrid)
@@ -31,8 +31,8 @@ def hillClimber(smartGrid):
             sameRuns += 1
             print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
 
-        if sameRuns == 150:
-            return savedData, smartGrid
+        if sameRuns == 200:
+            return savedData, backup
 
     return savedData, smartGrid
 

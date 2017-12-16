@@ -1,5 +1,6 @@
 from smartGrid import smartGrid
 import connecters
+import copy
 from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
@@ -16,12 +17,15 @@ def main():
     # filename = "results" + "RandomWithPreference" + ".csv"
     # writeCSV(scoreData, filename)
 
-    for i in range(1):
-        # filename = "results" + str(i) + ".csv"
+    backup = copy.deepcopy(A)
+
+    for i in range(50):
+        filename = "results" + str(i) + ".csv"
         # A = connecters.randomConnecter(A)
+        A = copy.deepcopy(backup)
         A, scoreRandom = connecters.randomWithPreference(A)
-        # scoreData, A = hillClimber(A)
-        # writeCSV(scoreData, filename)
+        scoreData, A = hillClimber(A)
+        writeCSV(scoreData, filename)
 
     A.gridDrawer()
 

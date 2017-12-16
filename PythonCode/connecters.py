@@ -119,7 +119,7 @@ def randomWithPreference(smartGrid):
 
     savedData = []
     backup = copy.deepcopy(smartGrid)
-    numberOfLoops = 2
+    numberOfLoops = 25
     bestScore = 100000
 
     for run in range(numberOfLoops):
