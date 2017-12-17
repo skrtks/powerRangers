@@ -5,6 +5,7 @@ import copy
 import math
 from pathFinder import pathFinder
 
+
 def simulatedAnnealing(smartGrid):
 
     savedData = []
@@ -21,25 +22,45 @@ def simulatedAnnealing(smartGrid):
     currentScore = calculateScore(smartGrid)
     bestScore = currentScore
     runs = 0
-    backup =  copy.deepcopy(smartGrid)
-
-    for point in smartGrid.gridPoints:
-        point.cable = [9, 9, 9, 9, 9]
-
+    backup = copy.deepcopy(smartGrid)
 
     while temp > 1:
         swap(smartGrid)
         newScore = calculateScore(smartGrid)
         if acceptanceProbability(currentScore, newScore, temp) > random.random():
             currentScore = newScore
-            savedData.append({"runs": runs, "score": bestScore, "battery0": copy.deepcopy(smartGrid.batteries[0].connectedHouses), "battery1": copy.deepcopy(smartGrid.batteries[1].connectedHouses), "battery2": copy.deepcopy(smartGrid.batteries[2].connectedHouses), "battery3": copy.deepcopy(smartGrid.batteries[3].connectedHouses), "battery4": copy.deepcopy(smartGrid.batteries[4].connectedHouses)})
-            print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
+            savedData.append({"runs": runs, "score": bestScore,
+                              "battery0": copy.deepcopy(smartGrid.batteries[0]
+                                                        .connectedHouses),
+                              "battery1": copy.deepcopy(smartGrid.batteries[1]
+                                                        .connectedHouses),
+                              "battery2": copy.deepcopy(smartGrid.batteries[2]
+                                                        .connectedHouses),
+                              "battery3": copy.deepcopy(smartGrid.batteries[3]
+                                                        .connectedHouses),
+                              "battery4": copy.deepcopy(smartGrid.batteries[4]
+                                                        .connectedHouses)})
+
+            print("runs: {}, currentScore: {}, bestScore: {}"
+                  .format(runs, currentScore, bestScore))
             sameRuns = 0
 
         else:
             smartGrid = copy.deepcopy(backup)
-            savedData.append({"runs": runs, "score": bestScore, "battery0": copy.deepcopy(smartGrid.batteries[0].connectedHouses), "battery1": copy.deepcopy(smartGrid.batteries[1].connectedHouses), "battery2": copy.deepcopy(smartGrid.batteries[2].connectedHouses), "battery3": copy.deepcopy(smartGrid.batteries[3].connectedHouses), "battery4": copy.deepcopy(smartGrid.batteries[4].connectedHouses)})
-            print("runs: {}, currentScore: {}, bestScore: {}".format(runs, currentScore, bestScore))
+            savedData.append({"runs": runs, "score": bestScore,
+                              "battery0": copy.deepcopy(smartGrid.batteries[0]
+                                                        .connectedHouses),
+                              "battery1": copy.deepcopy(smartGrid.batteries[1]
+                                                        .connectedHouses),
+                              "battery2": copy.deepcopy(smartGrid.batteries[2]
+                                                        .connectedHouses),
+                              "battery3": copy.deepcopy(smartGrid.batteries[3]
+                                                        .connectedHouses),
+                              "battery4": copy.deepcopy(smartGrid.batteries[4]
+                                                        .connectedHouses)})
+
+            print("runs: {}, currentScore: {}, bestScore: {}"
+                  .format(runs, currentScore, bestScore))
             sameRuns += 1
 
         if currentScore < bestScore:
@@ -66,64 +87,43 @@ def calculateScore(smartGrid):
             smartGrid.houses[houseID].score = resultPathFinder["score"]
             totalScore += resultPathFinder["score"]
 
-    return totalScore
+    for point in smartGrid.gridPoints:
+        point.cable = [9, 9, 9, 9, 9]
 
-    # Dijkstra!
-    # # generate dijkstra path
-    # (cameFrom, score) = dijkstraSearch(battery, smartGrid, house.ID, battery.ID)
-    # totalScore += score[battery.gridID]
-    #
-    # # reconstruct the path
-    # path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID, battery.gridID)
-    #
-    # # update the costs for the gridpoints
-    # for point in path:
-    #     smartGrid.gridPoints[point].cable[battery.ID] = 0
+    return totalScore
 
 
 def swap(smartGrid):
-    sortedHouses = sorted(smartGrid.houses, key=lambda house: house.score, reverse=True)
+    sortedHouses = sorted(smartGrid.houses, key=lambda house: house.score,
+                          reverse=True)
 
     # Select random house.
     randomHouse = random.choice(smartGrid.houses)
 
     # Calculate space in battery connected to random house
-    spaceRHBat = smartGrid.batteries[randomHouse.batteryID].capacity + randomHouse.power
+    spaceRHBat = smartGrid.batteries[randomHouse.batteryID].capacity
+    + randomHouse.power
 
     # Loop through houses
     for house in sortedHouses:
-
         # Check if house is not in same battery and space is sufficient
-        if house.batteryID is not randomHouse.batteryID and house.power <= spaceRHBat:
-            spaceSHBat = smartGrid.batteries[house.batteryID].capacity + house.power
+        if house.batteryID is not randomHouse.batteryID
+        and house.power <= spaceRHBat:
+            spaceSHBat = smartGrid.batteries[house.batteryID].capacity
+            + house.power
             if randomHouse.power <= spaceSHBat:
-                # print("randomhouse {}".format(randomHouse.ID))
-                # print("Connectedhousesbat0 = {}" .format(smartGrid.batteries[0].connectedHouses))
-                # print("Connectedhousesbat1 = {}" .format(smartGrid.batteries[1].connectedHouses))
-                # print("Connectedhousesbat2 = {}" .format(smartGrid.batteries[2].connectedHouses))
-                # print("Connectedhousesbat3 = {}" .format(smartGrid.batteries[3].connectedHouses))
-                # print("Connectedhousesbat4 = {}" .format(smartGrid.batteries[4].connectedHouses))
-                # print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryID))
 
-                smartGrid.batteries[house.batteryID].connectedHouses.remove(house.ID)
-                # print("battery {} removed {}".format(smartGrid.batteries[house.batteryID].ID, house.ID))
-                smartGrid.batteries[randomHouse.batteryID].connectedHouses.append(house.ID)
-                # print("battery {} append {}".format(smartGrid.batteries[randomHouse.batteryID].ID, house.ID))
-                smartGrid.batteries[randomHouse.batteryID].connectedHouses.remove(randomHouse.ID)
-                # print("battery {} remove {}".format(smartGrid.batteries[randomHouse.batteryID].ID, randomHouse.ID))
-                smartGrid.batteries[house.batteryID].connectedHouses.append(randomHouse.ID)
-                # print("battery {} append {}".format(smartGrid.batteries[house.batteryID].ID, randomHouse.ID))
-
-                # print("bat with house {}, bat with randomHouse {}".format(house.batteryID, randomHouse.batteryID))
-                (house.batteryID, randomHouse.batteryID) = (randomHouse.batteryID, house.batteryID)
-                # print("after swap: bat with house {}, bat with randomHouse {}".format(house.batteryID, randomHouse.batteryID))
-                # print("__________________________________")
-                # print("Connectedhousesbat0 = {}" .format(smartGrid.batteries[0].connectedHouses))
-                # print("Connectedhousesbat1 = {}" .format(smartGrid.batteries[1].connectedHouses))
-                # print("Connectedhousesbat2 = {}" .format(smartGrid.batteries[2].connectedHouses))
-                # print("Connectedhousesbat3 = {}" .format(smartGrid.batteries[3].connectedHouses))
-                # print("Connectedhousesbat4 = {}" .format(smartGrid.batteries[4].connectedHouses))
-                # print("houseID: {}, batteryID for houseID: {}".format(house.ID, house.batteryID))
+                smartGrid.batteries[house.batteryID].connectedHouses
+                .remove(house.ID)
+                smartGrid.batteries[randomHouse.batteryID].connectedHouses
+                .append(house.ID)
+                smartGrid.batteries[randomHouse.batteryID].connectedHouses
+                .remove(randomHouse.ID)
+                smartGrid.batteries[house.batteryID].connectedHouses
+                .append(randomHouse.ID)
+                (house.batteryID, randomHouse.batteryID) = (randomHouse
+                                                            .batteryID,
+                                                            house.batteryID)
 
                 break
 

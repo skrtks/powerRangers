@@ -20,11 +20,12 @@ def pathFinder(battery, smartGrid, houseID):
     # Make an empty list for path
     path = []
 
-    # Itterate over gridpoints and append gridpoint that match x and y location of current house to a list
+    # Itterate over gridpoints and append gridpoint that match x and y location
+    # of current house to a list
     for gridpoint in smartGrid.gridPoints:
         if (gridpoint.xLocation == smartGrid.houses[houseID].xLocation and
-            gridpoint.yLocation == smartGrid.houses[houseID].yLocation):
-                openlist.append(gridpoint.ID)
+                gridpoint.yLocation == smartGrid.houses[houseID].yLocation):
+            openlist.append(gridpoint.ID)
 
     # While the open set is not empty
     while openlist:
@@ -39,12 +40,14 @@ def pathFinder(battery, smartGrid, houseID):
 
         # Append gridID and manhattandistance to distances
         for gridID in openlist:
-            distances.setdefault('ID',[])
-            distances.setdefault('Dist',[])
-            distances.setdefault('Cost',[])
+            distances.setdefault('ID', [])
+            distances.setdefault('Dist', [])
+            distances.setdefault('Cost', [])
             distances['ID'].append(smartGrid.gridPoints[gridID].ID)
-            distances['Dist'].append(smartGrid.gridPoints[gridID].manhattanDistance[battery.ID])
-            distances['Cost'].append(smartGrid.gridPoints[gridID].cable[battery.ID])
+            distances['Dist'].append(smartGrid.gridPoints[gridID]
+                                     .manhattanDistance[battery.ID])
+            distances['Cost'].append(smartGrid.gridPoints[gridID]
+                                     .cable[battery.ID])
 
         # Set position counter to zero
         position = 0
@@ -86,7 +89,7 @@ def pathFinder(battery, smartGrid, houseID):
 
         # If current gridID is on the same location as battery, return path
         if (smartGrid.gridPoints[current].xLocation == battery.xLocation and
-            smartGrid.gridPoints[current].yLocation == battery.yLocation):
+                smartGrid.gridPoints[current].yLocation == battery.yLocation):
             return {"path": path, "score": score}
 
         # Add gridIDs from openlist to closedlist

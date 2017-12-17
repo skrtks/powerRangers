@@ -16,7 +16,8 @@ class smartGrid:
         # Create instances of grid points.
         for i in range(51):
             for j in range(51):
-                self.gridPoints.append(gridClass.gridPoint(ID, xLocation, yLocation))
+                self.gridPoints.append(gridClass.gridPoint(ID, xLocation,
+                                                           yLocation))
                 ID += 1
                 xLocation += 1
             yLocation += 1
@@ -29,18 +30,20 @@ class smartGrid:
         description
         returns: True if succes
         """
-        # Iterate over gridpoints and append gridpoint that match x and y locations of current house to a list.
+        # Iterate over gridpoints and append gridpoint that match
+        # x and y locations of current house to a list.
         for point in self.gridPoints:
             for house in self.houses:
-                if point.xLocation == house.xLocation and point.yLocation == house.yLocation:
+                if point.xLocation == house.xLocation and point.yLocation
+                == house.yLocation:
                     house.gridID = point.ID
-                    #cost of gridPoint if house on gridpoint
+                    # cost of gridPoint if house on gridpoint
                     point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
-                if point.xLocation == battery.xLocation and point.yLocation == battery.yLocation:
+                if point.xLocation == battery.xLocation
+                and point.yLocation == battery.yLocation:
                     battery.gridID = point.ID
         return True
-
 
     def gridDrawer(self):
         """"Draw grid with batteries, houses and connections"""
@@ -92,15 +95,20 @@ class smartGrid:
             for houseID in battery.connectedHouses:
 
                 # generate dijkstra path
-                (cameFrom, score) = dijkstra.dijkstraSearch(battery, self, self.houses[houseID].gridID, battery.gridID)
+                (cameFrom, score) = dijkstra.dijkstraSearch(battery, self,
+                                                            self.houses[houseID]
+                                                            .gridID,
+                                                            battery.gridID)
                 totalScore += score[battery.gridID] - 5000
 
                 # reconstruct the path
-                path = dijkstra.reconstructPath(cameFrom, self.houses[houseID].gridID, battery.gridID)
+                path = dijkstra.reconstructPath(cameFrom,
+                                                self.houses[houseID].gridID,
+                                                battery.gridID)
 
                 # update the costs for the gridpoints
                 for point in path:
-                    #decrease cable cost
+                    # decrease cable cost
                     if self.gridPoints[point].cable[battery.ID] != 0:
                         self.gridPoints[point].cable[battery.ID] -= 9
 
@@ -119,12 +127,14 @@ class smartGrid:
         plt.plot(xBattery, yBattery, marker="s", linestyle="None", color="blue")
 
         for battery in self.batteries:
-            ax.annotate(battery.ID, (xBattery[battery.ID],yBattery[battery.ID]))
+            ax.annotate(battery.ID, (xBattery[battery.ID],
+                                     yBattery[battery.ID]))
 
         # totalScore plus battery cost
         # totalScore += 25000
         totalCost = totalScore + 25000
-        plt.title("Cable cost: " + str(totalScore) + "  Battery cost: 25000  Total cost: " + str(totalCost))
+        plt.title("Cable cost: " + str(totalScore) + "  Battery cost: 25000 \
+                Total cost: " + str(totalCost))
         plt.show()
 
     def fileReader(self, fileHouses, fileBatteries):
@@ -138,7 +148,8 @@ class smartGrid:
 
             # Read the file and separate values in list.
             readerHouses = csv.reader(h, delimiter=',', quoting=csv.QUOTE_NONE)
-            readerBatteries = csv.reader(b, delimiter=',', quoting=csv.QUOTE_NONE)
+            readerBatteries = csv.reader(b, delimiter=',',
+                                         quoting=csv.QUOTE_NONE)
 
             # Skip the header of the file.
             next(h)
@@ -146,46 +157,52 @@ class smartGrid:
 
             # Create instances of houses or batteries.
             for row in readerHouses:
-                self.houses.append(houseClass.house(ID, int(row[0]), int(row[1]), float(row[2])))
+                self.houses.append(houseClass.house(ID, int(row[0]),
+                                                    int(row[1]),
+                                                    float(row[2])))
                 ID += 1
 
             ID = 0
             for row in readerBatteries:
-                self.batteries.append(batteryClass.battery(ID, int(row[0]), int(row[1]), float(row[2])))
+                self.batteries.append(batteryClass.battery(ID, int(row[0]),
+                                      int(row[1]), float(row[2])))
                 ID += 1
-
-
 
     def manhattanDistance(self):
         """"Calculate mannhattendistance for avery gridpoint to batteries"""
 
-        # Loop trough batteries and gridpoints calculate manhattendistance between them
+        # Loop trough batteries and gridpoints calculate
+        # manhattendistance between them
         for battery in self.batteries:
             for gridPoint in self.gridPoints:
-                distance = abs(gridPoint.xLocation - battery.xLocation) + abs(gridPoint.yLocation - battery.yLocation)
+                distance = abs(gridPoint.xLocation - battery.xLocation)
+                + abs(gridPoint.yLocation - battery.yLocation)
                 gridPoint.manhattanDistance.append(distance)
                 gridPoint.cable.append(9)
 
                 # If house on gridPoint, append distance to house
                 for house in self.houses:
-                    if house.xLocation == gridPoint.xLocation and house.yLocation == gridPoint.yLocation:
+                    if house.xLocation == gridPoint.xLocation
+                    and house.yLocation == gridPoint.yLocation:
                         house.manhattanDistance.append(distance)
-
-
 
     def children(self, gridPoint):
         '''returns gridpoint ID's for possible moves from current gridpoint'''
 
         # Calculate possible locations for x and y
-        childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation, gridPoint.xLocation + 1, gridPoint.xLocation]
-        childrenY = [gridPoint.yLocation, gridPoint.yLocation - 1, gridPoint.yLocation, gridPoint.yLocation + 1]
+        childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation,
+                     gridPoint.xLocation + 1, gridPoint.xLocation]
+        childrenY = [gridPoint.yLocation, gridPoint.yLocation - 1,
+                     gridPoint.yLocation, gridPoint.yLocation + 1]
 
         children = []
 
-        # Itterate over gridpoints and append gridpoints that match x and y locations of children to a list
+        # Itterate over gridpoints and append gridpoints
+        # that match x and y locations of children to a list
         for gridpoint in self.gridPoints:
             for i in range(4):
-                if gridpoint.xLocation == childrenX[i] and gridpoint.yLocation == childrenY[i]:
+                if gridpoint.xLocation == childrenX[i]
+                and gridpoint.yLocation == childrenY[i]:
                     children.append(gridpoint.ID)
 
         return children

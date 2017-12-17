@@ -4,21 +4,26 @@ from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
 
+
 def main():
 
     A = smartGrid()
 
     # Dict for every district file
-    distr1 = {"house": "../Huizen&Batterijen/wijk1_huizen.csv", "battery": "../Huizen&Batterijen/wijk1_batterijen.csv"}
-    distr2 = {"house": "../Huizen&Batterijen/wijk2_huizen.csv", "battery": "../Huizen&Batterijen/wijk2_batterijen.csv"}
-    distr3 = {"house": "../Huizen&Batterijen/wijk3_huizen.csv", "battery": "../Huizen&Batterijen/wijk3_batterijen.csv"}
+    distr1 = {"house": "../Huizen&Batterijen/wijk1_huizen.csv", "battery":
+              "../Huizen&Batterijen/wijk1_batterijen.csv"}
+    distr2 = {"house": "../Huizen&Batterijen/wijk2_huizen.csv", "battery":
+              "../Huizen&Batterijen/wijk2_batterijen.csv"}
+    distr3 = {"house": "../Huizen&Batterijen/wijk3_huizen.csv", "battery":
+              "../Huizen&Batterijen/wijk3_batterijen.csv"}
 
     print("district one     = 1")
     print("district two     = 2")
     print("district three   = 3")
 
     while True:
-        district = input('For which district would you like to find an solution: ')
+        district = input('For which district would you like to find an \
+                        solution: ')
 
         if district == '1':
             distrFile = distr1
@@ -44,12 +49,12 @@ def main():
     print("greedyAlgorithm              = 3")
 
     # deze drie verbinden niet alles dus niet mogelijk bij hillclimber.
-    # Mischien helemaal hieruit (en uit connecters?) halen? Want het zijn geen echte oplossingen
+    # Mischien helemaal hieruit (en uit connecters?) halen? Want het zijn
+    # geen echte oplossingen
 
     # print("connectWithBatteries         = 1")
     # print("connectWithHouses1           = 2")
     # print("connectWithHouses2           = 3")
-
 
     while True:
         algorithm = input('How would you like to connect house to battery: ')
@@ -78,7 +83,6 @@ def main():
         #     A, scoreData = connecters.connectWithHouse2(A)
         #     break
 
-
         else:
             print("Please type: 1, 2 or 3")
 
@@ -97,12 +101,13 @@ def main():
 
     while True:
         CSVfile = input('filename:')
-        if str(CSVfile) != None:
+        if str(CSVfile) is not None:
             filename = "results" + str(CSVfile) + ".csv"
             writeCSV(scoreData, filename)
             break
 
     A.gridDrawer()
+
 
 if __name__ == "__main__":
     main()

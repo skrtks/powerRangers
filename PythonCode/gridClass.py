@@ -9,7 +9,7 @@ class gridPoint:
         self.xLocation = xLocation
         self.yLocation = yLocation
         self.cable = [9, 9, 9, 9, 9]
-        if manhattanDistance == None:
+        if manhattanDistance is None:
             self.manhattanDistance = []
         # if cable == None:
         #     self.cable = []
