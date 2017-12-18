@@ -6,8 +6,10 @@ class smartGrid:
         self.batteries = []
 
     def gridFiller(self):
-        """"
+        """
         Create grid.
+
+        Args: self
         """
 
         # Initiate ID, xLocation and yLocation
@@ -30,8 +32,10 @@ class smartGrid:
     def assignGridInfo(self):
         """
         Assign gridID to houses and batteries.
-        Change cable cost of gridPoint if it has a house on it.
-        returns: True if succes
+        Change cost of gridPoint if it has a house on it.
+
+        Args: self
+        Returns: True
         """
 
         for point in self.gridPoints:
@@ -39,7 +43,7 @@ class smartGrid:
                 if (point.xLocation == house.xLocation and
                 point.yLocation == house.yLocation):
                     house.gridID = point.ID
-                    point.cable = [5000, 5000, 5000, 5000, 5000]
+                    point.cost = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
                 if (point.xLocation == battery.xLocation and
                         point.yLocation == battery.yLocation):
@@ -47,8 +51,10 @@ class smartGrid:
         return True
 
     def gridDrawer(self):
-        """"
-        Draw grid with batteries, houses and connections
+        """
+        Draw grid with batteries, houses and connections.
+
+        Args: self
         """
 
         # Price of laying a cable underneath a house
@@ -92,6 +98,7 @@ class smartGrid:
 
         for battery in self.batteries:
 
+            # Make closedSet and set color for cable line
             closedSet = set()
             color = colors[battery.ID]
 
@@ -111,24 +118,24 @@ class smartGrid:
 
                 # Update the costs for the gridpoints
                 for point in path:
-                    # decrease cable cost if it's not already 'free'
-                    if self.gridPoints[point].cable[battery.ID] != 0:
-                        self.gridPoints[point].cable[battery.ID] -= 9
+                    # Decrease cost if not 'free'
+                    if self.gridPoints[point].cost[battery.ID] != 0:
+                        self.gridPoints[point].cost[battery.ID] -= 9
 
                 # Append route of cables to battery
                 pathX = []
                 pathY = []
 
                 for ID in path:
-                  if ID in closed:
+                  if ID in closedSet:
                     pathX.append(self.gridPoints[ID].xLocation)
                     pathY.append(self.gridPoints[ID].yLocation)
-                    closed.add(ID)
+                    closedSet.add(ID)
                     break
                   else:
                     pathX.append(self.gridPoints[ID].xLocation)
                     pathY.append(self.gridPoints[ID].yLocation)
-                    closed.add(ID)
+                    closedSet.add(ID)
 
                 # Draw cables
                 plt.plot(pathX, pathY, color)
@@ -149,8 +156,10 @@ class smartGrid:
         plt.show()
 
     def fileReader(self, fileHouses, fileBatteries):
-        """"
+        """
         Read information of houses and batteries from files.
+
+        Args: self, fileHouses, fileBatteries
         """
 
         # Initiate ID
@@ -183,8 +192,10 @@ class smartGrid:
                 ID += 1
 
     def manhattanDistance(self):
-        """"
+        """
         Calculate mannhattan distance for every gridpoint to batteries.
+
+        Args: self
         """
 
         # Loop trough batteries and gridpoints calculate
@@ -194,7 +205,6 @@ class smartGrid:
                 distance = (abs(gridPoint.xLocation - battery.xLocation)
                             + abs(gridPoint.yLocation - battery.yLocation))
                 gridPoint.manhattanDistance.append(distance)
-                gridPoint.cable.append(9)
 
                 # If house on gridPoint, append distance to house
                 for house in self.houses:
@@ -204,7 +214,10 @@ class smartGrid:
 
     def children(self, gridPoint):
         '''
-        returns gridpoint IDs for possible moves from current gridpoint.
+        Returns gridpoint IDs for possible moves from current gridpoint.
+
+        Args: self and gridPoint
+        Returns: children
         '''
 
         # Calculate location of children

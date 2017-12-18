@@ -29,7 +29,12 @@ class PriorityQueue:
 
 
 def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
-    """Find shortes path from house to battery"""
+    """
+    Find shortes path from house to battery.
+
+    Args: battery, smartGrid, startGridPointID, goalGridPointID
+    Returns: (cameFrom, costSoFar)
+    """
 
     # Variables
     frontier = PriorityQueue()
@@ -53,10 +58,11 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
         # Loop through the childrenList and set cost for stepping to child
         for child in childrenList:
             newCost = (costSoFar[current]
-                       + smartGrid.gridPoints[current].cable[battery.ID])
+                       + smartGrid.gridPoints[current].cost[battery.ID])
 
             # Make sure child is not visited twice unless with lower cost
             if child not in costSoFar or newCost < costSoFar[child]:
+
                 # Set cost to reach child
                 costSoFar[child] = newCost
 
@@ -77,6 +83,9 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 def reconstructPath(cameFrom, start, goal):
     """
     Reconstruct path from battery to house.
+
+    Args: cameFrom, start, goal
+    Returns: path
     """
 
     # Start at end
@@ -85,9 +94,11 @@ def reconstructPath(cameFrom, start, goal):
 
     # Loop until start is reached
     while current != start:
+
         # Trace back the path from goal to start
         path.append(current)
         current = cameFrom[current]
+
     path.append(start)
     path.reverse()
     return path

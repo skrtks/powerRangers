@@ -7,6 +7,9 @@ def pathFinder(battery, smartGrid, houseID):
     Greedy algorithm to search a fast route from house to battery.
     Inspired by: http://web.mit.edu/eranki/www/tutorials/search/
                  https://gist.github.com/jamiees2/5531924
+
+    Args: battery, smartGrid, houseID
+    Returns: {"path": path, "score": score}
     """
 
     # Score is minus 9 (cost of a cable) to compensate for first move
@@ -42,7 +45,7 @@ def pathFinder(battery, smartGrid, houseID):
             gridPointInfo['Dist'].append(smartGrid.gridPoints[gridID]
                                          .manhattanDistance[battery.ID])
             gridPointInfo['Cost'].append(smartGrid.gridPoints[gridID]
-                                         .cable[battery.ID])
+                                         .cost[battery.ID])
 
         # Set position counter to zero
         position = 0
@@ -78,11 +81,11 @@ def pathFinder(battery, smartGrid, houseID):
 
         # If current gridID found a cable to the same battery,
         # return path and score
-        if smartGrid.gridPoints[current].cable[battery.ID] == 0:
+        if smartGrid.gridPoints[current].cost[battery.ID] == 0:
             return {"path": path, "score": score}
 
-        # Cable cost is 0 for battery.ID on gridPoint
-        smartGrid.gridPoints[current].cable[battery.ID] = 0
+        # Cost is 0 for battery.ID on gridPoint
+        smartGrid.gridPoints[current].cost[battery.ID] = 0
 
         # If current gridID is on the same location as battery,
         # return path and score

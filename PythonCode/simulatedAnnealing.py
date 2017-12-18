@@ -7,6 +7,12 @@ from pathFinder import pathFinder
 
 
 def simulatedAnnealing(smartGrid):
+"""
+Swaps houses several times to get a lower cost for configuration.
+
+Args: smartgrid
+Returns: totalScore
+"""
 
     savedData = []
     numberOfLoops = 10
@@ -68,7 +74,7 @@ def simulatedAnnealing(smartGrid):
             bestScore = currentScore
 
         for point in smartGrid.gridPoints:
-            point.cable = [9, 9, 9, 9, 9]
+            point.cost = [9, 9, 9, 9, 9]
 
         if sameRuns == 250:
             return savedData, smartGrid
@@ -80,25 +86,39 @@ def simulatedAnnealing(smartGrid):
 
 
 def calculateScore(smartGrid):
+"""
+Calculate score of smartGrid configuration.
+
+Args: smartGrid
+Returns: totalScore
+"""
     totalScore = 0
+
     for battery in smartGrid.batteries:
         for houseID in battery.connectedHouses:
-            # Oude AStar!
             resultPathFinder = pathFinder(battery, smartGrid, houseID)
             smartGrid.houses[houseID].score = resultPathFinder["score"]
             totalScore += resultPathFinder["score"]
 
     for point in smartGrid.gridPoints:
-        point.cable = [9, 9, 9, 9, 9]
+        point.cost = [9, 9, 9, 9, 9]
 
     return totalScore
 
 
 def swap(smartGrid):
+"""
+Swap houses from different batteries if battery has sufficient capacity.
+Picks a random house to swap but has a preference to swap with a house that
+has the highest gridPoint cost.
+
+Args: smartGrid
+"""
+
     sortedHouses = sorted(smartGrid.houses, key=lambda house: house.score,
                           reverse=True)
 
-    # Select random house.
+    # Select random house
     randomHouse = random.choice(smartGrid.houses)
 
     # Calculate space in battery connected to random house
@@ -130,6 +150,11 @@ def swap(smartGrid):
                 break
 
 def acceptanceProbability(currentScore, bestScore, temp):
+"""
+
+Args: currentScore, bestScore, temp
+Returns: 
+"""
     if currentScore < bestScore:
         return 1
     else:

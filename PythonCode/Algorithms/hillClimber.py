@@ -9,6 +9,9 @@ def hillClimber(smartGrid, numberOfLoops):
     """
     Find a more effective distribution of houses over batteries, by swapping
     random houses from different batteries and calculating the score.
+
+    Args: smartGrid, numberOfLoops
+    Returns: savedData, smartGrid
     """
 
     print("hillClimbing...")
@@ -16,7 +19,7 @@ def hillClimber(smartGrid, numberOfLoops):
     savedData = []
     sameRuns = 0
 
-    # Calculate cable score for given distribution
+    # Calculate total cost for given distribution
     currentScore = calculateScore(smartGrid)
     print("start score: {}".format(currentScore))
     bestScore = currentScore
@@ -72,15 +75,19 @@ def hillClimber(smartGrid, numberOfLoops):
         # Stop hillClimber automatically when no better option has been
         # found for 200 runs
         if sameRuns == 200:
-            return savedData, backup
+            smartGrid = backup
+            return savedData, smartGrid
 
     return savedData, smartGrid
 
 
 def calculateScore(smartGrid):
     """
-    Use a connecter function to calculate the cablecosts. Use pathfinder for
+    Use a connecter function to calculate the total cost. Use pathfinder for
     a quicker result compared to dijkstra algorithm.
+
+    Args: smartGrid
+    Returns: totalScore
     """
 
     totalScore = 0
@@ -92,13 +99,13 @@ def calculateScore(smartGrid):
             smartGrid.houses[houseID].score = resultPathFinder["score"]
             totalScore += resultPathFinder["score"]
 
-    # Reset cable costs for gridpoints
+    # Reset costs for gridpoints
     for point in smartGrid.gridPoints:
-        point.cable = [9, 9, 9, 9, 9]
+        point.cost = [9, 9, 9, 9, 9]
 
         for house in smartGrid.houses:
             if point.ID == house.gridID:
-                point.cable = [5000, 5000, 5000, 5000, 5000]
+                point.cost = [5000, 5000, 5000, 5000, 5000]
 
     return totalScore
 
@@ -107,7 +114,9 @@ def swap(smartGrid):
     """
     Swap houses from different batteries if battery has sufficient capacity.
     Picks a random house to swap but has a preference to swap with a house that
-    has the highest cable costs.
+    has the highest gridPoint cost.
+
+    Args: smartGrid
     """
 
     # Sort houses by cost, from high to low
