@@ -41,14 +41,14 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 ## Prerequisites
 ```
-- Mathlib 
-- Plotlib
-- Python3
+  Mathlib 
+  Plotlib
+  Python3
 ```
 
 ## Changing used district
 
-  When running main.py you will be asked which district to run, which algorithm to use and whether to apply the hillclimber
+  When running main.py you will be asked which district to run, which algorithm to use and whether to apply the hillclimber.
 
   To change the number of loops for the connecter and/or the hillClimber change 'numberOfLoops' 
   in randomWithPreference connecter.py and/or hillClimber.py
