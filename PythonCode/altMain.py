@@ -4,6 +4,7 @@ from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
 
+#test
 
 def main():
 
