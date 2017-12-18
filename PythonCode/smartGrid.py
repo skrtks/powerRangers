@@ -134,8 +134,8 @@ class smartGrid:
 
         # Show graph and cost of smartGrid
         totalCost = totalScore + costBatteries
-        plt.title("Cable cost: " + str(totalScore) + "  Battery cost: 25000 \
-                Total cost: " + str(totalCost))
+        plt.title("Cable cost: " + str(totalScore) + " Battery cost: 25000 " +
+                  "Total cost: " + str(totalCost))
         plt.show()
 
     def fileReader(self, fileHouses, fileBatteries):
@@ -222,4 +222,3 @@ import numpy as np
 import dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv
-

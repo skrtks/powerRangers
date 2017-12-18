@@ -56,18 +56,8 @@ def main():
     while True:
         algorithm = input('How would you like to connect house to battery: ')
 
-        if algorithm == '1':
-            A, scoreData = connecters.randomWithPreference(A)
+        if algorithm is '1' or algorithm is '2' or algorithm is '3':
             break
-
-        elif algorithm == '2':
-            A, scoreData = connecters.randomConnecter(A)
-            break
-
-        elif algorithm == '3':
-            A, scoreData = connecters.greedyAlgorithm(A)
-            break
-
         else:
             print("Please type: 1, 2 or 3")
 
@@ -81,31 +71,42 @@ def main():
     while True:
         climbing = input('Would you like to apply the hill climber (y / n)? ')
 
+        bestScore = 1000000
+
         if climbing == 'y':
             if algorithm is '1':
-                for i in range(2):
+                for i in range(5):
                     filename = str(CSVfileName) + str(i) + ".csv"
 
-                    if i > 0:
-                        A = copy.deepcopy(backup)
-                        A, scoreRandom = connecters.randomWithPreference(A)
+                    A = copy.deepcopy(backup)
+                    A, scoreRandom = connecters.randomWithPreference(A)
 
                     scoreData, A = hillClimber(A)
+
+                    if scoreData[1]["score"] <= bestScore:
+                        bestScore = scoreData[1]["score"]
+                        bestConfig = copy.deepcopy(A)
+
                     writeCSV(scoreData, filename)
 
+                A = copy.deepcopy(bestConfig)
                 break
 
             elif algorithm is '2':
                 for i in range(2):
                     filename = str(CSVfileName) + str(i) + ".csv"
 
-                    if i > 0:
-                        A = copy.deepcopy(backup)
-                        A, scoreRandom = connecters.randomConnecter(A)
+                    A = copy.deepcopy(backup)
+                    A, scoreRandom = connecters.randomConnecter(A)
 
                     scoreData, A = hillClimber(A)
+
+                    if scoreData["score"] <= bestScore:
+                        bestConfig = copy.deepcopy(A)
+
                     writeCSV(scoreData, filename)
 
+                A = copy.deepcopy(bestConfig)
                 break
 
             elif algorithm is '3':
@@ -115,6 +116,15 @@ def main():
                 break
 
         elif climbing == 'n':
+            if algorithm == '1':
+                A, scoreData = connecters.randomWithPreference(A)
+
+            elif algorithm == '2':
+                A, scoreData = connecters.randomConnecter(A)
+
+            elif algorithm == '3':
+                A, scoreData = connecters.greedyAlgorithm(A)
+
             filename = str(CSVfileName) + ".csv"
             writeCSV(scoreData, filename)
             break

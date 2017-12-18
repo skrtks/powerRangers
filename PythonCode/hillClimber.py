@@ -28,7 +28,6 @@ def hillClimber(smartGrid):
         # Swap houses and calculate new score
         swap(smartGrid)
         currentScore = calculateScore(smartGrid)
-
         # If score is lower change into bestscore and safe data
         if currentScore <= bestScore:
             backup = copy.deepcopy(smartGrid)

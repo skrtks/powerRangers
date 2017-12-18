@@ -79,13 +79,11 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 
 
 def reconstructPath(cameFrom, start, goal):
-<<<<<<< HEAD
-    # Start at end
-=======
     """
     battery - house
     """
->>>>>>> 536319d90bdfe8321ab185ff7a177bc500405823
+
+    # Start at end
     current = goal
     path = []
 
