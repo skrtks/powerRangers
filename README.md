@@ -46,7 +46,7 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
   Python3
 ```
 
-## Changing used district
+## Change settings
 
   When running main.py you will be asked which district to run, which algorithm to use and whether to apply the hillclimber.
 
