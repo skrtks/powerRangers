@@ -100,18 +100,17 @@ def calculateScore(smartGrid):
 
     return totalScore
 
-    # generate dijkstra path
-    (cameFrom, score) = dijkstraSearch(battery, smartGrid,
-                                       house.ID, battery.ID)
-    totalScore += score[battery.gridID]
-
-    # reconstruct the path
-    path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID,
-                           battery.gridID)
-
-    # update the costs for the gridpoints
-    for point in path:
-        smartGrid.gridPoints[point].cable[battery.ID] = 0
+    # # generate dijkstra path
+    # (cameFrom, score) = dijkstraSearch(battery, smartGrid, house.ID, battery.ID)
+    # totalScore += score[battery.gridID]
+    #
+    # # reconstruct the path
+    # path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID,
+    #                        battery.gridID)
+    #
+    # # update the costs for the gridpoints
+    # for point in path:
+    #     smartGrid.gridPoints[point].cable[battery.ID] = 0
 
 
 def swap(smartGrid):
@@ -129,15 +128,15 @@ def swap(smartGrid):
     randomHouse = random.choice(smartGrid.houses)
 
     # Calculate space in battery connected to random house
-    spaceRHBat = smartGrid.batteries[randomHouse.batteryID].capacity
-    + randomHouse.power
+    spaceRHBat = (smartGrid.batteries[randomHouse.batteryID].capacity
+                  + randomHouse.power)
 
     # Loop through houses
     for house in sortedHouses:
 
         # Check if house is not in same battery and space is sufficient
         if (house.batteryID is not randomHouse.batteryID and
-            house.power <= spaceRHBat):
+                house.power <= spaceRHBat):
             spaceSHBat = (smartGrid.batteries[house.batteryID].capacity +
                           house.power)
             if randomHouse.power <= spaceSHBat:
