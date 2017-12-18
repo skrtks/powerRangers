@@ -1,15 +1,8 @@
-import copy
-import random
-
-"""This file contains several functions to distribute houses over batteries.
-Only one has to be used, randomWithPreference gives best results"""
-
-
-def randomWithPreference(smartGrid):
+def randomWithPreference(smartGrid, numberOfLoops):
     """
-    Finds connection for houses to batteries with preverence for batteries with
+    Finds connection for houses to batteries with preference for batteries with
     the smallest manhattan distance. Only replaces connections when the total
-    sum of manhatten distances is smaller than the total sum of the previous
+    sum of manhattandistances is smaller than the total sum of the previous
     found connection.
     """
 
@@ -17,7 +10,6 @@ def randomWithPreference(smartGrid):
 
     savedData = []
     backup = copy.deepcopy(smartGrid)
-    numberOfLoops = 3
     bestScore = 100000
 
     for run in range(numberOfLoops):
@@ -103,7 +95,7 @@ def randomConnecter(smartGrid):
             for battery in shuffledBatteries:
                 if (smartGrid.batteries[battery.ID].capacity >=
                     smartGrid.houses[house.ID].power and not
-                    smartGrid.houses[house.ID].connected):
+                        smartGrid.houses[house.ID].connected):
                     smartGrid.batteries[battery.ID].capacity -= house.power
                     (smartGrid.batteries[battery.ID].connectedHouses
                      .append(house.ID))

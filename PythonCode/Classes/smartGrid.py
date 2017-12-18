@@ -89,9 +89,17 @@ class smartGrid:
         # give cable to battery its own color
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
+
+        numberOfCables = {}
+
+        for point in self.gridPoints:
+          numberOfCables[point.ID] = 0
+
         for battery in self.batteries:
 
+            closed = set()
             color = colors[battery.ID]
+
             for houseID in battery.connectedHouses:
 
                 # Generate dijkstra path
@@ -116,16 +124,25 @@ class smartGrid:
                 pathX = []
                 pathY = []
 
+
                 for ID in path:
+                  if ID in closed:
                     pathX.append(self.gridPoints[ID].xLocation)
                     pathY.append(self.gridPoints[ID].yLocation)
+                    closed.add(ID)
+                    break
+                  else:
+                    pathX.append(self.gridPoints[ID].xLocation)
+                    pathY.append(self.gridPoints[ID].yLocation)
+                    numberOfCables[ID] += 0.2
+                    closed.add(ID)
 
                 # Draw cables
                 plt.plot(pathX, pathY, color)
 
         # Make points for houses and batteries
         plt.plot(xHouse, yHouse, "k.")
-        plt.plot(xBattery, yBattery, marker="s", linestyle="None", color="blue")
+        plt.plot(xBattery, yBattery, marker="s", color="blue", ls='None')
 
         # Draw batteries
         for battery in self.batteries:
@@ -215,10 +232,10 @@ class smartGrid:
 
         return children
 
-import houseClass
-import batteryClass
-import gridClass
+import PythonCode.Classes.houseClass as houseClass
+import PythonCode.Classes.batteryClass as batteryClass
+import PythonCode.Classes.gridClass as gridClass
 import numpy as np
-import dijkstra as dijkstra
+import PythonCode.Algorithms.dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv

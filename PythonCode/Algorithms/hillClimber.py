@@ -1,18 +1,10 @@
-from dijkstra import dijkstraSearch, reconstructPath
-import csv
-import random
-import copy
-from pathFinder import pathFinder
-
-
-def hillClimber(smartGrid):
+def hillClimber(smartGrid, numberOfLoops):
     """Find a more effective distribution of houses over batteries, by swapping
     random houses from different batteries and calculating the score"""
 
     print("hillClimbing...")
 
     savedData = []
-    numberOfLoops = 2
     sameRuns = 0
 
     # Calculate cable score for given distribution
@@ -155,8 +147,8 @@ def swap(smartGrid):
 
                 break
 
-from dijkstra import dijkstraSearch, reconstructPath
+from PythonCode.Algorithms.dijkstra import dijkstraSearch, reconstructPath
 import csv
 import random
 import copy
-from pathFinder import pathFinder
+from PythonCode.Algorithms.pathFinder import pathFinder
