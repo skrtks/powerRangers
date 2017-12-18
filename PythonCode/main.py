@@ -22,10 +22,11 @@ def main():
     print("district one     = 1")
     print("district two     = 2")
     print("district three   = 3")
+    print("For which district would you like to find a solution?")
+
 
     while True:
-        district = input("For which district would you like to find a " +
-                         "solution: ")
+        district = input("District: ")
 
         if district == '1':
             distrFile = distr1
@@ -49,12 +50,13 @@ def main():
     print("randomWithPreference         = 1")
     print("randomConnecter              = 2")
     print("greedyAlgorithm              = 3")
+    print("How would you like to connect house to battery?")
 
     # Make backup of smartGrid to make the original available
     backup = copy.deepcopy(A)
 
     while True:
-        algorithm = input('How would you like to connect house to battery: ')
+        algorithm = input("Älgorithm: ")
 
         if algorithm == '1':
             A, scoreData = connecters.randomWithPreference(A)
@@ -74,7 +76,7 @@ def main():
     print("How would you like to call your CSV file with results?")
 
     while True:
-        CSVfileName = input('filename: ')
+        CSVfileName = input("filename: ")
         if CSVfileName is not None:
             break
 
