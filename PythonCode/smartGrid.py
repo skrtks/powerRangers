@@ -6,14 +6,16 @@ class smartGrid:
         self.batteries = []
 
     def gridFiller(self):
-        """"Create grid"""
+        """"
+        Create grid
+        """
 
-        # Initiate ID, xLocation and yLocation.
+        # Initiate ID, xLocation and yLocation
         ID = 0
         xLocation = 0
         yLocation = 0
 
-        # Create instances of grid points.
+        # Create instances of grid points
         for i in range(51):
             for j in range(51):
                 self.gridPoints.append(gridClass.gridPoint(ID, xLocation,
@@ -23,15 +25,15 @@ class smartGrid:
             yLocation += 1
             xLocation = 0
 
-        self.assignGridIDs()
+        self.assignGridInfo()
 
-    def assignGridIDs(self):
+    def assignGridInfo(self):
         """
-        description
+        Assign gridID to houses and batteries
+        Change cable cost of gridPoint if it has a house on it
         returns: True if succes
         """
-        # Iterate over gridpoints and append gridpoint that match
-        # x and y locations of current house to a list.
+
         for point in self.gridPoints:
             for house in self.houses:
                 if (point.xLocation == house.xLocation and
@@ -40,17 +42,23 @@ class smartGrid:
                     point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
                 if (point.xLocation == battery.xLocation and
-                    point.yLocation == battery.yLocation):
+                        point.yLocation == battery.yLocation):
                     battery.gridID = point.ID
         return True
 
     def gridDrawer(self):
-        """"Draw grid with batteries, houses and connections"""
+        """"
+        Draw grid with batteries, houses and connections
+        """
 
+        # The price of laying a cable underneath a house
         priceUnderHouse = 5000
+
+        # The price of five batteries
         costBatteries = 25000
 
         print("drawing...")
+
         # Initiate list for coordinates from houses and batteries
         xHouse = []
         yHouse = []
@@ -77,7 +85,8 @@ class smartGrid:
         ax.grid(which='minor', alpha=0.2, linestyle='-')
         ax.grid(which='major', alpha=0.5, linestyle='-')
 
-        # Draw connections from houses to batteries in grid
+        # Draw connections from houses to batteries in grid,
+        # give cable to battery its own color
         totalScore = 0
         colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
         for battery in self.batteries:
@@ -85,24 +94,25 @@ class smartGrid:
             color = colors[battery.ID]
             for houseID in battery.connectedHouses:
 
-                # generate dijkstra path
+                # Generate dijkstra path
                 (cameFrom, score) = dijkstra.dijkstraSearch(battery, self,
                                                             self.houses[houseID]
                                                             .gridID,
                                                             battery.gridID)
                 totalScore += score[battery.gridID] - priceUnderHouse
 
-                # reconstruct the path
+                # Reconstruct the path
                 path = dijkstra.reconstructPath(cameFrom,
                                                 self.houses[houseID].gridID,
                                                 battery.gridID)
 
-                # update the costs for the gridpoints
+                # Update the costs for the gridpoints
                 for point in path:
-                    # decrease cable cost
+                    # decrease cable cost if it's not already 'free'
                     if self.gridPoints[point].cable[battery.ID] != 0:
                         self.gridPoints[point].cable[battery.ID] -= 9
 
+                # Append route of cables to battery
                 pathX = []
                 pathY = []
 
@@ -110,43 +120,45 @@ class smartGrid:
                     pathX.append(self.gridPoints[ID].xLocation)
                     pathY.append(self.gridPoints[ID].yLocation)
 
-                # Draw lines
+                # Draw cables
                 plt.plot(pathX, pathY, color)
 
         # Make points for houses and batteries
         plt.plot(xHouse, yHouse, "k.")
         plt.plot(xBattery, yBattery, marker="s", linestyle="None", color="blue")
 
+        # Draw batteries
         for battery in self.batteries:
             ax.annotate(battery.ID, (xBattery[battery.ID],
                                      yBattery[battery.ID]))
 
-        # totalScore plus battery cost
-        # totalScore += 25000
+        # Show graph and cost of smartGrid
         totalCost = totalScore + costBatteries
         plt.title("Cable cost: " + str(totalScore) + "  Battery cost: 25000 \
                 Total cost: " + str(totalCost))
         plt.show()
 
     def fileReader(self, fileHouses, fileBatteries):
-        """"Read information of houses and batteries from files"""
+        """"
+        Read information of houses and batteries from files
+        """
 
-        # Initiate ID.
+        # Initiate ID
         ID = 0
 
         # Open the file containing houses
         with open(fileHouses) as h, open(fileBatteries) as b:
 
-            # Read the file and separate values in list.
+            # Read the file and separate values in list
             readerHouses = csv.reader(h, delimiter=',', quoting=csv.QUOTE_NONE)
             readerBatteries = csv.reader(b, delimiter=',',
                                          quoting=csv.QUOTE_NONE)
 
-            # Skip the header of the file.
+            # Skip the header of the file
             next(h)
             next(b)
 
-            # Create instances of houses or batteries.
+            # Create instances of houses or batteries
             for row in readerHouses:
                 self.houses.append(houseClass.house(ID, int(row[0]),
                                                     int(row[1]),
@@ -154,16 +166,19 @@ class smartGrid:
                 ID += 1
 
             ID = 0
+
             for row in readerBatteries:
                 self.batteries.append(batteryClass.battery(ID, int(row[0]),
                                       int(row[1]), float(row[2])))
                 ID += 1
 
     def manhattanDistance(self):
-        """"Calculate mannhattendistance for avery gridpoint to batteries"""
+        """"
+        Calculate mannhattandistance for every gridpoint to batteries
+        """
 
         # Loop trough batteries and gridpoints calculate
-        # manhattendistance between them
+        # manhattandistance between them
         for battery in self.batteries:
             for gridPoint in self.gridPoints:
                 distance = abs(gridPoint.xLocation - battery.xLocation)
@@ -174,13 +189,15 @@ class smartGrid:
                 # If house on gridPoint, append distance to house
                 for house in self.houses:
                     if (house.xLocation == gridPoint.xLocation and
-                        house.yLocation == gridPoint.yLocation):
+                            house.yLocation == gridPoint.yLocation):
                         house.manhattanDistance.append(distance)
 
     def children(self, gridPoint):
-        '''returns gridpoint ID's for possible moves from current gridpoint'''
+        '''
+        returns gridpoint IDs for possible moves from current gridpoint
+        '''
 
-        # Calculate possible locations for x and y
+        # Calculate location of children
         childrenX = [gridPoint.xLocation - 1, gridPoint.xLocation,
                      gridPoint.xLocation + 1, gridPoint.xLocation]
         childrenY = [gridPoint.yLocation, gridPoint.yLocation - 1,
@@ -193,7 +210,7 @@ class smartGrid:
         for gridpoint in self.gridPoints:
             for i in range(4):
                 if (gridpoint.xLocation == childrenX[i] and
-                    gridpoint.yLocation == childrenY[i]):
+                        gridpoint.yLocation == childrenY[i]):
                     children.append(gridpoint.ID)
 
         return children
