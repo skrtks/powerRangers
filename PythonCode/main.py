@@ -5,6 +5,7 @@ from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
 
+
 def main():
 
     A = smartGrid()
@@ -23,7 +24,6 @@ def main():
     print("district two     = 2")
     print("district three   = 3")
     print("For which district would you like to find a solution?")
-
 
     while True:
         district = input("District: ")
@@ -103,7 +103,8 @@ def main():
 
                     scoreData, A = hillClimber(A)
 
-                    if scoreData["score"] <= bestScore:
+                    if scoreData[1]["score"] <= bestScore:
+                        bestScore = scoreData[1]["score"]
                         bestConfig = copy.deepcopy(A)
 
                     writeCSV(scoreData, filename)
@@ -112,6 +113,7 @@ def main():
                 break
 
             elif algorithm is '3':
+                A, scoreData = connecters.greedyAlgorithm(A)
                 scoreData, A = hillClimber(A)
                 filename = str(CSVfileName) + ".csv"
                 writeCSV(scoreData, filename)
