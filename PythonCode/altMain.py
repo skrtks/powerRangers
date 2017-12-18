@@ -1,5 +1,6 @@
 from smartGrid import smartGrid
 import connecters
+import copy
 from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
@@ -7,6 +8,8 @@ from CSVWriter import writeCSV
 def main():
 
     A = smartGrid()
+    scoreData = {}
+    algorithm = ""
 
     # Dict for every district file
     distr1 = {"house": "../Huizen&Batterijen/wijk1_huizen.csv", "battery":
@@ -21,8 +24,8 @@ def main():
     print("district three   = 3")
 
     while True:
-        district = input('For which district would you like to find an \
-                        solution: ')
+        district = input("For which district would you like to find a " +
+                         "solution: ")
 
         if district == '1':
             distrFile = distr1
@@ -55,6 +58,9 @@ def main():
     # print("connectWithHouses1           = 2")
     # print("connectWithHouses2           = 3")
 
+    # Make backup of smartGrid to make the original available
+    backup = copy.deepcopy(A)
+
     while True:
         algorithm = input('How would you like to connect house to battery: ')
 
@@ -85,25 +91,57 @@ def main():
         else:
             print("Please type: 1, 2 or 3")
 
-    while True:
-        climbing = input('Would you like to apply the hill climber (y / n)?')
-
-        if climbing == 'y':
-            scoreData, A = hillClimber(A)
-            break
-        elif climbing == 'n':
-            break
-        else:
-            print("Please type: y or n")
-
     print("How would you like to call your CSV file with results?")
 
     while True:
-        CSVfile = input('filename:')
-        if str(CSVfile) is not None:
-            filename = "results" + str(CSVfile) + ".csv"
+        CSVfileName = input('filename: ')
+        if CSVfileName is not None:
+            break
+
+    while True:
+        climbing = input('Would you like to apply the hill climber (y / n)? ')
+
+        if climbing == 'y':
+            if algorithm is '1':
+                for i in range(2):
+                    filename = str(CSVfileName) + str(i) + ".csv"
+                    # A = connecters.randomConnecter(A)
+                    A = copy.deepcopy(backup)
+                    A, scoreRandom = connecters.randomWithPreference(A)
+                    scoreData, A = hillClimber(A)
+                    writeCSV(scoreData, filename)
+
+                break
+
+            elif algorithm is '2':
+                for i in range(2):
+                    filename = str(CSVfileName) + str(i) + ".csv"
+                    # A = connecters.randomConnecter(A)
+                    A = copy.deepcopy(backup)
+                    A, scoreRandom = connecters.randomConnecter(A)
+                    scoreData, A = hillClimber(A)
+                    writeCSV(scoreData, filename)
+
+                break
+
+            elif algorithm is '3':
+                scoreData, A = hillClimber(A)
+                filename = str(CSVfileName) + ".csv"
+                writeCSV(scoreData, filename)
+                break
+
+        elif climbing == 'n':
+            # break
+            filename = str(CSVfileName) + ".csv"
             writeCSV(scoreData, filename)
             break
+
+        else:
+            print("Please type: y or n")
+
+
+
+
 
     A.gridDrawer()
 

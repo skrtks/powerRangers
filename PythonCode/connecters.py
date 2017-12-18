@@ -1,3 +1,8 @@
+import copy
+import random
+
+
+
 """This file contains several functions to distribute houses over batteries.
 Only one has to be used, randomWithPreference gives best results"""
 
@@ -40,7 +45,8 @@ def randomWithPreference(smartGrid):
                                          house.manhattanDistance[battery.ID])
 
                 for battery in sortedBatteries:
-                    if smartGrid.batteries[battery.ID].capacity >= smartGrid.houses[house.ID].power and not smartGrid.houses[house.ID].connected:
+                    if smartGrid.batteries[battery.ID].capacity >= smartGrid.houses[house.ID].power \
+                            and not smartGrid.houses[house.ID].connected:
                         smartGrid.batteries[battery.ID].capacity -= house.power
                         smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
                         smartGrid.houses[house.ID].connected = True
@@ -106,8 +112,16 @@ def randomConnecter(smartGrid):
         run += 1
 
     savedData.append({"runs": run, "score": connecterScore,
-                      "battery0": 0, "battery1": 0,
-                      "battery2": 0, "battery3": 0, "battery4": 0})
+                      "battery0": copy.deepcopy(smartGrid.batteries[0]
+                                                .connectedHouses),
+                      "battery1": copy.deepcopy(smartGrid.batteries[1]
+                                                .connectedHouses),
+                      "battery2": copy.deepcopy(smartGrid.batteries[2]
+                                                .connectedHouses),
+                      "battery3": copy.deepcopy(smartGrid.batteries[3]
+                                                .connectedHouses),
+                      "battery4": copy.deepcopy(smartGrid.batteries[4]
+                                                .connectedHouses)})
 
     return smartGrid, savedData
 
@@ -133,8 +147,16 @@ def greedyAlgorithm(smartGrid):
                 connecterScore += house.manhattanDistance[battery.ID]
 
     savedData.append({"runs": 0, "score": connecterScore,
-                      "battery0": 0, "battery1": 0, "battery2": 0,
-                      "battery3": 0, "battery4": 0})
+                      "battery0": copy.deepcopy(smartGrid.batteries[0]
+                                                .connectedHouses),
+                      "battery1": copy.deepcopy(smartGrid.batteries[1]
+                                                .connectedHouses),
+                      "battery2": copy.deepcopy(smartGrid.batteries[2]
+                                                .connectedHouses),
+                      "battery3": copy.deepcopy(smartGrid.batteries[3]
+                                                .connectedHouses),
+                      "battery4": copy.deepcopy(smartGrid.batteries[4]
+                                                .connectedHouses)})
 
     return smartGrid, savedData
 
@@ -210,6 +232,6 @@ def connectWithHouses2(smartGrid):
     return True
 
 
-import random
-import copy
-import itertools
+# import random
+#
+# import itertools

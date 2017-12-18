@@ -40,7 +40,7 @@ class smartGrid:
                     point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
                 if (point.xLocation == battery.xLocation and
-                    point.yLocation == battery.yLocation):
+                        point.yLocation == battery.yLocation):
                     battery.gridID = point.ID
         return True
 
@@ -166,15 +166,15 @@ class smartGrid:
         # manhattendistance between them
         for battery in self.batteries:
             for gridPoint in self.gridPoints:
-                distance = abs(gridPoint.xLocation - battery.xLocation)
-                + abs(gridPoint.yLocation - battery.yLocation)
+                distance = (abs(gridPoint.xLocation - battery.xLocation)
+                            + abs(gridPoint.yLocation - battery.yLocation))
                 gridPoint.manhattanDistance.append(distance)
                 gridPoint.cable.append(9)
 
                 # If house on gridPoint, append distance to house
                 for house in self.houses:
                     if (house.xLocation == gridPoint.xLocation and
-                        house.yLocation == gridPoint.yLocation):
+                            house.yLocation == gridPoint.yLocation):
                         house.manhattanDistance.append(distance)
 
     def children(self, gridPoint):
@@ -193,7 +193,7 @@ class smartGrid:
         for gridpoint in self.gridPoints:
             for i in range(4):
                 if (gridpoint.xLocation == childrenX[i] and
-                    gridpoint.yLocation == childrenY[i]):
+                        gridpoint.yLocation == childrenY[i]):
                     children.append(gridpoint.ID)
 
         return children
@@ -202,8 +202,7 @@ import houseClass
 import batteryClass
 import gridClass
 import numpy as np
-import itertools
 import dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv
-from pathFinder import pathFinder
+
