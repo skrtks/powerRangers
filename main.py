@@ -140,15 +140,24 @@ def main():
             elif algorithm is '3':
 
                 if distrFile == distr3:
-                    print(("GreedyAlgorithm has no solution for district three")
-                          + (", please use another algorithm."))
-                    main()
+                    print(("Hillclimber cannot be apllied in this case") +
+                        (" because GreedyAlgorithm has no complete") +
+                        (" solution for district three."))
 
-                A, scoreData = connecters.greedyAlgorithm(A)
-                scoreData, A = hillClimber(A, numberOfLoops)
+                    draw = input("Do you still want to draw the grid?") +
+                            ("(y / n)")
 
-                filename = str(CSVfileName) + ".csv"
-                writeCSV(scoreData, filename)
+                    if draw == 'y':
+                        A, scoreData = connecters.greedyAlgorithm(A)
+                    else:
+                        main()
+
+                else:
+                    A, scoreData = connecters.greedyAlgorithm(A)
+                    scoreData, A = hillClimber(A, numberOfLoops)
+
+                    filename = str(CSVfileName) + ".csv"
+                    writeCSV(scoreData, filename)
 
                 break
 
