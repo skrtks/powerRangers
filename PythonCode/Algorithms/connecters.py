@@ -1,3 +1,8 @@
+import random
+import copy
+import itertools
+
+
 def randomWithPreference(smartGrid, numberOfLoops):
     """
     Finds connection for houses to batteries with preference for batteries with
@@ -29,30 +34,34 @@ def randomWithPreference(smartGrid, numberOfLoops):
 
             random.shuffle(shuffledHouses)
 
-            # Loop trough random shuffled houses and batteries and connect
+            # Loop trough random shuffled houses and sorted batteries,
+            # connect if possible
             for house in shuffledHouses:
 
-                # Loop trough batteries sorted on closest manhattandistance for
-                # current house
+                # Sort batteries on smallest manhattan distance
+                # between house and battery
                 sortedBatteries = sorted(shuffledBatteries, key=lambda battery:
                                          house.manhattanDistance[battery.ID])
 
                 for battery in sortedBatteries:
-                    if smartGrid.batteries[battery.ID].capacity >= smartGrid.houses[house.ID].power \
-                            and not smartGrid.houses[house.ID].connected:
+                    if smartGrid.batteries[battery.ID].capacity >= \
+                    smartGrid.houses[house.ID].power and not \
+                    smartGrid.houses[house.ID].connected:
                         smartGrid.batteries[battery.ID].capacity -= house.power
-                        smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
+                        smartGrid.batteries[battery.ID].connectedHouses\
+                        .append(house.ID)
                         smartGrid.houses[house.ID].connected = True
                         smartGrid.houses[house.ID].batteryID = battery.ID
                         unconnected -= 1
                         connecterScore += house.manhattanDistance[battery.ID]
                         break
 
-        # Remeber values of bestscore
+        # Remeber values of bestScore
         if connecterScore < bestScore:
             bestConfig = copy.deepcopy(smartGrid)
             bestScore = connecterScore
 
+        # Save connection data for CSV file
         savedData.append({"runs": run, "score": connecterScore,
                           "battery0": 0, "battery1": 0, "battery2": 0,
                           "battery3": 0, "battery4": 0})
@@ -83,14 +92,16 @@ def randomConnecter(smartGrid):
         connecterScore = 0
         run = 0
 
+        # Set back to original smartGrid state
         smartGrid = copy.deepcopy(backup)
         shuffledHouses = copy.deepcopy(backup.houses)
         shuffledBatteries = copy.deepcopy(backup.batteries)
 
+        # Shuffle houses and batteries
         random.shuffle(shuffledHouses)
         random.shuffle(shuffledBatteries)
 
-        # Loop trough random shuffled houses and batteries and connect
+        # Loop trough houses and batteries and connect
         for house in shuffledHouses:
             for battery in shuffledBatteries:
                 if (smartGrid.batteries[battery.ID].capacity >=
@@ -106,6 +117,7 @@ def randomConnecter(smartGrid):
                     break
         run += 1
 
+    # Save connection data for CSV file
     savedData.append({"runs": run, "score": connecterScore,
                       "battery0": copy.deepcopy(smartGrid.batteries[0]
                                                 .connectedHouses),
@@ -128,6 +140,8 @@ def greedyAlgorithm(smartGrid):
 
     savedData = []
     connecterScore = 0
+
+    # Sort houses on power output
     sortedPower = sorted(smartGrid.houses, key=lambda house: house.power,
                          reverse=True)
 
@@ -143,6 +157,7 @@ def greedyAlgorithm(smartGrid):
                 smartGrid.houses[house.ID].batteryID = battery.ID
                 connecterScore += house.manhattanDistance[battery.ID]
 
+    # Save connection data for CSV file
     savedData.append({"runs": 0, "score": connecterScore,
                       "battery0": copy.deepcopy(smartGrid.batteries[0]
                                                 .connectedHouses),
@@ -156,7 +171,3 @@ def greedyAlgorithm(smartGrid):
                                                 .connectedHouses)})
 
     return smartGrid, savedData
-
-import random
-import copy
-import itertools

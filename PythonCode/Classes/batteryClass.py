@@ -1,7 +1,7 @@
 class battery:
     """
-    Class for batteries: takes ID, x and y coordinates, power capactity, gridID of
-    battery location, houseID of connected house.  
+    Class for batteries: takes ID, x and y coordinates, power capactity, gridID
+    of battery location, houseID of connected house.  
     """
 
     def __init__(self, ID, xLocation, yLocation, capacity, gridID=None,
