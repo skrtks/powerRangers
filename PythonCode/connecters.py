@@ -3,10 +3,12 @@ Only one has to be used, randomWithPreference gives best results"""
 
 
 def randomWithPreference(smartGrid):
-    """Find connection for houses to batteries with preverence for batteries with
+    """
+    Finds connection for houses to batteries with preverence for batteries with
     the smallest manhattan distance. Only replaces connections when the total
     sum of manhatten distances is smaller than the total sum of the previous
-    found connection"""
+    found connection.
+    """
 
     print("connecting houses and batteries...")
 
@@ -17,8 +19,10 @@ def randomWithPreference(smartGrid):
 
     for run in range(numberOfLoops):
         unconnected = len(smartGrid.houses)
+
         # Loop untill all houses are connected
         while unconnected > 0:
+
             # Copy houses and batteries to remember unshuffled order and set
             # changes back in new loop
             unconnected = len(smartGrid.houses)
@@ -29,7 +33,6 @@ def randomWithPreference(smartGrid):
             shuffledBatteries = copy.deepcopy(backup.batteries)
 
             random.shuffle(shuffledHouses)
-            # random.shuffle(shuffledBatteries)
 
             # Loop trough random shuffled houses and batteries and connect
             for house in shuffledHouses:
@@ -65,8 +68,10 @@ def randomWithPreference(smartGrid):
 
 
 def randomConnecter(smartGrid):
-    """Randomly distributes houses over batteries,
-       stops when a solution is found"""
+    """
+    Randomly distributes houses over batteries,
+    stops when a solution is found.
+    """
 
     print("distributing houses over batteries...")
 
@@ -113,7 +118,9 @@ def randomConnecter(smartGrid):
 
 
 def greedyAlgorithm(smartGrid):
-    """"Connect all houses by sorting them on power"""
+    """"
+    Connect all houses by sorting them on power, always gives the same solution.
+    """
 
     savedData = []
     connecterScore = 0
@@ -137,78 +144,6 @@ def greedyAlgorithm(smartGrid):
                       "battery3": 0, "battery4": 0})
 
     return smartGrid, savedData
-
-
-def connectWithBatteries(smartGrid):
-    """"Connect houses with nearest batteries """
-
-    sortedPower = sorted(smartGrid.houses, key=lambda house: house.power,
-                         reverse=True)
-
-    # Loop trough houses sorted on power (biggest to smallest power)
-    for house in sortedPower:
-        sortedBatteries = sorted(smartGrid.batteries, key=lambda battery:
-                                 house.manhattanDistance[battery.ID])
-
-        # Loop trough batteries sorted on manhattanDistance
-        # (smallest to biggest manhattanDistance)
-        for battery in sortedBatteries:
-            if battery.capacity >= house.power:
-                battery.capacity = house.power
-                battery.connectedHouses.append(house.ID)
-                house.batteryID = battery.ID
-                house.connected = True
-                break
-
-    return True
-
-
-def connectWithHouses1(smartGrid):
-    """ Connect batteries with nearest houses """
-
-    # Loop trough batteries
-    for battery in smartGrid.batteries:
-        sortedHouses = sorted(smartGrid.houses, key=lambda
-                              house: house.manhattanDistance[battery.ID])
-
-        # Loop trough houses sorted on manhattanDistance
-        # (smallest to biggest manhattanDistance)
-        for house in sortedHouses:
-            if battery.capacity > house.power and not house.connected:
-                battery.capacity = house.power
-                battery.connectedHouses.append(house.ID)
-                house.batteryID = battery.ID
-                house.connected = True
-
-    return True
-
-
-def connectWithHouses2(smartGrid):
-    """Connect batteries with nearest houses,
-    let every battery pick one house at a time"""
-
-    unconnected = len(smartGrid.houses)
-
-    while unconnected > 2:
-
-        # Loop trough batteries
-        for battery in smartGrid.batteries:
-            sortedHouses = sorted(smartGrid.houses, key=lambda
-                                  house: house.manhattanDistance[battery.ID])
-
-            # Loop trough houses sorted on manhattanDistance
-            # (smallest to biggest manhattanDistance)
-            for house in sortedHouses:
-                if battery.capacity > house.power and not house.connected:
-                    battery.capacity = house.power
-                    battery.connectedHouses.append(house.ID)
-                    house.connected = True
-                    house.batteryID = battery.ID
-                    unconnected = 1
-                    break
-
-    return True
-
 
 import random
 import copy
