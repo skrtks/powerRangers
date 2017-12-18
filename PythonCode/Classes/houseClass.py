@@ -2,7 +2,7 @@ class house:
     """
     Class for houses: takes ID, x and y coordinates, power output, gridID of
     house location, connected with battery, cable costs to battery, batteryID of
-    connected battery and manhatte to batteries.
+    connected battery and manhattan distance to batteries.
     """
 
     def __init__(self, ID, xLocation, yLocation, power, gridID=None,

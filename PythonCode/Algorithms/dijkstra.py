@@ -8,7 +8,7 @@ import heapq
 class PriorityQueue:
     """
     Queue to safe gridpoints with priority. This is inspired on a queue
-    from https://www.redblobgames.com/pathfinding/a-star/implementation.html
+    from: https://www.redblobgames.com/pathfinding/a-star/implementation.html
     """
 
     # Initiate with empty list
@@ -43,7 +43,7 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
         # Set current to the first node in the queue
         current = frontier.get()
 
-        # Check if goal has been reached
+        # Check if goal is reached
         if current == goalGridPointID:
             break
 
@@ -55,7 +55,7 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
             newCost = (costSoFar[current]
                        + smartGrid.gridPoints[current].cable[battery.ID])
 
-            # Make sure child is not visited twice inless with lower cost
+            # Make sure child is not visited twice unless with lower cost
             if child not in costSoFar or newCost < costSoFar[child]:
                 # Set cost to reach child
                 costSoFar[child] = newCost
@@ -75,7 +75,9 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 
 
 def reconstructPath(cameFrom, start, goal):
-    """Reconstruct path from battery to house"""
+    """
+    Reconstruct path from battery to house.
+    """
 
     # Start at end
     current = goal
