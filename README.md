@@ -48,10 +48,12 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 ## Changing used district
 
-When running main.py you will be asked which district to run and which arlorithm to use. 
+  When running main.py you will be asked which district to run, which algorithm to use and whether to apply the hillclimber
 
-To change the number of loops for the connecter and/or the hillClimber change 'numberOfLoops' 
-in conneter.py and/or hillClimber.py
+  To change the number of loops for the connecter and/or the hillClimber change 'numberOfLoops' 
+  in randomWithPreference connecter.py and/or hillClimber.py
+
+  To change the number of loops for the hillclimber with connecter change 'numberOfLoops' in main.py. This specifies how many times the   hillblimber will start for a new connection. The number of loops described above is implemented in these runs. 
 
 ## Built With
 ```
@@ -60,13 +62,13 @@ in conneter.py and/or hillClimber.py
 
 ## Authors
 ```
-- Sam Kortekaas            [skrtks](https://github.com/skrtks)
-- Daphne Witmer            [10588094](https://github.com/10588094)
-- Ida Segond von Banchet   [igcsvb](https://github.com/igcsvb)
+  Sam Kortekaas            [skrtks](https://github.com/skrtks)
+  Daphne Witmer            [10588094](https://github.com/10588094)
+  Ida Segond von Banchet   [igcsvb](https://github.com/igcsvb)
 ```
 
 ## Acknowledgments
 ```
-- Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
-- Tech assistent: Maarten van der Sande
+  Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
+  Tech assistent: Maarten van der Sande
 ```
