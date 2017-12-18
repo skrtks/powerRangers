@@ -25,7 +25,6 @@ def pathFinder(battery, smartGrid, houseID):
                 gridpoint.yLocation == smartGrid.houses[houseID].yLocation):
             openlist.append(gridpoint.ID)
 
-    #
     while openlist:
 
         # Dict gridPointInfo
