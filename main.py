@@ -29,10 +29,10 @@ def main():
               "Huizen&Batterijen/wijk3_batterijen.csv"}
 
     # Select csv file for district that the user wants
-    print("district one     = 1")
-    print("district two     = 2")
-    print("district three   = 3")
-    print("For which district would you like to find a solution?")
+    print("For which district would you like to find a solution?\n")
+    print("district one           = 1")
+    print("district two           = 2")
+    print("district three         = 3 \n")
 
     # Prompt user for district 1, 2 or 3
     while True:
@@ -51,7 +51,7 @@ def main():
             break
 
         else:
-            print("Please type: 1, 2 or 3")
+            print("\nPlease type: 1, 2 or 3 \n")
 
     # Read data from file, safe information in classes and calculate
     # manhattan distance for each gridpoint
@@ -63,10 +63,10 @@ def main():
     backup = copy.deepcopy(A)
 
     # Prompt user for connector algorithm 1, 2 or 3
-    print("randomWithPreference         = 1")
-    print("randomConnecter              = 2")
-    print("greedyAlgorithm              = 3")
-    print("How would you like to connect house to battery?")
+    print("\nrandomWithPreference   = 1")
+    print("randomConnecter        = 2")
+    print("greedyAlgorithm        = 3\n")
+    print("How would you like to connect houses to batteries?\n")
 
     while True:
         algorithm = input("Algorithm: ")
@@ -74,10 +74,10 @@ def main():
         if algorithm is '1' or algorithm is '2' or algorithm is '3':
             break
         else:
-            print("Please type: 1, 2 or 3")
+            print("\nPlease type: 1, 2 or 3\n")
 
     # Let the user choose a name for the CSV file
-    print("How would you like to call your CSV file with results?")
+    print("\nHow would you like to call your CSV file with results?\n")
 
     while True:
         CSVfileName = input("filename: ")
@@ -86,7 +86,7 @@ def main():
 
     # Ask the user whether they want to apply the hillclimber
     while True:
-        climbing = input('Would you like to apply the hill climber (y / n)? ')
+        climbing = input("Would you like to apply the hill climber (y / n)? ")
 
         # Bestscore set to extremely number maxScore,
         # so it gets easily overwritten
@@ -140,9 +140,9 @@ def main():
             elif algorithm is '3':
 
                 if distrFile == distr3:
-                    print(("Hillclimber cannot be apllied in this case") +
+                    print(("\nHillclimber cannot be apllied in this case") +
                         (" because GreedyAlgorithm has no complete") +
-                        (" solution for district three."))
+                        (" solution for district three.\n"))
 
                     draw = input("Do you still want to draw the grid?") +
                             ("(y / n)")
@@ -179,7 +179,7 @@ def main():
 
         # Else ask for valid input
         else:
-            print("Please type: y or n")
+            print("\nPlease type: y or n\n")
 
     # Draw grid
     A.gridDrawer()
