@@ -5,6 +5,7 @@ from hillClimber import hillClimber
 from simulatedAnnealing import simulatedAnnealing
 from CSVWriter import writeCSV
 
+
 def main():
 
     A = smartGrid()
