@@ -138,8 +138,14 @@ def main():
 
             # Run with greedyAlgorithm
             elif algorithm is '3':
+
+                if distrFile == distr3:
+                    print(("GreedyAlgorithm has no solution for district three")
+                          + (", please use another algorithm."))
+                    main()
+
                 A, scoreData = connecters.greedyAlgorithm(A)
-                scoreData, A = hillClimber(A)
+                scoreData, A = hillClimber(A, numberOfLoops)
 
                 filename = str(CSVfileName) + ".csv"
                 writeCSV(scoreData, filename)

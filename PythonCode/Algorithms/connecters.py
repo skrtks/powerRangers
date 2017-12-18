@@ -9,6 +9,9 @@ def randomWithPreference(smartGrid, numberOfLoops):
     the smallest manhattan distance. Only replaces connections when the total
     sum of manhattandistances is smaller than the total sum of the previous
     found connection.
+
+    Args: smartGrid, numberOfLoops
+    Returns: smartGrid,savedData
     """
 
     print("connecting houses and batteries...")
@@ -76,6 +79,9 @@ def randomConnecter(smartGrid):
     """
     Randomly distributes houses over batteries,
     stops when a solution is found.
+
+    Args: smartGrid
+    Returns: smartGrid, savedData
     """
 
     print("distributing houses over batteries...")
@@ -136,6 +142,9 @@ def randomConnecter(smartGrid):
 def greedyAlgorithm(smartGrid):
     """"
     Connect all houses by sorting them on power, always gives the same solution.
+
+    Args: smartGrid
+    Returns: smartGrid, savedData
     """
 
     savedData = []
