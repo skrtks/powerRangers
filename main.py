@@ -145,8 +145,8 @@ def main():
                         (" because GreedyAlgorithm has no complete") +
                         (" solution for district three.\n"))
 
-                    draw = input("Do you still want to draw the grid?") +
-                            ("(y / n)")
+                    draw = input(("Do you still want to draw the grid?") +
+                                 "(y / n)")
 
                     if draw == 'y':
                         A, scoreData = connecters.greedyAlgorithm(A)
