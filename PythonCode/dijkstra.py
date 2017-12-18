@@ -10,10 +10,10 @@ import heapq
 
 class PriorityQueue:
     """
-this is a prio queue stolen
-from https://www.redblobgames.com/pathfinding/a-star/implementation.html
-
+    this is a prio queue stolen
+    from https://www.redblobgames.com/pathfinding/a-star/implementation.html
     """
+
     def __init__(self):
         self.elements = []
 
@@ -28,6 +28,10 @@ from https://www.redblobgames.com/pathfinding/a-star/implementation.html
 
 
 def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
+    """
+    Find shortes path from house to battery
+    """
+
     frontier = PriorityQueue()
     frontier.put(startGridPointID, 0)
     cameFrom = {startGridPointID: None}
@@ -57,6 +61,9 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 
 
 def reconstructPath(cameFrom, start, goal):
+    """
+    battery - house
+    """
     current = goal
     path = []
     while current != start:
