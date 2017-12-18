@@ -4,11 +4,11 @@ For 'programmeertheorie I' we have to find an efficient solution for connecting 
 
 A district has a size of 50 x 50 and contains 150 houses with different energy outputs and 5 batteries with a capacity of 1500kW each. We use different algorithms to find a solution to connect houses to batteries and algorithms to lay cables between houses and batteries.
 
-## folder pyhtonCode
+## python files
 
 main.py:
 
-smartGrid.py:
+**smartGrid.py:**
 - housesList: List containing house objects
 - batteries: List containing battery objects
 - gridPoints: List containing gridPoint objects
@@ -19,31 +19,32 @@ smartGrid.py:
 - manhattanDistance(self): Calculate manhattan distance for every gridpoint to batteries
 - children(self, gridPoint): Returns gridpoint ID's for possible moves from current gridpoint
 
-gridClass.py: Class for grid segments, takes ID, x and y coordinates,cable costs and manhattendistrance to batteries
+**gridClass.py:** Class for grid segments, takes ID, x and y coordinates,cable costs and manhattendistrance to batteries
 
-houseClass.py: Define a class for houses, takes ID, x and coordinates, power output, boolean connected, score, batteryID and           manhattandistances to batteries
+**houseClass.py:** Define a class for houses, takes ID, x and coordinates, power output, boolean connected, score, batteryID and           manhattandistances to batteries
 
-batteryClass.py: Define a class for batteries, takes ID, x and y coordinates, capacity and list of connected houses
+**batteryClass.py:** Define a class for batteries, takes ID, x and y coordinates, capacity and list of connected houses
 
-Connecters.py:
+**connecters.py:**
 - randomConnecter(smartGrid): Finds connection for houses to batteries with preverence for batteries with
                  the smallest manhattan distance.</li>
 - randomWithPreference(smartGrid): Connect all houses by sorting them on power output (biggest to smallest) with nearest                   batteries
 - greedyAlgorithm(smartGrid): Connect all houses by sorting them on power output (biggest to smallest)
 
-dijkstra.py:Dijkstra algorithm to find shortest path between battery and house
+**dijkstra.py:** Dijkstra algorithm to find shortest path between battery and house
 
-pathfinder.py: Algorithm to find shortest path between house and battery
+**pathfinder.py:** Algorithm to find shortest path between house and battery
 
-CSVWriter.py: Make new CSV file containing results
+**CSVWriter.py:** Make new CSV file containing results
 
-hillCLimber.py: Swap houses several times to find better solution to append houses to battery
+**hillCLimber.py:** Swap houses several times to find better solution to append houses to battery
 
 ## Prerequisites
-
+```
 - Mathlib 
 - Plotlib
 - Python3
+```
 
 ## Changing used district
 
@@ -53,16 +54,17 @@ To change the number of loops for the connecter and/or the hillClimber change 'n
 in conneter.py and/or hillClimber.py
 
 ## Built With
-
+```
 * Python3
+```
 
 ## Authors
 
-* Sam Kortekaas            [skrtks](https://github.com/skrtks)
-* Daphne Witmer            [10588094](https://github.com/10588094)
-* Ida Segond von Banchet   [igcsvb](https://github.com/igcsvb)
+- Sam Kortekaas            [skrtks](https://github.com/skrtks)
+- Daphne Witmer            [10588094](https://github.com/10588094)
+- Ida Segond von Banchet   [igcsvb](https://github.com/igcsvb)
 
 ## Acknowledgments
 
-* Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
-* Tech assistent: Maarten van der Sande
+- Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
+- Tech assistent: Maarten van der Sande
