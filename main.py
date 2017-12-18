@@ -12,13 +12,13 @@ def main():
     maxScore = 100000
 
     # Set number of loops for hillclimber
-    numberOfLoops = 2
+    numberOfLoops = 10
 
     # Set number of loops to run a connector algortihm
-    numberOfConnections = 10
+    numberOfConnections = 50
 
     # Set number of houseswaps in hillclimber
-    numberOfSwaps = 3
+    numberOfSwaps = 10000
 
     # Dict for every district file
     distr1 = {"house": "Huizen&Batterijen/wijk1_huizen.csv", "battery":
