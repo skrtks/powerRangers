@@ -1,9 +1,10 @@
 from  PythonCode.Classes.smartGrid import smartGrid
 import itertools
 
+
 def pathFinder(battery, smartGrid, houseID):
     """
-    Search algorithm to search a fast route from house to battery.
+    Greedy algorithm to search a fast route from house to battery.
     Inspired by: http://web.mit.edu/eranki/www/tutorials/search/
                  https://gist.github.com/jamiees2/5531924
     """
@@ -28,14 +29,14 @@ def pathFinder(battery, smartGrid, houseID):
     while openlist:
 
         # Dict gridPointInfo
-        gridPointInfo = {'ID': [], 'Dist':[], 'Cost': []}
+        gridPointInfo = {'ID': [], 'Dist': [], 'Cost': []}
 
         # Remove gridID if in closedlist
         for gridID in openlist:
             if gridID in closedlist:
                 openlist.remove(gridID)
 
-        # Append gridID, manhattandistance and cost to gridPointInfo
+        # Append gridID, manhattan distance and cost to gridPointInfo
         for gridID in openlist:
             gridPointInfo['ID'].append(gridID)
             gridPointInfo['Dist'].append(smartGrid.gridPoints[gridID]

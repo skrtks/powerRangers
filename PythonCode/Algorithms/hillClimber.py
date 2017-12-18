@@ -1,6 +1,15 @@
+from PythonCode.Algorithms.dijkstra import dijkstraSearch, reconstructPath
+import csv
+import random
+import copy
+from PythonCode.Algorithms.pathFinder import pathFinder
+
+
 def hillClimber(smartGrid, numberOfLoops):
-    """Find a more effective distribution of houses over batteries, by swapping
-    random houses from different batteries and calculating the score"""
+    """
+    Find a more effective distribution of houses over batteries, by swapping
+    random houses from different batteries and calculating the score.
+    """
 
     print("hillClimbing...")
 
@@ -20,6 +29,7 @@ def hillClimber(smartGrid, numberOfLoops):
         # Swap houses and calculate new score
         swap(smartGrid)
         currentScore = calculateScore(smartGrid)
+
         # If score is lower change into bestscore and safe data
         if currentScore <= bestScore:
             backup = copy.deepcopy(smartGrid)
@@ -68,8 +78,10 @@ def hillClimber(smartGrid, numberOfLoops):
 
 
 def calculateScore(smartGrid):
-    """Use a connecter function to calculate the cablecosts. Use pathfinder for
-    a quicker result compared to dijkstra"""
+    """
+    Use a connecter function to calculate the cablecosts. Use pathfinder for
+    a quicker result compared to dijkstra algorithm.
+    """
 
     totalScore = 0
     for battery in smartGrid.batteries:
@@ -84,34 +96,21 @@ def calculateScore(smartGrid):
     for point in smartGrid.gridPoints:
         point.cable = [9, 9, 9, 9, 9]
 
-        # Reset cable cost for gridPoint with house
         for house in smartGrid.houses:
             if point.ID == house.gridID:
                 point.cable = [5000, 5000, 5000, 5000, 5000]
 
     return totalScore
 
-    # # generate dijkstra path
-    # (cameFrom, score) = dijkstraSearch(battery, smartGrid, house.ID, battery.ID)
-    # totalScore += score[battery.gridID]
-    #
-    # # reconstruct the path
-    # path = reconstructPath(cameFrom, smartGrid.houses[houseID].gridID,
-    #                        battery.gridID)
-    #
-    # # update the costs for the gridpoints
-    # for point in path:
-    #     smartGrid.gridPoints[point].cable[battery.ID] = 0
-
 
 def swap(smartGrid):
     """
     Swap houses from different batteries if battery has sufficient capacity.
-    Picks a random house to swap but has a preverence to swap with a house that
-    hasthe highest cable costs
+    Picks a random house to swap but has a preference to swap with a house that
+    has the highest cable costs.
     """
 
-    # Sort on houses with higher cable cost first
+    # Sort houses by cost, from high to low
     sortedHouses = sorted(smartGrid.houses, key=lambda house:
                           house.score, reverse=True)
 
@@ -146,9 +145,3 @@ def swap(smartGrid):
                                                             house.batteryID)
 
                 break
-
-from PythonCode.Algorithms.dijkstra import dijkstraSearch, reconstructPath
-import csv
-import random
-import copy
-from PythonCode.Algorithms.pathFinder import pathFinder

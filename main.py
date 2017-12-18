@@ -9,15 +9,15 @@ def main():
     A = smartGrid()
     scoreData = {}
     algorithm = ""
-    MaxScore = 100000
+    maxScore = 100000
 
-    # Choose how many times you want to find new connections and hillclimb
+    # Set number of loops for hillclimber
     numberOfLoops = 2
 
-    # Choose how many connections you want to try to optimalize
+    # Set number of loops to run a connector algortihm
     numberOfConnections = 10
 
-    # Choose how many times you want to let the hillclimber swap houses
+    # Set number of houseswaps in hillclimber
     numberOfSwaps = 3
 
     # Dict for every district file
@@ -34,6 +34,7 @@ def main():
     print("district three   = 3")
     print("For which district would you like to find a solution?")
 
+    # Prompt user for district 1, 2 or 3
     while True:
         district = input("District: ")
 
@@ -61,7 +62,7 @@ def main():
     # Make backup of smartGrid to make the original available
     backup = copy.deepcopy(A)
 
-    # Select the algortihm that the user wants to use
+    # Prompt user for connector algorithm 1, 2 or 3
     print("randomWithPreference         = 1")
     print("randomConnecter              = 2")
     print("greedyAlgorithm              = 3")
@@ -83,12 +84,15 @@ def main():
         if CSVfileName is not None:
             break
 
-    # Ask the user whether they want to apply the hillClimber
+    # Ask the user whether they want to apply the hillclimber
     while True:
         climbing = input('Would you like to apply the hill climber (y / n)? ')
 
-        bestScore = MaxScore
+        # Bestscore set to extremely number maxScore,
+        # so it gets easily overwritten
+        bestScore = maxScore
 
+        # Run algorithm with hillclimber
         if climbing == 'y':
 
             # Run with randomWithPreference algorithm
@@ -97,10 +101,12 @@ def main():
                     filename = str(CSVfileName) + str(i) + ".csv"
 
                     A = copy.deepcopy(backup)
-                    A, scoreRandom = connecters.randomWithPreference(A, numberOfConnections)
+                    A, scoreRandom = (connecters.randomWithPreference(A,
+                                      numberOfConnections))
 
                     scoreData, A = hillClimber(A, numberOfSwaps)
 
+                    # Remember best configuation of smartGrid
                     if scoreData[numberOfSwaps - 1]["score"] <= bestScore:
                         bestScore = scoreData[numberOfSwaps - 1]["score"]
                         bestConfig = copy.deepcopy(A)
@@ -118,8 +124,9 @@ def main():
                     A = copy.deepcopy(backup)
                     A, scoreRandom = connecters.randomConnecter(A)
 
-                    scoreData, A = hillClimber(A)
+                    scoreData, A = hillClimber(A, numberOfSwaps)
 
+                    # Remember best configuation of smartGrid
                     if scoreData[numberOfSwaps - 1]["score"] <= bestScore:
                         bestScore = scoreData[numberOfSwaps - 1]["score"]
                         bestConfig = copy.deepcopy(A)
@@ -133,14 +140,17 @@ def main():
             elif algorithm is '3':
                 A, scoreData = connecters.greedyAlgorithm(A)
                 scoreData, A = hillClimber(A)
+
                 filename = str(CSVfileName) + ".csv"
                 writeCSV(scoreData, filename)
+
                 break
 
-        # Run algorithms wihtout hillclimber
+        # Run algorithms without hillclimber
         elif climbing == 'n':
             if algorithm == '1':
-                A, scoreData = connecters.randomWithPreference(A, numberOfConnections)
+                A, scoreData = (connecters.randomWithPreference
+                                (A, numberOfConnections))
 
             elif algorithm == '2':
                 A, scoreData = connecters.randomConnecter(A)
