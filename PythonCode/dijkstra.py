@@ -2,9 +2,6 @@ from gridClass import gridPoint as gridClass
 from smartGrid import smartGrid
 from houseClass import house as houseClass
 from batteryClass import battery as batteryClass
-
-# From https://www.redblobgames.com/pathfinding/a-star/implementation.html
-
 import heapq
 
 
@@ -13,6 +10,7 @@ class PriorityQueue:
     this is a prio queue stolen
     from https://www.redblobgames.com/pathfinding/a-star/implementation.html
     """
+
     # Initiate with empty list
     def __init__(self):
         self.elements = []
