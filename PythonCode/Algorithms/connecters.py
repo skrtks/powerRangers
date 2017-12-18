@@ -84,7 +84,7 @@ def randomConnecter(smartGrid):
     Returns: smartGrid, savedData
     """
 
-    print("distributing houses over batteries...")
+    print("\ndistributing houses over batteries...")
 
     savedData = []
     unconnected = len(smartGrid.houses)

@@ -94,7 +94,7 @@ class smartGrid:
         # Draw connections from houses to batteries in grid,
         # give cable to battery its own color
         totalScore = 0
-        colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
+        colors = ["firebrickred", "g", "blue", "deeppink", "darkorange"]
 
         for battery in self.batteries:
 
@@ -138,7 +138,7 @@ class smartGrid:
                     closedSet.add(ID)
 
                 # Draw cables
-                plt.plot(pathX, pathY, color)
+                plt.plot(pathX, pathY, color, alpha=0.5)
 
         # Draw markers for houses and batteries
         plt.plot(xHouse, yHouse, "k.")
