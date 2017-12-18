@@ -2,7 +2,6 @@ TO DO:
 - comments
 - presentatie
 - results + plaatjes
-- main number of loops en i in range(?)
 
 Optioneel:
 - simulatedAnnealing
