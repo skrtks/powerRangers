@@ -6,7 +6,7 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 ## python files
 
-main.py:
+**main.py:**
 
 **smartGrid.py:**
 - housesList: List containing house objects
@@ -55,16 +55,18 @@ in conneter.py and/or hillClimber.py
 
 ## Built With
 ```
-* Python3
+  Python3
 ```
 
 ## Authors
-
+```
 - Sam Kortekaas            [skrtks](https://github.com/skrtks)
 - Daphne Witmer            [10588094](https://github.com/10588094)
 - Ida Segond von Banchet   [igcsvb](https://github.com/igcsvb)
+```
 
 ## Acknowledgments
-
+```
 - Dijkstra inspiration from Amit Patel [redblobgames] (https://www.redblobgames.com/pathfinding/a-star/implementation.html)
 - Tech assistent: Maarten van der Sande
+```
