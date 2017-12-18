@@ -6,66 +6,40 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 ## folder pyhtonCode
 
-smartGrid.py
-    - housesList:
-    - batteries:
+main.py:
 
-<ul>
-    <li>main.py</li
-        <ul>
-        </ul>
-    <li>smartGrid.py</li>
-         <ul>
-            <li>housesList: List containing house objects</li>
-            <li>batteries: List containing battery objects</li>
-            <li>gridPoints: List containing gridPoint objects</li>
-            <li>gridFiller(self): Create grid</li>
-            <li>assignGridIDs(self): Assign gridIDs to batteries and houses</li>
-            <li>gridDrawer(self): Draw grid with batteries, houses and connections</li>
-            <li>fileReader(self, fileHouses, fileBatteries): Read information of houses and batteries from files</li>
-            <li>manhattanDistance(self): Calculate manhattan distance for every gridpoint to batteries</li>
-            <li>children(self, gridPoint): Returns gridpoint ID's for possible moves from current gridpoint</li>
-        </ul>
-    <li>gridClass.py</li>
-        <ul>
-            <li>Class for grid segments, takes ID, x and y coordinates,cable costs and
-    manhattendistrance to batteries</li>
-        </ul>
-    <li>houseClass.py</li>
-        <ul>
-            <li>Define a class for houses, takes ID, x and coordinates, power output, boolean connected, score, batteryID and           manhattandistances to batteries</li>
-        </ul>
-    <li>batteryClass.py</li>
-        <ul>
-            <li>Define a class for batteries, takes ID, x and y coordinates, capacity and list of connected houses</li>
-        </ul>
-    <li>connecters.py</li>
-        <ul>
-             <li>randomConnecter(smartGrid): Finds connection for houses to batteries with preverence for batteries with
+smartGrid.py:
+- housesList: List containing house objects
+- batteries: List containing battery objects
+- gridPoints: List containing gridPoint objects
+- gridFiller(self): Create grid
+- assignGridIDs(self): Assign gridIDs to batteries and houses
+- gridDrawer(self): Draw grid with batteries, houses and connections
+- fileReader(self, fileHouses, fileBatteries): Read information of houses and batteries from files
+- manhattanDistance(self): Calculate manhattan distance for every gridpoint to batteries
+- children(self, gridPoint): Returns gridpoint ID's for possible moves from current gridpoint
+
+gridClass.py: Class for grid segments, takes ID, x and y coordinates,cable costs and manhattendistrance to batteries
+
+houseClass.py: Define a class for houses, takes ID, x and coordinates, power output, boolean connected, score, batteryID and           manhattandistances to batteries
+
+batteryClass.py: Define a class for batteries, takes ID, x and y coordinates, capacity and list of connected houses
+
+Connecters.py:
+- randomConnecter(smartGrid): Finds connection for houses to batteries with preverence for batteries with
                  the smallest manhattan distance.</li>
-            <li>randomWithPreference(smartGrid): Connect all houses by sorting them on power output (biggest to smallest) with nearest                   batteries </li>
-            <li>greedyAlgorithm(smartGrid): Connect all houses by sorting them on power output (biggest to smallest)</li>
-        </ul>
-    <li>dijkstra.py</li>
-        <ul>
-            <li>Dijkstra algorithm to find shortest path between battery and house</li>
-        </ul>
-    <li>pathfinder.py</li>
-        <ul>
-            <li>Algorithm to find shortest path between house and battery</li>
-        </ul>
-    <li>CSVWriter.py</li>
-        <ul>
-            <li>Make new CSV file containing results</li>
-        </ul>
-    <li>hillCLimber.py</li>
-        <ul>
-            <li>Swap houses several times to find better solution to append houses to battery</li>
-        </ul>
-    </li>
-</ul>
+- randomWithPreference(smartGrid): Connect all houses by sorting them on power output (biggest to smallest) with nearest                   batteries
+- greedyAlgorithm(smartGrid): Connect all houses by sorting them on power output (biggest to smallest)
 
-### Prerequisites
+dijkstra.py:Dijkstra algorithm to find shortest path between battery and house
+
+pathfinder.py: Algorithm to find shortest path between house and battery
+
+CSVWriter.py: Make new CSV file containing results
+
+hillCLimber.py: Swap houses several times to find better solution to append houses to battery
+
+## Prerequisites
 
 - Mathlib 
 - Plotlib
