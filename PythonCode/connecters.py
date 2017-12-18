@@ -40,9 +40,7 @@ def randomWithPreference(smartGrid):
                                          house.manhattanDistance[battery.ID])
 
                 for battery in sortedBatteries:
-                    if smartGrid.batteries[battery.ID].capacity
-                    >= smartGrid.houses[house.ID].power
-                    and not smartGrid.houses[house.ID].connected:
+                    if smartGrid.batteries[battery.ID].capacity >= smartGrid.houses[house.ID].power and not smartGrid.houses[house.ID].connected:
                         smartGrid.batteries[battery.ID].capacity -= house.power
                         smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
                         smartGrid.houses[house.ID].connected = True
@@ -94,11 +92,12 @@ def randomConnecter(smartGrid):
         # Loop trough random shuffled houses and batteries and connect
         for house in shuffledHouses:
             for battery in shuffledBatteries:
-                if smartGrid.batteries[battery.ID].capacity
-                >= smartGrid.houses[house.ID].power
-                and not smartGrid.houses[house.ID].connected:
+                if (smartGrid.batteries[battery.ID].capacity >=
+                    smartGrid.houses[house.ID].power and not
+                    smartGrid.houses[house.ID].connected):
                     smartGrid.batteries[battery.ID].capacity -= house.power
-                    smartGrid.batteries[battery.ID].connectedHouses.append(house.ID)
+                    (smartGrid.batteries[battery.ID].connectedHouses
+                     .append(house.ID))
                     smartGrid.houses[house.ID].connected = True
                     smartGrid.houses[house.ID].batteryID = battery.ID
                     unconnected -= 1

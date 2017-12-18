@@ -10,8 +10,8 @@ def main():
 
     A = smartGrid()
 
-    A.fileReader("../Huizen&Batterijen/wijk1_huizen.csv",
-                 "../Huizen&Batterijen/wijk1_batterijen.csv")
+    A.fileReader("../Huizen&Batterijen/wijk3_huizen.csv",
+                 "../Huizen&Batterijen/wijk3_batterijen.csv")
     A.gridFiller()
     A.manhattanDistance()
 
@@ -21,7 +21,7 @@ def main():
 
     backup = copy.deepcopy(A)
 
-    for i in range(3):
+    for i in range(50):
         filename = "results" + str(i) + ".csv"
         # A = connecters.randomConnecter(A)
         A = copy.deepcopy(backup)

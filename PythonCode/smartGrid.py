@@ -34,19 +34,21 @@ class smartGrid:
         # x and y locations of current house to a list.
         for point in self.gridPoints:
             for house in self.houses:
-                if point.xLocation == house.xLocation and point.yLocation
-                == house.yLocation:
+                if (point.xLocation == house.xLocation and
+                point.yLocation == house.yLocation):
                     house.gridID = point.ID
-                    # cost of gridPoint if house on gridpoint
                     point.cable = [5000, 5000, 5000, 5000, 5000]
             for battery in self.batteries:
-                if point.xLocation == battery.xLocation
-                and point.yLocation == battery.yLocation:
+                if (point.xLocation == battery.xLocation and
+                    point.yLocation == battery.yLocation):
                     battery.gridID = point.ID
         return True
 
     def gridDrawer(self):
         """"Draw grid with batteries, houses and connections"""
+
+        priceUnderHouse = 5000
+        costBatteries = 25000
 
         print("drawing...")
         # Initiate list for coordinates from houses and batteries
@@ -54,17 +56,6 @@ class smartGrid:
         yHouse = []
         xBattery = []
         yBattery = []
-
-        # Make square figure and draw axis and ticks
-        # fig = plt.figure()
-        # ax = fig.add_subplot(1, 1, 1)
-        # ax.set_aspect('equal')
-        # ax.set_xticks(np.arange(0, 51, 1), minor=True)
-        # ax.set_yticks(np.arange(0, 51, 1), minor=True)
-        #
-        # # Draw gridlines
-        # ax.grid(which='minor', alpha=0.2, linestyle='-')
-        # ax.grid(which='major', alpha=0.5, linestyle='-')
 
         # Fill lists with coordinates
         for house in self.houses:
@@ -99,7 +90,7 @@ class smartGrid:
                                                             self.houses[houseID]
                                                             .gridID,
                                                             battery.gridID)
-                totalScore += score[battery.gridID] - 5000
+                totalScore += score[battery.gridID] - priceUnderHouse
 
                 # reconstruct the path
                 path = dijkstra.reconstructPath(cameFrom,
@@ -132,7 +123,7 @@ class smartGrid:
 
         # totalScore plus battery cost
         # totalScore += 25000
-        totalCost = totalScore + 25000
+        totalCost = totalScore + costBatteries
         plt.title("Cable cost: " + str(totalScore) + "  Battery cost: 25000 \
                 Total cost: " + str(totalCost))
         plt.show()
@@ -182,8 +173,8 @@ class smartGrid:
 
                 # If house on gridPoint, append distance to house
                 for house in self.houses:
-                    if house.xLocation == gridPoint.xLocation
-                    and house.yLocation == gridPoint.yLocation:
+                    if (house.xLocation == gridPoint.xLocation and
+                        house.yLocation == gridPoint.yLocation):
                         house.manhattanDistance.append(distance)
 
     def children(self, gridPoint):
@@ -201,8 +192,8 @@ class smartGrid:
         # that match x and y locations of children to a list
         for gridpoint in self.gridPoints:
             for i in range(4):
-                if gridpoint.xLocation == childrenX[i]
-                and gridpoint.yLocation == childrenY[i]:
+                if (gridpoint.xLocation == childrenX[i] and
+                    gridpoint.yLocation == childrenY[i]):
                     children.append(gridpoint.ID)
 
         return children

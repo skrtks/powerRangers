@@ -27,7 +27,8 @@ def simulatedAnnealing(smartGrid):
     while temp > 1:
         swap(smartGrid)
         newScore = calculateScore(smartGrid)
-        if acceptanceProbability(currentScore, newScore, temp) > random.random():
+        if (acceptanceProbability(currentScore, newScore, temp)
+            > random.random()):
             currentScore = newScore
             savedData.append({"runs": runs, "score": bestScore,
                               "battery0": copy.deepcopy(smartGrid.batteries[0]
@@ -107,20 +108,21 @@ def swap(smartGrid):
     # Loop through houses
     for house in sortedHouses:
         # Check if house is not in same battery and space is sufficient
-        if house.batteryID is not randomHouse.batteryID
-        and house.power <= spaceRHBat:
-            spaceSHBat = smartGrid.batteries[house.batteryID].capacity
-            + house.power
+        if (house.batteryID is not randomHouse.batteryID and
+            house.power <= spaceRHBat):
+
+            spaceSHBat = (smartGrid.batteries[house.batteryID].capacity
+                          + house.power)
             if randomHouse.power <= spaceSHBat:
 
-                smartGrid.batteries[house.batteryID].connectedHouses
-                .remove(house.ID)
-                smartGrid.batteries[randomHouse.batteryID].connectedHouses
-                .append(house.ID)
-                smartGrid.batteries[randomHouse.batteryID].connectedHouses
-                .remove(randomHouse.ID)
-                smartGrid.batteries[house.batteryID].connectedHouses
-                .append(randomHouse.ID)
+                (smartGrid.batteries[house.batteryID].connectedHouses
+                 .remove(house.ID))
+                (smartGrid.batteries[randomHouse.batteryID].connectedHouses
+                 .append(house.ID))
+                (smartGrid.batteries[randomHouse.batteryID].connectedHouses
+                 .remove(randomHouse.ID))
+                (smartGrid.batteries[house.batteryID].connectedHouses
+                 .append(randomHouse.ID))
                 (house.batteryID, randomHouse.batteryID) = (randomHouse
                                                             .batteryID,
                                                             house.batteryID)

@@ -12,7 +12,7 @@ def hillClimber(smartGrid):
     print("hillClimbing...")
 
     savedData = []
-    numberOfLoops = 1
+    numberOfLoops = 100000
     sameRuns = 0
 
     # Calculate cable score for given distribution
@@ -93,14 +93,13 @@ def calculateScore(smartGrid):
     for point in smartGrid.gridPoints:
         point.cable = [9, 9, 9, 9, 9]
 
-        # Reset cable cost for gridPoint woth house
+        # Reset cable cost for gridPoint with house
         for house in smartGrid.houses:
             if point.ID == house.gridID:
                 point.cable = [5000, 5000, 5000, 5000, 5000]
 
     return totalScore
 
-    Dijkstra algorithm
     # generate dijkstra path
     (cameFrom, score) = dijkstraSearch(battery, smartGrid,
                                        house.ID, battery.ID)
@@ -137,21 +136,20 @@ def swap(smartGrid):
     for house in sortedHouses:
 
         # Check if house is not in same battery and space is sufficient
-        if house.batteryID is not randomHouse.batteryID
-        and house.power <= spaceRHBat:
-            spaceSHBat = smartGrid.batteries[house.batteryID].capacity
-            + house.power
+        if (house.batteryID is not randomHouse.batteryID and
+            house.power <= spaceRHBat):
+            spaceSHBat = (smartGrid.batteries[house.batteryID].capacity +
+                          house.power)
             if randomHouse.power <= spaceSHBat:
-
                 # Swap houses
-                smartGrid.batteries[house.batteryID].connectedHouses
-                .remove(house.ID)
-                smartGrid.batteries[randomHouse.batteryID].connectedHouses
-                .append(house.ID)
-                smartGrid.batteries[randomHouse.batteryID].connectedHouses
-                .remove(randomHouse.ID)
-                smartGrid.batteries[house.batteryID].connectedHouses
-                .append(randomHouse.ID)
+                (smartGrid.batteries[house.batteryID].connectedHouses
+                 .remove(house.ID))
+                (smartGrid.batteries[randomHouse.batteryID].connectedHouses
+                 .append(house.ID))
+                (smartGrid.batteries[randomHouse.batteryID].connectedHouses
+                 .remove(randomHouse.ID))
+                (smartGrid.batteries[house.batteryID].connectedHouses
+                 .append(randomHouse.ID))
 
                 (house.batteryID, randomHouse.batteryID) = (randomHouse
                                                             .batteryID,
