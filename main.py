@@ -9,6 +9,16 @@ def main():
     A = smartGrid()
     scoreData = {}
     algorithm = ""
+    MaxScore = 100000
+
+    # Choose how many times you want to find new connections and hillclimb
+    numberOfLoops = 2
+
+    # Choose how many connections you want to try to optimalize
+    numberOfConnections = 10
+
+    # Choose how many times you want to let the hillclimber swap houses
+    numberOfSwaps = 3
 
     # Dict for every district file
     distr1 = {"house": "Huizen&Batterijen/wijk1_huizen.csv", "battery":
@@ -77,22 +87,22 @@ def main():
     while True:
         climbing = input('Would you like to apply the hill climber (y / n)? ')
 
-        bestScore = 1000000
+        bestScore = MaxScore
 
         if climbing == 'y':
 
             # Run with randomWithPreference algorithm
             if algorithm is '1':
-                for i in range(5):
+                for i in range(numberOfLoops):
                     filename = str(CSVfileName) + str(i) + ".csv"
 
                     A = copy.deepcopy(backup)
-                    A, scoreRandom = connecters.randomWithPreference(A)
+                    A, scoreRandom = connecters.randomWithPreference(A, numberOfConnections)
 
-                    scoreData, A = hillClimber(A)
+                    scoreData, A = hillClimber(A, numberOfSwaps)
 
-                    if scoreData[1]["score"] <= bestScore:
-                        bestScore = scoreData[1]["score"]
+                    if scoreData[numberOfSwaps - 1]["score"] <= bestScore:
+                        bestScore = scoreData[numberOfSwaps - 1]["score"]
                         bestConfig = copy.deepcopy(A)
 
                     writeCSV(scoreData, filename)
@@ -102,7 +112,7 @@ def main():
 
             # Run with randomConnecter
             elif algorithm is '2':
-                for i in range(2):
+                for i in range(numberOfLoops):
                     filename = str(CSVfileName) + str(i) + ".csv"
 
                     A = copy.deepcopy(backup)
@@ -110,8 +120,8 @@ def main():
 
                     scoreData, A = hillClimber(A)
 
-                    if scoreData[1]["score"] <= bestScore:
-                        bestScore = scoreData[1]["score"]
+                    if scoreData[numberOfSwaps - 1]["score"] <= bestScore:
+                        bestScore = scoreData[numberOfSwaps - 1]["score"]
                         bestConfig = copy.deepcopy(A)
 
                     writeCSV(scoreData, filename)
@@ -135,7 +145,7 @@ def main():
         # Run algorithms wihtout hillclimber
         elif climbing == 'n':
             if algorithm == '1':
-                A, scoreData = connecters.randomWithPreference(A)
+                A, scoreData = connecters.randomWithPreference(A, numberOfConnections)
 
             elif algorithm == '2':
                 A, scoreData = connecters.randomConnecter(A)

@@ -1,11 +1,10 @@
-def hillClimber(smartGrid):
+def hillClimber(smartGrid, numberOfLoops):
     """Find a more effective distribution of houses over batteries, by swapping
     random houses from different batteries and calculating the score"""
 
     print("hillClimbing...")
 
     savedData = []
-    numberOfLoops = 2
     sameRuns = 0
 
     # Calculate cable score for given distribution

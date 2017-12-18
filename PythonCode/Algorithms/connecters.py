@@ -1,4 +1,4 @@
-def randomWithPreference(smartGrid):
+def randomWithPreference(smartGrid, numberOfLoops):
     """
     Finds connection for houses to batteries with preference for batteries with
     the smallest manhattan distance. Only replaces connections when the total
@@ -10,7 +10,6 @@ def randomWithPreference(smartGrid):
 
     savedData = []
     backup = copy.deepcopy(smartGrid)
-    numberOfLoops = 3
     bestScore = 100000
 
     for run in range(numberOfLoops):
