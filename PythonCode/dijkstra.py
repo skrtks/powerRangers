@@ -7,7 +7,7 @@ import heapq
 
 class PriorityQueue:
     """
-    this is a prio queue stolen
+    Queue to safe gridpoints with priority. This is inspired on a queue
     from https://www.redblobgames.com/pathfinding/a-star/implementation.html
     """
 
@@ -29,9 +29,7 @@ class PriorityQueue:
 
 
 def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
-    """
-    Find shortes path from house to battery
-    """
+    """Find shortes path from house to battery"""
 
     # Variables
     frontier = PriorityQueue()
@@ -77,9 +75,7 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 
 
 def reconstructPath(cameFrom, start, goal):
-    """
-    battery - house
-    """
+    """Reconstruct path from battery to house"""
 
     # Start at end
     current = goal

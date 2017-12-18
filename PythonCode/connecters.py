@@ -1,6 +1,3 @@
-import copy
-import random
-
 """This file contains several functions to distribute houses over batteries.
 Only one has to be used, randomWithPreference gives best results"""
 
