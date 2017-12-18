@@ -14,7 +14,7 @@ def hillClimber(smartGrid, numberOfLoops):
     Returns: savedData, smartGrid
     """
 
-    print("hillClimbing...")
+    print("\nhillClimbing...")
 
     savedData = []
     sameRuns = 0

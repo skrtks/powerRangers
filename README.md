@@ -7,6 +7,7 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 ## python files
 
 **main.py:**
+- Process command line arguments
 
 **smartGrid.py:**
 - housesList: List containing house objects

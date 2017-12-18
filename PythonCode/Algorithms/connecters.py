@@ -69,7 +69,7 @@ def randomWithPreference(smartGrid, numberOfLoops):
                           "battery0": 0, "battery1": 0, "battery2": 0,
                           "battery3": 0, "battery4": 0})
 
-        print("run: {}, bestscore: {}".format(run, bestScore))
+        print("run: {}, bestScore: {}".format(run, bestScore))
 
     smartGrid = copy.deepcopy(bestConfig)
     return smartGrid, savedData
@@ -84,7 +84,7 @@ def randomConnecter(smartGrid):
     Returns: smartGrid, savedData
     """
 
-    print("distributing houses over batteries...")
+    print("\ndistributing houses over batteries...")
 
     savedData = []
     unconnected = len(smartGrid.houses)
