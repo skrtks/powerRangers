@@ -1,4 +1,4 @@
-##Algorithms
+###Algorithms
 This folder contains several files with algorithms that try to find the best
 solution. The problem is divided in two parts: (1)distribute houses over
 batteries and (2)find the shortest path between a house and a battery.
