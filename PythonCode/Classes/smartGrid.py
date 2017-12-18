@@ -132,8 +132,8 @@ class smartGrid:
                     closed.add(ID)
                     break
                   else:
-                    pathX.append(self.gridPoints[ID].xLocation + numberOfCables[ID])
-                    pathY.append(self.gridPoints[ID].yLocation + numberOfCables[ID])
+                    pathX.append(self.gridPoints[ID].xLocation)
+                    pathY.append(self.gridPoints[ID].yLocation)
                     numberOfCables[ID] += 0.2
                     closed.add(ID)
 

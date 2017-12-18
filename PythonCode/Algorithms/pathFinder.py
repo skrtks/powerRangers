@@ -3,7 +3,7 @@ import itertools
 
 def pathFinder(battery, smartGrid, houseID):
     """
-    Search algorithm to search a fast route from house to battery.
+    Greedy algorithm to search a fast route from house to battery.
     Inspired by: http://web.mit.edu/eranki/www/tutorials/search/
                  https://gist.github.com/jamiees2/5531924
     """

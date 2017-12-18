@@ -1,8 +1,8 @@
 def randomWithPreference(smartGrid):
     """
-    Finds connection for houses to batteries with preverence for batteries with
+    Finds connection for houses to batteries with preference for batteries with
     the smallest manhattan distance. Only replaces connections when the total
-    sum of manhatten distances is smaller than the total sum of the previous
+    sum of manhattandistances is smaller than the total sum of the previous
     found connection.
     """
 
@@ -96,7 +96,7 @@ def randomConnecter(smartGrid):
             for battery in shuffledBatteries:
                 if (smartGrid.batteries[battery.ID].capacity >=
                     smartGrid.houses[house.ID].power and not
-                    smartGrid.houses[house.ID].connected):
+                        smartGrid.houses[house.ID].connected):
                     smartGrid.batteries[battery.ID].capacity -= house.power
                     (smartGrid.batteries[battery.ID].connectedHouses
                      .append(house.ID))

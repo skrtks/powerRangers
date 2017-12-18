@@ -125,6 +125,11 @@ def main():
                 scoreData, A = hillClimber(A)
                 filename = str(CSVfileName) + ".csv"
                 writeCSV(scoreData, filename)
+
+                for house in houses:
+                    if house is not house.conncted:
+                        print("house unconnected: {}".format(house.ID))
+
                 break
 
         # Run algorithms wihtout hillclimber
