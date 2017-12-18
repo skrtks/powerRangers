@@ -94,7 +94,7 @@ class smartGrid:
         # Draw connections from houses to batteries in grid,
         # give cable to battery its own color
         totalScore = 0
-        colors = ["firebrickred", "g", "blue", "deeppink", "darkorange"]
+        colors = ["firebrick", "g", "blue", "deeppink", "darkorange"]
 
         for battery in self.batteries:
 

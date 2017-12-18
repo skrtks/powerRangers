@@ -2,7 +2,7 @@ import csv
 
 
 def writeCSV(score, filename):
-    path = "../" + filename
+    path = "../Heuristieken/" + filename
     with open(path, "w", newline="") as resultsFile:
         fieldnames = ["runs", "score", "battery0", "battery1", "battery2",
                       "battery3", "battery4"]
