@@ -1,10 +1,8 @@
-from smartGrid import smartGrid
-import connecters
+from PythonCode.Classes.smartGrid import smartGrid as smartGrid
+import PythonCode.Algorithms.connecters as connecters
+from PythonCode.Algorithms.hillClimber import hillClimber as hillClimber
+from PythonCode.Helpers.CSVWriter import writeCSV as writeCSV
 import copy
-from hillClimber import hillClimber
-from simulatedAnnealing import simulatedAnnealing
-from CSVWriter import writeCSV
-
 
 def main():
 
@@ -13,12 +11,12 @@ def main():
     algorithm = ""
 
     # Dict for every district file
-    distr1 = {"house": "../Huizen&Batterijen/wijk1_huizen.csv", "battery":
-              "../Huizen&Batterijen/wijk1_batterijen.csv"}
-    distr2 = {"house": "../Huizen&Batterijen/wijk2_huizen.csv", "battery":
-              "../Huizen&Batterijen/wijk2_batterijen.csv"}
-    distr3 = {"house": "../Huizen&Batterijen/wijk3_huizen.csv", "battery":
-              "../Huizen&Batterijen/wijk3_batterijen.csv"}
+    distr1 = {"house": "Huizen&Batterijen/wijk1_huizen.csv", "battery":
+              "Huizen&Batterijen/wijk1_batterijen.csv"}
+    distr2 = {"house": "Huizen&Batterijen/wijk2_huizen.csv", "battery":
+              "Huizen&Batterijen/wijk2_batterijen.csv"}
+    distr3 = {"house": "Huizen&Batterijen/wijk3_huizen.csv", "battery":
+              "Huizen&Batterijen/wijk3_batterijen.csv"}
 
     # Select csv file for district that the user wants
     print("district one     = 1")

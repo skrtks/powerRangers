@@ -1,4 +1,4 @@
-from smartGrid import smartGrid
+from  PythonCode.Classes.smartGrid import smartGrid
 import itertools
 
 def pathFinder(battery, smartGrid, houseID):

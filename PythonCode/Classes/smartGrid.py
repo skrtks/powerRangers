@@ -215,10 +215,10 @@ class smartGrid:
 
         return children
 
-import houseClass
-import batteryClass
-import gridClass
+import PythonCode.Classes.houseClass as houseClass
+import PythonCode.Classes.batteryClass as batteryClass
+import PythonCode.Classes.gridClass as gridClass
 import numpy as np
-import dijkstra as dijkstra
+import PythonCode.Algorithms.dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv
