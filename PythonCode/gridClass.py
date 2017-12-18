@@ -1,7 +1,8 @@
-
-
 class gridPoint:
-    """ Class for grid segments. """
+    """
+    Class for grid segments: takes ID, x and y coordinates, cable costs and
+    manhattendistrance to batteries.
+    """
 
     def __init__(self, ID, xLocation, yLocation, manhattanDistance=None):
 
@@ -11,5 +12,3 @@ class gridPoint:
         self.cable = [9, 9, 9, 9, 9]
         if manhattanDistance is None:
             self.manhattanDistance = []
-        # if cable == None:
-        #     self.cable = []

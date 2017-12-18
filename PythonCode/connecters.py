@@ -8,10 +8,12 @@ Only one has to be used, randomWithPreference gives best results"""
 
 
 def randomWithPreference(smartGrid):
-    """Find connection for houses to batteries with preverence for batteries with
+    """
+    Finds connection for houses to batteries with preverence for batteries with
     the smallest manhattan distance. Only replaces connections when the total
     sum of manhatten distances is smaller than the total sum of the previous
-    found connection"""
+    found connection.
+    """
 
     print("connecting houses and batteries...")
 
@@ -22,8 +24,10 @@ def randomWithPreference(smartGrid):
 
     for run in range(numberOfLoops):
         unconnected = len(smartGrid.houses)
+
         # Loop untill all houses are connected
         while unconnected > 0:
+
             # Copy houses and batteries to remember unshuffled order and set
             # changes back in new loop
             unconnected = len(smartGrid.houses)
@@ -34,7 +38,6 @@ def randomWithPreference(smartGrid):
             shuffledBatteries = copy.deepcopy(backup.batteries)
 
             random.shuffle(shuffledHouses)
-            # random.shuffle(shuffledBatteries)
 
             # Loop trough random shuffled houses and batteries and connect
             for house in shuffledHouses:
@@ -71,8 +74,10 @@ def randomWithPreference(smartGrid):
 
 
 def randomConnecter(smartGrid):
-    """Randomly distributes houses over batteries,
-       stops when a solution is found"""
+    """
+    Randomly distributes houses over batteries,
+    stops when a solution is found.
+    """
 
     print("distributing houses over batteries...")
 
@@ -127,7 +132,9 @@ def randomConnecter(smartGrid):
 
 
 def greedyAlgorithm(smartGrid):
-    """"Connect all houses by sorting them on power"""
+    """"
+    Connect all houses by sorting them on power, always gives the same solution.
+    """
 
     savedData = []
     connecterScore = 0
@@ -160,6 +167,7 @@ def greedyAlgorithm(smartGrid):
 
     return smartGrid, savedData
 
+<<<<<<< HEAD
 
 def connectWithBatteries(smartGrid):
     """"Connect houses with nearest batteries """
@@ -235,3 +243,8 @@ def connectWithHouses2(smartGrid):
 # import random
 #
 # import itertools
+=======
+import random
+import copy
+import itertools
+>>>>>>> 4fd4726a2ea8fbc0359abe96cedf2d6547c8be18
