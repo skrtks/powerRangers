@@ -4,6 +4,7 @@ from PythonCode.Algorithms.hillClimber import hillClimber as hillClimber
 from PythonCode.Helpers.CSVWriter import writeCSV as writeCSV
 import copy
 
+
 def main():
 
     A = smartGrid()
@@ -12,13 +13,13 @@ def main():
     maxScore = 100000
 
     # Set number of loops for hillclimber
-    numberOfLoops = 2
+    numberOfLoops = 50
 
     # Set number of loops to run a connector algortihm
-    numberOfConnections = 10
+    numberOfConnections = 500
 
     # Set number of houseswaps in hillclimber
-    numberOfSwaps = 3
+    numberOfSwaps = 100000
 
     # Dict for every district file
     distr1 = {"house": "Huizen&Batterijen/wijk1_huizen.csv", "battery":
@@ -107,8 +108,8 @@ def main():
                     scoreData, A = hillClimber(A, numberOfSwaps)
 
                     # Remember best configuation of smartGrid
-                    if scoreData[numberOfSwaps - 1]["score"] <= bestScore:
-                        bestScore = scoreData[numberOfSwaps - 1]["score"]
+                    if scoreData[len(scoreData) - 1]["score"] <= bestScore:
+                        bestScore = scoreData[len(scoreData) - 1]["score"]
                         bestConfig = copy.deepcopy(A)
 
                     writeCSV(scoreData, filename)
@@ -127,8 +128,8 @@ def main():
                     scoreData, A = hillClimber(A, numberOfSwaps)
 
                     # Remember best configuation of smartGrid
-                    if scoreData[numberOfSwaps - 1]["score"] <= bestScore:
-                        bestScore = scoreData[numberOfSwaps - 1]["score"]
+                    if scoreData[len(scoreData) - 1]["score"] <= bestScore:
+                        bestScore = scoreData[len(scoreData) - 1]["score"]
                         bestConfig = copy.deepcopy(A)
 
                     writeCSV(scoreData, filename)
