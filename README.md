@@ -50,11 +50,16 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
   When running main.py you will be asked which district to run, which algorithm to use and whether to apply the hillclimber.
 
-  To change the number of loops for the connecter and/or the hillClimber change 'numberOfLoops' 
-  in randomWithPreference connecter.py and/or hillClimber.py
-
-  To change the number of loops for the hillclimber with connecter change 'numberOfLoops' in main.py. This specifies how many times the   hillblimber will start for a new connection. The number of loops described above is implemented in these runs. 
-
+  To change the number of loops for running there are three variables defined in main.py at the top of the file that can be changed: 
+  
+  - numberOfLoops: Choose how many times you want to find new connections and hillclimb (within these loops you can define the number of  swaps and connection trials as explaind next)
+  
+  - numberOfConnections: Choose how many connections you want to try to optimalize the connections. This option is for the randomWithPreference algorithm. 
+    
+ - numberOfSwaps: Choose how many times you want to let the hillclimber swap houses
+ 
+ For demonstrating the code these variables are set low. For generating our results we set these values to (numberOfLoops: 50, numberOfConnections: 25, numberOfSwaps: 100000).
+ 
 ## Built With
 ```
   Python3
