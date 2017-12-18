@@ -58,7 +58,7 @@ def main():
     while True:
         algorithm = input("Älgorithm: ")
 
-        if algorithm is '1' or algorithm is '2' or algorithm is '3':
+        if algorithm == '1' or algorithm == '2' or algorithm == '3':
             break
         else:
             print("Please type: 1, 2 or 3")
@@ -76,7 +76,7 @@ def main():
         bestScore = 1000000
 
         if climbing == 'y':
-            if algorithm is '1':
+            if algorithm == '1':
                 for i in range(5):
                     filename = str(CSVfileName) + str(i) + ".csv"
 
@@ -94,7 +94,7 @@ def main():
                 A = copy.deepcopy(bestConfig)
                 break
 
-            elif algorithm is '2':
+            elif algorithm == '2':
                 for i in range(2):
                     filename = str(CSVfileName) + str(i) + ".csv"
 
@@ -112,7 +112,7 @@ def main():
                 A = copy.deepcopy(bestConfig)
                 break
 
-            elif algorithm is '3':
+            elif algorithm == '3':
                 A, scoreData = connecters.greedyAlgorithm(A)
                 scoreData, A = hillClimber(A)
                 filename = str(CSVfileName) + ".csv"
