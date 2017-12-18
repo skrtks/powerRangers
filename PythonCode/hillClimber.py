@@ -12,7 +12,7 @@ def hillClimber(smartGrid):
     print("hillClimbing...")
 
     savedData = []
-    numberOfLoops = 100000
+    numberOfLoops = 2
     sameRuns = 0
 
     # Calculate cable score for given distribution

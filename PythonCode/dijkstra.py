@@ -41,14 +41,14 @@ def dijkstraSearch(battery, smartGrid, startGridPointID, goalGridPointID):
 
         childrenList = smartGrid.children(smartGrid.gridPoints[current])
         for child in childrenList:
-            newCost = costSoFar[current]
-            + smartGrid.gridPoints[current].cable[battery.ID]
+            newCost = (costSoFar[current]
+                       + smartGrid.gridPoints[current].cable[battery.ID])
 
             if child not in costSoFar or newCost < costSoFar[child]:
                 costSoFar[child] = newCost
 
-                priority = newCost
-                + smartGrid.gridPoints[child].manhattanDistance[battery.ID]
+                priority = (newCost
+                            + smartGrid.gridPoints[child].manhattanDistance[battery.ID])
 
                 frontier.put(child, priority)
                 cameFrom[child] = current

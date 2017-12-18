@@ -181,8 +181,8 @@ class smartGrid:
         # manhattandistance between them
         for battery in self.batteries:
             for gridPoint in self.gridPoints:
-                distance = abs(gridPoint.xLocation - battery.xLocation)
-                + abs(gridPoint.yLocation - battery.yLocation)
+                distance = (abs(gridPoint.xLocation - battery.xLocation)
+                            + abs(gridPoint.yLocation - battery.yLocation))
                 gridPoint.manhattanDistance.append(distance)
                 gridPoint.cable.append(9)
 
@@ -219,8 +219,7 @@ import houseClass
 import batteryClass
 import gridClass
 import numpy as np
-import itertools
 import dijkstra as dijkstra
 from matplotlib import pyplot as plt
 import csv
-from pathFinder import pathFinder
+
