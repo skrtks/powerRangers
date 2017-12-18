@@ -6,6 +6,10 @@ A district has a size of 50 x 50 and contains 150 houses with different energy o
 
 ## folder pyhtonCode
 
+smartGrid.py
+    -housesList:
+    -batteries:
+
 <ul>
     <li>main.py</li
         <ul>
